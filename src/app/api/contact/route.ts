@@ -7,6 +7,7 @@ type ContactPayload = {
   website?: string;
   helpNeeded?: string[];
   budget?: string;
+  christmasOffer?: boolean;
   details?: string;
 };
 

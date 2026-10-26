@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import SectionLabel from "@/components/SectionLabel";
 import ContactForm from "@/components/ContactForm";
-import { siteConfig } from "@/lib/data";
+import { siteConfig, isChristmasOfferActive } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -35,7 +35,7 @@ export default function ContactPage() {
         </div>
 
         <div className="md:col-span-8">
-          <ContactForm />
+          <ContactForm offerActive={isChristmasOfferActive()} />
         </div>
       </div>
     </section>

@@ -3,7 +3,7 @@ import type { ButtonHTMLAttributes } from "react";
 
 type CommonProps = {
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "light";
   className?: string;
   arrow?: boolean;
 };
@@ -16,6 +16,7 @@ const variants: Record<NonNullable<CommonProps["variant"]>, string> = {
   secondary:
     "border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-cream",
   ghost: "border border-cream/30 text-cream hover:bg-cream hover:text-green",
+  light: "bg-cream text-green hover:bg-sage hover:text-green-deep",
 };
 
 function Arrow() {

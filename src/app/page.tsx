@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import ChristmasOffer from "@/components/ChristmasOffer";
 import SelectedWork from "@/components/SelectedWork";
 import ReelsShowcase from "@/components/ReelsShowcase";
 import Capabilities from "@/components/Capabilities";
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <ChristmasOffer />
       <SelectedWork />
       <ReelsShowcase index="03" />
       <Capabilities index="04" />

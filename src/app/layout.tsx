@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { Newsreader, Inter, IBM_Plex_Mono } from "next/font/google";
 import Nav from "@/components/Nav";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import Footer from "@/components/Footer";
 import { siteConfig } from "@/lib/data";
 import "./globals.css";
+
+// Re-render hourly so time-limited offers switch themselves off.
+export const revalidate = 3600;
 
 const newsreader = Newsreader({
   subsets: ["latin"],
@@ -94,6 +98,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
+        <AnnouncementBar />
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />

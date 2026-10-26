@@ -68,49 +68,49 @@ export const serviceFamilies: ServiceFamily[] = [
         name: "Business website",
         description:
           "Five to ten bespoke pages with a clear conversion path, CMS handover, analytics and technical SEO built in.",
-        price: "£2,500",
+        price: "£450",
         cadence: "project",
       },
       {
         name: "Bespoke brand website",
         description:
           "A fully custom design system with considered motion and interaction, built to feel as premium as the business behind it.",
-        price: "£5,500",
+        price: "£750",
         cadence: "project",
       },
       {
         name: "Website redesign",
         description:
           "Audit, UX restructure and an SEO-safe migration with every redirect mapped, so rankings carry over and conversion rises.",
-        price: "£3,500",
+        price: "£350",
         cadence: "project",
       },
       {
         name: "E-commerce",
         description:
           "Shopify or custom storefronts with considered product pages, checkout optimisation and full purchase tracking.",
-        price: "£4,500",
+        price: "£750",
         cadence: "project",
       },
       {
         name: "Landing pages & funnels",
         description:
           "High-intent pages built for campaigns, structured for A/B testing with every conversion tracked.",
-        price: "£950",
+        price: "£200",
         cadence: "project",
       },
       {
         name: "Performance & technical SEO",
         description:
           "Core Web Vitals remediation, schema markup, indexation and crawl fixes for sites that already exist.",
-        price: "£750",
+        price: "£120",
         cadence: "project",
       },
       {
         name: "Website care plan",
         description:
           "Managed hosting, security updates, uptime monitoring and a monthly improvement hour.",
-        price: "£95",
+        price: "£25",
         cadence: "month",
       },
     ],
@@ -128,49 +128,49 @@ export const serviceFamilies: ServiceFamily[] = [
         name: "Mobile app (iOS & Android)",
         description:
           "Cross-platform builds with native-feel UX, authentication, push notifications and app-store submission.",
-        price: "£8,500",
+        price: "£500–£1,000",
         cadence: "project",
       },
       {
         name: "Web app & SaaS platform",
         description:
           "Multi-user platforms with billing, role-based access, dashboards and an API-first architecture.",
-        price: "£7,500",
+        price: "£750",
         cadence: "project",
       },
       {
         name: "Client portals & internal tools",
         description:
           "Secure portals and admin systems that replace spreadsheets and manual back-and-forth.",
-        price: "£4,500",
+        price: "£450",
         cadence: "project",
       },
       {
         name: "Booking & membership systems",
         description:
           "Scheduling, payments and member management shaped around how your business actually runs.",
-        price: "£4,000",
+        price: "£400",
         cadence: "project",
       },
       {
         name: "Integrations & APIs",
         description:
           "Connect your CRM, payments, accounting and marketing stack into one reliable flow of data.",
-        price: "£1,500",
+        price: "£150",
         cadence: "project",
       },
       {
         name: "Product design & prototyping",
         description:
           "User flows and clickable Figma prototypes to validate the idea with real users before you build.",
-        price: "£2,500",
+        price: "£250",
         cadence: "project",
       },
       {
         name: "Product support retainer",
         description:
           "Monitoring, bug fixes, dependency updates and iterative releases after launch.",
-        price: "£350",
+        price: "£50",
         cadence: "month",
       },
     ],
@@ -189,49 +189,49 @@ export const serviceFamilies: ServiceFamily[] = [
         name: "Customer support agent",
         description:
           "A retrieval-grounded assistant trained on your content that answers questions on your site, WhatsApp or email, with clean hand-off to a human.",
-        price: "£2,500",
+        price: "£350",
         cadence: "project",
       },
       {
         name: "Lead qualification & booking agent",
         description:
           "Engages inbound enquiries, qualifies them against your criteria and books calls straight into your calendar and CRM.",
-        price: "£3,500",
+        price: "£450",
         cadence: "project",
       },
       {
         name: "Workflow automation",
         description:
           "Remove repetitive admin by connecting your tools with robust, monitored automations built in n8n, Make or custom code.",
-        price: "£1,200",
+        price: "£200",
         cadence: "project",
       },
       {
         name: "Custom multi-step agents",
         description:
           "Tool-using agents that research, draft, decide and act across your systems, evaluated and monitored in production.",
-        price: "£6,000",
+        price: "£750",
         cadence: "project",
       },
       {
         name: "AI voice agents",
         description:
           "Natural-sounding phone agents that answer calls, capture the details and route or book on your behalf.",
-        price: "£4,000",
+        price: "£600",
         cadence: "project",
       },
       {
         name: "AI content & marketing automation",
         description:
           "Repeatable pipelines for briefs, copy, reporting and personalised outreach, with brand-safe review steps.",
-        price: "£1,800",
+        price: "£300",
         cadence: "project",
       },
       {
         name: "AI audit & roadmap",
         description:
           "A focused workshop that maps your processes, ranks the highest-return automations and hands you a costed plan.",
-        price: "£750",
+        price: "£100",
         cadence: "project",
       },
     ],
@@ -244,48 +244,48 @@ export const serviceFamilies: ServiceFamily[] = [
     tagline: "Ad spend with a strategy, a testing cadence and honest reporting.",
     summary:
       "Account architecture, audience and creative testing, conversion tracking and weekly optimisation across Meta and Google, reported against revenue and cost per acquisition rather than vanity metrics.",
-    note: "Ad spend is paid directly to the platforms by you. Fees cover strategy, build, management and reporting. A minimum of £750 per month in ad spend is recommended.",
+    note: "Ad spend is paid directly to the platforms by you. Fees cover strategy, build, management and reporting. A minimum of £300 per month in ad spend is recommended.",
     variants: [
       {
         name: "Meta Ads (Facebook & Instagram)",
         description:
           "Full-funnel structure from prospecting to retargeting, with Conversions API tracking and structured creative testing.",
-        price: "£650",
+        price: "£200",
         cadence: "month",
       },
       {
         name: "Google Ads",
         description:
           "Search, Performance Max and Shopping campaigns built on intent, with negative-keyword discipline and tight budget control.",
-        price: "£650",
+        price: "£200",
         cadence: "month",
       },
       {
         name: "TikTok & LinkedIn Ads",
         description:
           "Platform-native campaigns for audiences those channels reach better than anywhere else.",
-        price: "£750",
+        price: "£225",
         cadence: "month",
       },
       {
         name: "Full-funnel growth programme",
         description:
           "Meta and Google managed together under a single measurement plan, with a monthly strategy call.",
-        price: "£1,400",
+        price: "£350",
         cadence: "month",
       },
       {
         name: "Ad account audit",
         description:
           "A line-by-line review of structure, spend, tracking and creative, with a prioritised fix list.",
-        price: "£450",
+        price: "£60",
         cadence: "project",
       },
       {
         name: "Tracking & attribution setup",
         description:
           "GA4, Tag Manager, Meta Pixel with Conversions API and server-side tracking, so every pound is attributable.",
-        price: "£600",
+        price: "£100",
         cadence: "project",
       },
     ],
@@ -303,49 +303,49 @@ export const serviceFamilies: ServiceFamily[] = [
         name: "Ad creative packs",
         description:
           "Static, carousel and short-form motion ads produced in testable variants against a clear creative hypothesis.",
-        price: "£450",
+        price: "£80",
         cadence: "pack",
       },
       {
         name: "Short-form video ads",
         description:
           "Edit, motion and captions for Reels, TikTok and Shorts, cut to land the hook inside the first second.",
-        price: "£600",
+        price: "£100",
         cadence: "pack",
       },
       {
         name: "Brand identity",
         description:
           "Strategy, logo, colour, typography, voice and a guidelines document you can hand to anyone.",
-        price: "£1,800",
+        price: "£350",
         cadence: "project",
       },
       {
         name: "Brand refresh",
         description:
           "Modernise an existing identity without losing the recognition you have already earned.",
-        price: "£1,200",
+        price: "£200",
         cadence: "project",
       },
       {
         name: "Social design systems",
         description:
           "Templates and visual rules your team, or ours, can reuse to keep every post on brand.",
-        price: "£650",
+        price: "£150",
         cadence: "project",
       },
       {
         name: "Campaign & launch design",
         description:
           "Complete creative kits for launches and seasonal campaigns across every placement.",
-        price: "£1,500",
+        price: "£250",
         cadence: "project",
       },
       {
         name: "Pitch decks & collateral",
         description:
           "Investor, sales and print collateral designed to land the message and the decision.",
-        price: "£500",
+        price: "£150",
         cadence: "project",
       },
     ],
@@ -363,28 +363,28 @@ export const serviceFamilies: ServiceFamily[] = [
         name: "Social media management",
         description:
           "Strategy, content calendar, copy, design, scheduling and reporting for up to three channels.",
-        price: "£750",
+        price: "£200",
         cadence: "month",
       },
       {
         name: "Short-form content engine",
         description:
           "A recurring batch of Reels, TikToks and Shorts, planned, edited and published for you.",
-        price: "£900",
+        price: "£250",
         cadence: "month",
       },
       {
         name: "Community management",
         description:
           "Comments, replies and DMs handled in your brand voice, with clear rules for escalation.",
-        price: "£350",
+        price: "£100",
         cadence: "month",
       },
       {
         name: "Social strategy & audit",
         description:
           "Audience, competitor and content analysis ending in a clear 90-day plan.",
-        price: "£550",
+        price: "£100",
         cadence: "project",
       },
     ],
@@ -402,35 +402,35 @@ export const serviceFamilies: ServiceFamily[] = [
         name: "SEO programme",
         description:
           "Technical, on-page and content SEO focused on commercially valuable queries and local visibility.",
-        price: "£600",
+        price: "£150",
         cadence: "month",
       },
       {
         name: "Conversion rate optimisation",
         description:
           "Research, heuristic review and a prioritised sprint of tested improvements to your key pages.",
-        price: "£900",
+        price: "£200",
         cadence: "project",
       },
       {
         name: "Analytics & reporting dashboards",
         description:
           "GA4 and Looker Studio dashboards that show what is working, in plain language.",
-        price: "£500",
+        price: "£100",
         cadence: "project",
       },
       {
         name: "Email & CRM automation",
         description:
           "Lifecycle flows in Klaviyo, Mailchimp or HubSpot: welcome, abandonment, nurture and win-back.",
-        price: "£900",
+        price: "£200",
         cadence: "project",
       },
       {
         name: "Digital growth audit",
         description:
           "A cross-channel review of site, funnel, ads and tracking, ending in a 90-day roadmap.",
-        price: "£450",
+        price: "£75",
         cadence: "project",
       },
     ],
@@ -444,11 +444,11 @@ export type ServicePackage = {
   includes: string[];
 };
 
-// Bundled engagements — the route to projects of £10,000 and above.
+// Bundled engagements: several disciplines at a lower combined rate.
 export const servicePackages: ServicePackage[] = [
   {
     name: "Launch",
-    price: "£7,500",
+    price: "£750",
     forWho: "New or rebranding businesses that need to open the doors properly.",
     includes: [
       "Brand identity and guidelines",
@@ -460,19 +460,19 @@ export const servicePackages: ServicePackage[] = [
   },
   {
     name: "Scale",
-    price: "£10,000",
+    price: "£1,250",
     forWho: "Established businesses ready to grow revenue from their existing audience.",
     includes: [
       "Website redesign with SEO-safe migration",
       "Conversion rate optimisation sprint",
-      "Three-month full-funnel ads programme",
+      "Two-month full-funnel ads programme",
       "Monthly creative packs",
       "Reporting and strategy calls",
     ],
   },
   {
     name: "Automate",
-    price: "£12,500",
+    price: "£1,500",
     forWho: "Operations-heavy businesses that want time and margin back.",
     includes: [
       "AI audit and costed roadmap",
@@ -548,7 +548,7 @@ export const faqs = [
   {
     question: "How much does a project cost?",
     answer:
-      "Projects start from £950 for a landing page and scale past £10,000 for full platforms, apps and multi-channel programmes. Every quote is scoped after a discovery call, so you know the full cost before we begin.",
+      "A website redesign starts from £350 and a brand new business website from £450. Apps, AI agents and ongoing ad management are priced by scope, with starting prices listed on the Services page. Every quote is agreed in writing before work begins, so you know the full cost up front.",
   },
   {
     question: "How long does a website take?",
@@ -952,6 +952,28 @@ export const projects: Project[] = [
 ];
 
 /* -------------------------------------------------------------------------- */
+/*  Seasonal offer                                                            */
+/* -------------------------------------------------------------------------- */
+
+// First-time client offer. It switches itself off after `endsAt` (the pages
+// re-render hourly), so nothing needs removing on 24 December.
+export const christmasOffer = {
+  discount: "20%",
+  headline: "20% off your first project.",
+  short: "Christmas offer: 20% off your first project",
+  detail:
+    "Book any service before 24 December 2026 and take 20% off your first project with JMB Social. A new business website drops from £450 to £360, and a redesign from £350 to £280.",
+  terms:
+    "First-time clients only. Applies to your first project, or the first month of an ongoing service. Scope and price are agreed in writing, and the project must be booked by the closing date.",
+  endsLabel: "24 December 2026",
+  endsAt: "2026-12-24T23:59:59Z",
+};
+
+export function isChristmasOfferActive(now: Date = new Date()): boolean {
+  return now.getTime() <= new Date(christmasOffer.endsAt).getTime();
+}
+
+/* -------------------------------------------------------------------------- */
 /*  Contact form                                                              */
 /* -------------------------------------------------------------------------- */
 
@@ -967,11 +989,10 @@ export const helpOptions = [
 ] as const;
 
 export const budgetOptions = [
-  "Under £1,000",
+  "Under £250",
+  "£250–£500",
+  "£500–£1,000",
   "£1,000–£2,500",
-  "£2,500–£5,000",
-  "£5,000–£10,000",
-  "£10,000–£25,000",
-  "£25,000+",
+  "£2,500+",
   "Not sure yet",
 ] as const;

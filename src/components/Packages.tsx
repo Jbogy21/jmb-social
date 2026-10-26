@@ -11,12 +11,13 @@ export default function Packages({ index = "05" }: { index?: string }) {
           <div>
             <SectionLabel index={index} label="Packages" />
             <h2 className="font-display mt-6 max-w-2xl text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
-              Bigger goals, scoped as one engagement.
+              Several things done properly, at one lower rate.
             </h2>
           </div>
           <p className="max-w-xs text-sm leading-relaxed text-ink-70">
-            For businesses ready to invest properly. Each package bundles the
-            disciplines that work best together, tailored in a scoping call.
+            Each package bundles the disciplines that work best together for
+            less than booking them separately, tailored in a short scoping
+            call.
           </p>
         </RevealOnScroll>
 
@@ -51,8 +52,9 @@ export default function Packages({ index = "05" }: { index?: string }) {
         </div>
 
         <p className="mt-8 max-w-xl text-xs leading-relaxed text-ink-50">
-          Indicative starting prices. Every engagement is scoped to your goals
-          and quoted in full before work begins.
+          Introductory rates, offered while the studio builds its client
+          portfolio. Indicative starting prices; every engagement is scoped to
+          your goals and quoted in full before work begins.
         </p>
       </div>
     </section>

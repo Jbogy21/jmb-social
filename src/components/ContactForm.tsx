@@ -2,14 +2,14 @@
 
 import { useState, type FormEvent } from "react";
 import { Button } from "./Button";
-import { helpOptions, budgetOptions } from "@/lib/data";
+import { helpOptions, budgetOptions, christmasOffer } from "@/lib/data";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
 const inputClasses =
   "w-full border-b border-line bg-transparent py-3 text-base text-ink placeholder:text-ink-50 focus:border-ink focus:outline-none";
 
-export default function ContactForm() {
+export default function ContactForm({ offerActive = false }: { offerActive?: boolean }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [helpNeeded, setHelpNeeded] = useState<string[]>([]);
@@ -35,6 +35,7 @@ export default function ContactForm() {
       helpNeeded,
       budget: formData.get("budget"),
       details: formData.get("details"),
+      christmasOffer: formData.get("christmasOffer") === "on",
     };
 
     try {
@@ -143,6 +144,25 @@ export default function ContactForm() {
           ))}
         </div>
       </fieldset>
+
+      {offerActive && (
+        <label className="flex cursor-pointer items-start gap-4 border border-line bg-cream-2 p-5 has-[:checked]:border-ink">
+          <input
+            type="checkbox"
+            name="christmasOffer"
+            className="mt-1 h-4 w-4 shrink-0 accent-[var(--color-green)]"
+          />
+          <span>
+            <span className="font-mono-label block text-[11px] text-ink">
+              Christmas offer · {christmasOffer.discount} off
+            </span>
+            <span className="mt-1.5 block text-sm leading-relaxed text-ink-70">
+              I&apos;m a first-time client, please apply the offer. Booking by{" "}
+              {christmasOffer.endsLabel}.
+            </span>
+          </span>
+        </label>
+      )}
 
       <Field label="Tell us a bit about the project" htmlFor="details">
         <textarea
