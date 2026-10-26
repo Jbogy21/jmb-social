@@ -1,31 +1,35 @@
 import type { Metadata } from "next";
 import SectionLabel from "@/components/SectionLabel";
 import RevealOnScroll from "@/components/RevealOnScroll";
-import PlaceholderImage from "@/components/PlaceholderImage";
+import StudioPanel from "@/components/StudioPanel";
 import CTASection from "@/components/CTASection";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "JMB Social is a founder-led creative and growth studio, built to be hands-on rather than layered.",
+    "JMB Social is a founder-led studio combining design, engineering, AI and paid media, built to be hands-on rather than layered.",
 };
 
 const disciplines = [
   {
-    title: "Creative thinking",
-    description: "Identity, direction and design that makes a business recognisable.",
+    title: "Design",
+    description:
+      "Identity, interface and ad creative with a clear point of view, made to be recognised and remembered.",
   },
   {
-    title: "Content",
-    description: "Photography and video built to be used, not shot once and forgotten.",
+    title: "Engineering",
+    description:
+      "Websites, apps and platforms on modern infrastructure, fast by default and ready to scale.",
   },
   {
-    title: "Digital execution",
-    description: "Websites and landing pages that load fast and convert.",
+    title: "AI & automation",
+    description:
+      "Agents and workflows that take real work off your team, grounded in your data and monitored in production.",
   },
   {
-    title: "Performance marketing",
-    description: "Paid media with a strategy, testing and reporting behind it.",
+    title: "Growth",
+    description:
+      "Paid media, SEO and analytics run on tested hypotheses and reported in revenue, not impressions.",
   },
 ];
 
@@ -40,17 +44,19 @@ export default function AboutPage() {
               Built to be hands-on.
             </h1>
             <p className="mt-8 max-w-md text-lg leading-relaxed text-ink-70">
-              JMB Social is a founder-led creative and growth studio.
+              JMB Social is a founder-led studio for businesses that want to
+              look better, work smarter and grow faster online.
             </p>
             <p className="mt-5 max-w-md text-base leading-relaxed text-ink-70">
               Great businesses often don&rsquo;t have a product problem —
-              they have a presentation, communication or attention problem.
-              JMB exists to close that gap.
+              they have a presentation, a systems or an attention problem.
+              JMB exists to close that gap with design, engineering,
+              automation and advertising that are planned together.
             </p>
           </div>
 
           <div className="aspect-[4/5]">
-            <PlaceholderImage accent="charcoal" label="Founder portrait — coming soon" />
+            <StudioPanel />
           </div>
         </div>
       </section>
@@ -95,10 +101,10 @@ export default function AboutPage() {
             </p>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-70">
               Every project is approached with the same principle: understand
-              what the business actually needs, make it look excellent, then
-              focus on the work that produces a commercial result. Nothing
-              gets handed down a chain of account managers — the person
-              planning the work is the person doing it.
+              what the business actually needs, design and build it properly,
+              then measure the commercial result. Nothing gets handed down a
+              chain of account managers — the person planning the work is
+              the person doing it.
             </p>
           </RevealOnScroll>
         </div>

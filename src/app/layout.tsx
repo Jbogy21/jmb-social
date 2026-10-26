@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Newsreader, Inter, IBM_Plex_Mono } from "next/font/google";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { siteConfig } from "@/lib/data";
 import "./globals.css";
 
-const fraunces = Fraunces({
+const newsreader = Newsreader({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-newsreader",
   display: "swap",
-  axes: ["opsz", "SOFT"],
+  axes: ["opsz"],
 });
 
 const inter = Inter({
@@ -33,12 +33,16 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
-    "creative agency UK",
-    "digital agency",
+    "web design agency UK",
+    "website redesign",
+    "app development UK",
+    "AI agents",
+    "AI automation agency",
+    "Meta Ads management",
+    "Google Ads management",
+    "paid media agency",
     "branding studio",
     "social media management",
-    "Meta Ads agency",
-    "web design agency UK",
   ],
   authors: [{ name: siteConfig.name }],
   openGraph: {
@@ -61,13 +65,21 @@ export const metadata: Metadata = {
 
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "ProfessionalService",
   name: siteConfig.name,
+  knowsAbout: [
+    "Web design and development",
+    "App development",
+    "AI agents and automation",
+    "Paid media management",
+    "Brand design",
+    "SEO and analytics",
+  ],
   url: siteConfig.url,
   email: siteConfig.email,
   description: siteConfig.description,
   areaServed: "GB",
-  sameAs: [siteConfig.social.instagram, siteConfig.social.linkedin],
+  sameAs: [siteConfig.social.instagram, siteConfig.social.linkedin].filter(Boolean),
 };
 
 export default function RootLayout({
@@ -76,7 +88,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-GB" className={`${fraunces.variable} ${inter.variable} ${plexMono.variable}`}>
+    <html lang="en-GB" className={`${newsreader.variable} ${inter.variable} ${plexMono.variable}`}>
       <body className="flex min-h-screen flex-col bg-cream text-ink antialiased">
         <script
           type="application/ld+json"

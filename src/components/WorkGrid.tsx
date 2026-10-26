@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Project, ProjectCategory } from "@/lib/data";
+import { categoryLabels, type Project, type ProjectCategory } from "@/lib/data";
 import ProjectCard from "./ProjectCard";
 
-const categories: ProjectCategory[] = ["BRAND", "CONTENT", "SOCIAL", "WEB", "PAID"];
+const categories = Object.keys(categoryLabels) as ProjectCategory[];
 
 export default function WorkGrid({ projects }: { projects: Project[] }) {
   const [active, setActive] = useState<ProjectCategory | "ALL">("ALL");
@@ -22,7 +22,7 @@ export default function WorkGrid({ projects }: { projects: Project[] }) {
         {categories.map((category) => (
           <FilterChip
             key={category}
-            label={category}
+            label={categoryLabels[category]}
             active={active === category}
             onClick={() => setActive(category)}
           />

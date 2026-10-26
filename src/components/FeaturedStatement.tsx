@@ -6,9 +6,9 @@ export default function FeaturedStatement() {
       <div className="container-edge">
         <RevealOnScroll>
           <p className="font-display max-w-5xl text-4xl font-medium leading-[1.12] sm:text-5xl md:text-6xl">
-            Your website. Your content. Your social. Your ads.{" "}
+            Your website. Your app. Your automations. Your ads.{" "}
             <span className="text-sage">
-              Finally pulling in the same direction.
+              Designed to work as one system.
             </span>
           </p>
         </RevealOnScroll>

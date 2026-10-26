@@ -19,9 +19,9 @@ export default function ContactPage() {
             Let&rsquo;s make something good.
           </h1>
           <p className="mt-8 max-w-sm text-base leading-relaxed text-ink-70">
-            Tell us a bit about the business and what you need — we read
-            every enquiry personally and reply within one to two working
-            days.
+            Tell us about the business and what you need: a new site, an app,
+            an AI agent, ad management or something in between. We read every
+            enquiry personally and reply within one to two working days.
           </p>
           <div className="mt-10 border-t border-line pt-6">
             <p className="font-mono-label text-xs text-ink-50">Or email us directly</p>

@@ -14,12 +14,13 @@ export default function SelectedWork() {
           <div>
             <SectionLabel index="02" label="Selected work" />
             <h2 className="font-display mt-6 max-w-xl text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
-              A sample of the kind of work we do.
+              Work that shows the standard.
             </h2>
           </div>
           <p className="max-w-xs text-sm leading-relaxed text-ink-70">
-            Illustrative placeholder projects — real case studies will replace
-            these as client work is completed.
+            Websites, short-form video and ad creative for independent
+            businesses across Sussex, Surrey and London, plus our own studio
+            work.
           </p>
         </RevealOnScroll>
 

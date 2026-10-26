@@ -28,7 +28,7 @@ export default function OpengraphImage() {
             Make your business impossible to ignore.
           </div>
           <div style={{ display: "flex", fontSize: 26, color: "#a7ab8f", fontFamily: "sans-serif" }}>
-            {siteConfig.descriptor} — {siteConfig.location}
+            Websites · Apps · AI agents · Paid media — {siteConfig.location}
           </div>
         </div>
       </div>

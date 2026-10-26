@@ -1,5 +1,5 @@
 // Central, editable content for the JMB Social website.
-// Update copy, links and placeholder project data here — components read from this file.
+// Update copy, prices, links and projects here — components read from this file.
 
 export const siteConfig = {
   name: "JMB Social",
@@ -10,10 +10,10 @@ export const siteConfig = {
   location: "UK",
   foundedYear: "2026",
   description:
-    "JMB Social brings brand, content, social, web and paid media together to help ambitious businesses look better and grow online.",
+    "JMB Social is a senior-led studio designing and building high-performance websites, apps and AI agents — and running the paid media that grows them.",
   social: {
-    instagram: "https://instagram.com/jmbsocial",
-    linkedin: "https://linkedin.com/company/jmbsocial",
+    instagram: "https://www.instagram.com/jmb_social/",
+    linkedin: "",
   },
 };
 
@@ -24,172 +24,615 @@ export const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-export type ServicePillar = {
-  number: string;
+/* -------------------------------------------------------------------------- */
+/*  Services                                                                  */
+/* -------------------------------------------------------------------------- */
+
+export type Cadence = "project" | "month" | "pack";
+
+export const cadenceLabel: Record<Cadence, string> = {
+  project: "one-off",
+  month: "per month",
+  pack: "per pack",
+};
+
+export type ServiceVariant = {
+  name: string;
+  description: string;
+  price: string;
+  cadence: Cadence;
+};
+
+export type ServiceFamily = {
   slug: string;
+  number: string;
   title: string;
+  shortTitle: string;
+  tagline: string;
   summary: string;
-  bullets: string[];
+  note?: string;
+  variants: ServiceVariant[];
 };
 
-// Homepage pillars — the four consolidated disciplines.
-export const servicePillars: ServicePillar[] = [
+export const serviceFamilies: ServiceFamily[] = [
   {
+    slug: "web",
     number: "01",
-    slug: "brand",
-    title: "Brand",
+    title: "Web design & development",
+    shortTitle: "Websites",
+    tagline: "Websites engineered to rank, load fast and convert.",
     summary:
-      "Identity, direction and design that makes a business recognisable.",
-    bullets: [
-      "Brand identity",
-      "Social identity",
-      "Creative direction",
-      "Campaign creative",
+      "Strategy-led design and production-grade development. Every build is mobile-first, accessible, SEO-ready and measured against Core Web Vitals, so the site works as a sales asset rather than a brochure.",
+    variants: [
+      {
+        name: "Business website",
+        description:
+          "Five to ten bespoke pages with a clear conversion path, CMS handover, analytics and technical SEO built in.",
+        price: "£2,500",
+        cadence: "project",
+      },
+      {
+        name: "Bespoke brand website",
+        description:
+          "A fully custom design system with considered motion and interaction, built to feel as premium as the business behind it.",
+        price: "£5,500",
+        cadence: "project",
+      },
+      {
+        name: "Website redesign",
+        description:
+          "Audit, UX restructure and an SEO-safe migration with every redirect mapped, so rankings carry over and conversion rises.",
+        price: "£3,500",
+        cadence: "project",
+      },
+      {
+        name: "E-commerce",
+        description:
+          "Shopify or custom storefronts with considered product pages, checkout optimisation and full purchase tracking.",
+        price: "£4,500",
+        cadence: "project",
+      },
+      {
+        name: "Landing pages & funnels",
+        description:
+          "High-intent pages built for campaigns, structured for A/B testing with every conversion tracked.",
+        price: "£950",
+        cadence: "project",
+      },
+      {
+        name: "Performance & technical SEO",
+        description:
+          "Core Web Vitals remediation, schema markup, indexation and crawl fixes for sites that already exist.",
+        price: "£750",
+        cadence: "project",
+      },
+      {
+        name: "Website care plan",
+        description:
+          "Managed hosting, security updates, uptime monitoring and a monthly improvement hour.",
+        price: "£95",
+        cadence: "month",
+      },
     ],
   },
   {
+    slug: "apps",
     number: "02",
-    slug: "content",
-    title: "Content",
-    summary: "Photography and video built to be used, not shot once and forgotten.",
-    bullets: [
-      "Photography",
-      "Videography",
-      "Short-form video",
-      "Editing",
-      "Social assets",
+    title: "App & platform development",
+    shortTitle: "Apps",
+    tagline: "From validated idea to shipped product.",
+    summary:
+      "Product design and full-stack engineering for mobile apps, web platforms and internal tools. Work is scoped in phases, so you launch an MVP, learn from real usage, then scale with confidence.",
+    variants: [
+      {
+        name: "Mobile app (iOS & Android)",
+        description:
+          "Cross-platform builds with native-feel UX, authentication, push notifications and app-store submission.",
+        price: "£8,500",
+        cadence: "project",
+      },
+      {
+        name: "Web app & SaaS platform",
+        description:
+          "Multi-user platforms with billing, role-based access, dashboards and an API-first architecture.",
+        price: "£7,500",
+        cadence: "project",
+      },
+      {
+        name: "Client portals & internal tools",
+        description:
+          "Secure portals and admin systems that replace spreadsheets and manual back-and-forth.",
+        price: "£4,500",
+        cadence: "project",
+      },
+      {
+        name: "Booking & membership systems",
+        description:
+          "Scheduling, payments and member management shaped around how your business actually runs.",
+        price: "£4,000",
+        cadence: "project",
+      },
+      {
+        name: "Integrations & APIs",
+        description:
+          "Connect your CRM, payments, accounting and marketing stack into one reliable flow of data.",
+        price: "£1,500",
+        cadence: "project",
+      },
+      {
+        name: "Product design & prototyping",
+        description:
+          "User flows and clickable Figma prototypes to validate the idea with real users before you build.",
+        price: "£2,500",
+        cadence: "project",
+      },
+      {
+        name: "Product support retainer",
+        description:
+          "Monitoring, bug fixes, dependency updates and iterative releases after launch.",
+        price: "£350",
+        cadence: "month",
+      },
     ],
   },
   {
+    slug: "ai",
     number: "03",
-    slug: "digital",
-    title: "Digital",
-    summary: "Websites and landing pages that load fast and convert.",
-    bullets: [
-      "Website design",
-      "Website development",
-      "Landing pages",
-      "Conversion optimisation",
-      "SEO foundations",
+    title: "AI agents & automation",
+    shortTitle: "AI agents",
+    tagline: "Agents that do real work inside your business.",
+    summary:
+      "Custom AI agents and automations designed around your workflows. Grounded in your own data, wired into your tools, and built with guardrails and human-in-the-loop review wherever it matters.",
+    note: "Model and API usage is billed at cost and capped with usage limits you control.",
+    variants: [
+      {
+        name: "Customer support agent",
+        description:
+          "A retrieval-grounded assistant trained on your content that answers questions on your site, WhatsApp or email, with clean hand-off to a human.",
+        price: "£2,500",
+        cadence: "project",
+      },
+      {
+        name: "Lead qualification & booking agent",
+        description:
+          "Engages inbound enquiries, qualifies them against your criteria and books calls straight into your calendar and CRM.",
+        price: "£3,500",
+        cadence: "project",
+      },
+      {
+        name: "Workflow automation",
+        description:
+          "Remove repetitive admin by connecting your tools with robust, monitored automations built in n8n, Make or custom code.",
+        price: "£1,200",
+        cadence: "project",
+      },
+      {
+        name: "Custom multi-step agents",
+        description:
+          "Tool-using agents that research, draft, decide and act across your systems, evaluated and monitored in production.",
+        price: "£6,000",
+        cadence: "project",
+      },
+      {
+        name: "AI voice agents",
+        description:
+          "Natural-sounding phone agents that answer calls, capture the details and route or book on your behalf.",
+        price: "£4,000",
+        cadence: "project",
+      },
+      {
+        name: "AI content & marketing automation",
+        description:
+          "Repeatable pipelines for briefs, copy, reporting and personalised outreach, with brand-safe review steps.",
+        price: "£1,800",
+        cadence: "project",
+      },
+      {
+        name: "AI audit & roadmap",
+        description:
+          "A focused workshop that maps your processes, ranks the highest-return automations and hands you a costed plan.",
+        price: "£750",
+        cadence: "project",
+      },
     ],
   },
   {
+    slug: "ads",
     number: "04",
-    slug: "growth",
-    title: "Growth",
-    summary: "Paid media with a strategy, testing and reporting behind it.",
-    bullets: [
-      "Social media management",
-      "Community management",
-      "Meta Ads",
-      "Google Ads",
-      "Campaign strategy",
-      "Reporting",
+    title: "Paid media management",
+    shortTitle: "Ad management",
+    tagline: "Ad spend with a strategy, a testing cadence and honest reporting.",
+    summary:
+      "Account architecture, audience and creative testing, conversion tracking and weekly optimisation across Meta and Google, reported against revenue and cost per acquisition rather than vanity metrics.",
+    note: "Ad spend is paid directly to the platforms by you. Fees cover strategy, build, management and reporting. A minimum of £750 per month in ad spend is recommended.",
+    variants: [
+      {
+        name: "Meta Ads (Facebook & Instagram)",
+        description:
+          "Full-funnel structure from prospecting to retargeting, with Conversions API tracking and structured creative testing.",
+        price: "£650",
+        cadence: "month",
+      },
+      {
+        name: "Google Ads",
+        description:
+          "Search, Performance Max and Shopping campaigns built on intent, with negative-keyword discipline and tight budget control.",
+        price: "£650",
+        cadence: "month",
+      },
+      {
+        name: "TikTok & LinkedIn Ads",
+        description:
+          "Platform-native campaigns for audiences those channels reach better than anywhere else.",
+        price: "£750",
+        cadence: "month",
+      },
+      {
+        name: "Full-funnel growth programme",
+        description:
+          "Meta and Google managed together under a single measurement plan, with a monthly strategy call.",
+        price: "£1,400",
+        cadence: "month",
+      },
+      {
+        name: "Ad account audit",
+        description:
+          "A line-by-line review of structure, spend, tracking and creative, with a prioritised fix list.",
+        price: "£450",
+        cadence: "project",
+      },
+      {
+        name: "Tracking & attribution setup",
+        description:
+          "GA4, Tag Manager, Meta Pixel with Conversions API and server-side tracking, so every pound is attributable.",
+        price: "£600",
+        cadence: "project",
+      },
     ],
   },
-];
-
-export type ServiceDetail = {
-  slug: string;
-  number: string;
-  title: string;
-  whatWeDo: string;
-  problem: string;
-  deliverables: string[];
-};
-
-// Services page — the five detailed categories.
-export const serviceDetails: ServiceDetail[] = [
   {
-    slug: "brand",
-    number: "01",
-    title: "Brand",
-    whatWeDo:
-      "We build the visual identity a business shows the world — logo, colour, type, tone and the system that holds it together across every channel.",
-    problem:
-      "Most small businesses either have no real identity or one that's grown inconsistently over time. That makes them forgettable, and harder to trust at a glance.",
-    deliverables: [
-      "Brand identity",
-      "Creative direction",
-      "Campaign identities",
-      "Social design systems",
-      "Graphic assets",
-    ],
-  },
-  {
-    slug: "content",
-    number: "02",
-    title: "Content",
-    whatWeDo:
-      "We plan and shoot the photography and video a brand actually needs — for its website, its feed and its ads — then edit it into something usable everywhere.",
-    problem:
-      "Generic stock photography and one-off phone videos don't hold up next to competitors who invest in how they look. Good content pays for itself in attention.",
-    deliverables: [
-      "Photography",
-      "Videography",
-      "Short-form social video",
-      "Editing",
-      "Content shoots",
-      "Campaign creative",
+    slug: "creative",
+    number: "05",
+    title: "Ad creative & brand design",
+    shortTitle: "Ad design & brand",
+    tagline: "Design that earns attention and carries the brand.",
+    summary:
+      "Identity systems and performance creative produced together, so what you run in ads, on social and on your site reads as one unmistakable brand.",
+    variants: [
+      {
+        name: "Ad creative packs",
+        description:
+          "Static, carousel and short-form motion ads produced in testable variants against a clear creative hypothesis.",
+        price: "£450",
+        cadence: "pack",
+      },
+      {
+        name: "Short-form video ads",
+        description:
+          "Edit, motion and captions for Reels, TikTok and Shorts, cut to land the hook inside the first second.",
+        price: "£600",
+        cadence: "pack",
+      },
+      {
+        name: "Brand identity",
+        description:
+          "Strategy, logo, colour, typography, voice and a guidelines document you can hand to anyone.",
+        price: "£1,800",
+        cadence: "project",
+      },
+      {
+        name: "Brand refresh",
+        description:
+          "Modernise an existing identity without losing the recognition you have already earned.",
+        price: "£1,200",
+        cadence: "project",
+      },
+      {
+        name: "Social design systems",
+        description:
+          "Templates and visual rules your team, or ours, can reuse to keep every post on brand.",
+        price: "£650",
+        cadence: "project",
+      },
+      {
+        name: "Campaign & launch design",
+        description:
+          "Complete creative kits for launches and seasonal campaigns across every placement.",
+        price: "£1,500",
+        cadence: "project",
+      },
+      {
+        name: "Pitch decks & collateral",
+        description:
+          "Investor, sales and print collateral designed to land the message and the decision.",
+        price: "£500",
+        cadence: "project",
+      },
     ],
   },
   {
     slug: "social",
-    number: "03",
-    title: "Social",
-    whatWeDo:
-      "We plan, write, publish and manage the channels that keep a business visible day to day — and reply to the people who engage with it.",
-    problem:
-      "Social media takes consistent time and a clear voice. Most businesses either post sporadically or hand it to whoever has a spare hour, and it shows.",
-    deliverables: [
-      "Content strategy",
-      "Social management",
-      "Copywriting",
-      "Publishing",
-      "Community management",
-      "Engagement",
+    number: "06",
+    title: "Social media management",
+    shortTitle: "Social",
+    tagline: "A consistent, on-brand presence without it taking over your week.",
+    summary:
+      "Strategy, content planning, copywriting, publishing and community management across the channels your customers use, with monthly reporting tied to business outcomes.",
+    variants: [
+      {
+        name: "Social media management",
+        description:
+          "Strategy, content calendar, copy, design, scheduling and reporting for up to three channels.",
+        price: "£750",
+        cadence: "month",
+      },
+      {
+        name: "Short-form content engine",
+        description:
+          "A recurring batch of Reels, TikToks and Shorts, planned, edited and published for you.",
+        price: "£900",
+        cadence: "month",
+      },
+      {
+        name: "Community management",
+        description:
+          "Comments, replies and DMs handled in your brand voice, with clear rules for escalation.",
+        price: "£350",
+        cadence: "month",
+      },
+      {
+        name: "Social strategy & audit",
+        description:
+          "Audience, competitor and content analysis ending in a clear 90-day plan.",
+        price: "£550",
+        cadence: "project",
+      },
     ],
   },
   {
-    slug: "web",
-    number: "04",
-    title: "Web",
-    whatWeDo:
-      "We design and build websites that load quickly, look considered on every device, and are structured to turn visitors into enquiries.",
-    problem:
-      "A slow, dated or unclear website undoes everything else — it's often the first and last impression a prospective client forms of the business.",
-    deliverables: [
-      "Web design",
-      "Web development",
-      "Landing pages",
-      "Conversion optimisation",
-      "Analytics setup",
-      "SEO foundations",
-    ],
-  },
-  {
-    slug: "paid",
-    number: "05",
-    title: "Paid",
-    whatWeDo:
-      "We plan, build and manage paid campaigns across Meta and Google, testing creative and targeting properly and reporting on what it actually returns.",
-    problem:
-      "Paid media without strategy or reporting behind it is just spend. Most small businesses either avoid it entirely or run it without a clear read on performance.",
-    deliverables: [
-      "Meta Ads",
-      "Google Ads",
-      "Campaign strategy",
-      "Creative testing",
-      "Retargeting",
-      "Reporting",
+    slug: "growth",
+    number: "07",
+    title: "SEO, analytics & conversion",
+    shortTitle: "SEO & analytics",
+    tagline: "Find out what works, then do more of it.",
+    summary:
+      "The measurement and optimisation layer that makes everything else pay back: search visibility, clean data and structured experimentation.",
+    variants: [
+      {
+        name: "SEO programme",
+        description:
+          "Technical, on-page and content SEO focused on commercially valuable queries and local visibility.",
+        price: "£600",
+        cadence: "month",
+      },
+      {
+        name: "Conversion rate optimisation",
+        description:
+          "Research, heuristic review and a prioritised sprint of tested improvements to your key pages.",
+        price: "£900",
+        cadence: "project",
+      },
+      {
+        name: "Analytics & reporting dashboards",
+        description:
+          "GA4 and Looker Studio dashboards that show what is working, in plain language.",
+        price: "£500",
+        cadence: "project",
+      },
+      {
+        name: "Email & CRM automation",
+        description:
+          "Lifecycle flows in Klaviyo, Mailchimp or HubSpot: welcome, abandonment, nurture and win-back.",
+        price: "£900",
+        cadence: "project",
+      },
+      {
+        name: "Digital growth audit",
+        description:
+          "A cross-channel review of site, funnel, ads and tracking, ending in a 90-day roadmap.",
+        price: "£450",
+        cadence: "project",
+      },
     ],
   },
 ];
 
-export type ProjectCategory = "BRAND" | "CONTENT" | "SOCIAL" | "WEB" | "PAID";
+export type ServicePackage = {
+  name: string;
+  price: string;
+  forWho: string;
+  includes: string[];
+};
+
+// Bundled engagements — the route to projects of £10,000 and above.
+export const servicePackages: ServicePackage[] = [
+  {
+    name: "Launch",
+    price: "£7,500",
+    forWho: "New or rebranding businesses that need to open the doors properly.",
+    includes: [
+      "Brand identity and guidelines",
+      "Bespoke website with CMS",
+      "Analytics and conversion tracking",
+      "Launch campaign creative",
+      "30 days of post-launch support",
+    ],
+  },
+  {
+    name: "Scale",
+    price: "£10,000",
+    forWho: "Established businesses ready to grow revenue from their existing audience.",
+    includes: [
+      "Website redesign with SEO-safe migration",
+      "Conversion rate optimisation sprint",
+      "Three-month full-funnel ads programme",
+      "Monthly creative packs",
+      "Reporting and strategy calls",
+    ],
+  },
+  {
+    name: "Automate",
+    price: "£12,500",
+    forWho: "Operations-heavy businesses that want time and margin back.",
+    includes: [
+      "AI audit and costed roadmap",
+      "One or more custom AI agents",
+      "Workflow automation and integrations",
+      "Client portal or app MVP",
+      "Monitoring and optimisation",
+    ],
+  },
+];
+
+/* -------------------------------------------------------------------------- */
+/*  Positioning, process, FAQ                                                 */
+/* -------------------------------------------------------------------------- */
+
+export const principles = [
+  {
+    title: "Senior-led, end to end",
+    description:
+      "The person you brief is the person who designs, builds and optimises. No account-manager chain and no hand-offs lost in translation.",
+  },
+  {
+    title: "Built to be measured",
+    description:
+      "Every project ships with tracking and an agreed definition of success, so progress shows up in leads, bookings and revenue.",
+  },
+  {
+    title: "Engineered properly",
+    description:
+      "Clean, documented code on modern infrastructure, with performance budgets and no template lock-in. You own everything we build.",
+  },
+  {
+    title: "One accountable partner",
+    description:
+      "Design, development, AI and paid media under one roof means your site, ads and automations are built to work together.",
+  },
+];
+
+export const processSteps = [
+  {
+    number: "01",
+    title: "Discover",
+    description:
+      "A focused call and audit of your goals, audience, competitors and current performance.",
+  },
+  {
+    number: "02",
+    title: "Scope",
+    description:
+      "A clear plan, fixed scope, timeline and quote agreed before any build begins.",
+  },
+  {
+    number: "03",
+    title: "Design & build",
+    description:
+      "Iterative delivery with regular reviews, so you see real progress every week.",
+  },
+  {
+    number: "04",
+    title: "Launch",
+    description:
+      "Quality, performance and accessibility checks, tracking verified, then live.",
+  },
+  {
+    number: "05",
+    title: "Grow",
+    description:
+      "We measure, test and refine, through a support plan or an ongoing retainer.",
+  },
+];
+
+export const faqs = [
+  {
+    question: "How much does a project cost?",
+    answer:
+      "Projects start from £950 for a landing page and scale past £10,000 for full platforms, apps and multi-channel programmes. Every quote is scoped after a discovery call, so you know the full cost before we begin.",
+  },
+  {
+    question: "How long does a website take?",
+    answer:
+      "A business website typically takes four to six weeks from kickoff. Bespoke and e-commerce builds take six to ten. We confirm a timeline in your scope.",
+  },
+  {
+    question: "Do I own the website and the code?",
+    answer:
+      "Yes. On final payment you own the design, code and content. We build on open, portable technology so you are never locked in.",
+  },
+  {
+    question: "Is it safe to put an AI agent in front of customers?",
+    answer:
+      "It is when it is designed for it. We ground agents in your approved content, set clear guardrails, hand off to a human when it matters, and test against real scenarios before launch. Conversations are logged and monitored afterwards.",
+  },
+  {
+    question: "Who owns the ad accounts and the data?",
+    answer:
+      "You do. Ad spend goes straight from you to Meta or Google, and the accounts, audiences and creative stay yours if we ever stop working together.",
+  },
+  {
+    question: "Can you work with my existing website or tools?",
+    answer:
+      "Yes. We regularly improve, extend or integrate with existing sites, CRMs and platforms rather than starting from scratch. A short audit tells us what is worth keeping.",
+  },
+  {
+    question: "Do you offer support after launch?",
+    answer:
+      "Yes. Care plans cover hosting, security, monitoring and a monthly improvement hour, and retainers cover ongoing development, optimisation and ad management.",
+  },
+];
+
+/* -------------------------------------------------------------------------- */
+/*  Work                                                                      */
+/* -------------------------------------------------------------------------- */
+
+export type ProjectCategory = "WEB" | "APP" | "AI" | "ADS" | "BRAND" | "SOCIAL";
+
+export const categoryLabels: Record<ProjectCategory, string> = {
+  WEB: "Websites",
+  APP: "Apps",
+  AI: "AI agents",
+  ADS: "Ads",
+  BRAND: "Brand",
+  SOCIAL: "Social",
+};
+
+export type ProjectKind = "web" | "app" | "ai" | "ads" | "brand" | "social";
+
+export type ProjectStatus = "client" | "studio" | "concept";
+
+export const statusLabels: Record<ProjectStatus, string> = {
+  client: "Client project",
+  studio: "Studio project",
+  concept: "Concept project",
+};
+
+export type ProjectVideo = {
+  src: string;
+  poster: string;
+  title: string;
+  caption?: string;
+  views?: string;
+  aspect: "9/16" | "4/5";
+};
+
+export type ProjectImage = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+};
+
+export type ProjectMedia = {
+  frame: "browser" | "stack";
+  images: string[];
+  url?: string;
+  inset?: string;
+};
 
 export type Project = {
   slug: string;
+  status: ProjectStatus;
   client: string;
   industry: string;
   title: string;
@@ -197,124 +640,329 @@ export type Project = {
   categories: ProjectCategory[];
   services: string[];
   accent: "green" | "cream" | "charcoal" | "sage";
-  challenge: string;
+  kind: ProjectKind;
+  media?: ProjectMedia;
+  liveUrl?: string;
+  metrics?: { value: string; label: string }[];
+  metricsNote?: string;
+  videos?: ProjectVideo[];
+  gallery?: ProjectImage[];
+  brief: string;
   approach: string;
-  creative: string;
-  results: string;
+  deliverables: string[];
+  tools: string[];
 };
 
-// Illustrative placeholder projects. Replace with real client work
-// (and swap PlaceholderImage for real photography) as it becomes available.
+const wheelersReels: ProjectVideo[] = [
+  {
+    src: "/work/video/reel-cam-belt.mp4",
+    poster: "/work/video/reel-cam-belt.jpg",
+    title: "VW cam belt: change before 140,000 miles?",
+    caption: "A worn belt, held up to the camera.",
+    views: "52.6K",
+    aspect: "9/16",
+  },
+  {
+    src: "/work/video/reel-guess-the-car.mp4",
+    poster: "/work/video/reel-guess-the-car.jpg",
+    title: "Guess the car",
+    caption: "A corroded suspension arm that was caught in time.",
+    views: "45.9K",
+    aspect: "9/16",
+  },
+  {
+    src: "/work/video/reel-reliable-unreliable.mp4",
+    poster: "/work/video/reel-reliable-unreliable.jpg",
+    title: "Reliable or unreliable?",
+    caption: "The mechanic sorts car brands, with no sales pitch.",
+    views: "12.7K",
+    aspect: "9/16",
+  },
+];
+
+// Real work first, then concept projects for disciplines without a client
+// engagement yet. Replace concepts with real case studies as they complete.
 export const projects: Project[] = [
   {
-    slug: "marlow-and-grain",
-    client: "Marlow & Grain",
-    industry: "Independent Hospitality",
-    title: "A neighbourhood restaurant with a brand to match its food.",
+    slug: "wheelers-autoworks",
+    status: "client",
+    client: "Wheelers Autoworks",
+    industry: "Independent garage, Cowfold, West Sussex",
+    title: "A garage website and Reels built around honest advice.",
     description:
-      "Brand refresh, photography and social for an independent hospitality group opening its second site.",
-    categories: ["BRAND", "CONTENT", "SOCIAL"],
-    services: ["Brand refresh", "Photography", "Social", "Meta"],
-    accent: "green",
-    challenge:
-      "Marlow & Grain had built a loyal local following on food alone, but its visual identity hadn't kept pace — inconsistent branding across signage, menus and social made it look smaller than it was ahead of a second site opening.",
-    approach:
-      "We developed a refreshed identity rooted in the warmth of the room itself, then built a photography library and social system the team could keep using long after launch.",
-    creative:
-      "A restrained, warm identity paired with a consistent photographic style across the dining room, kitchen and plates — designed to work as hard on a phone screen as it does printed on a menu.",
-    results:
-      "A consistent look across every touchpoint ahead of the second site opening, with a content library the in-house team can draw on for months.",
-  },
-  {
-    slug: "fairway-and-co",
-    client: "Fairway & Co.",
-    industry: "Golf & Lifestyle",
-    title: "A golf lifestyle brand built for the course and the feed.",
-    description:
-      "Content-led campaign and paid media for a modern golf and lifestyle brand launching direct to consumer.",
-    categories: ["CONTENT", "PAID"],
-    services: ["Content", "Paid Media", "Digital Campaign"],
-    accent: "sage",
-    challenge:
-      "Launching direct to consumer meant Fairway & Co. needed to look credible against established golf brands from day one, without an existing audience to launch into.",
-    approach:
-      "We built a content-led launch campaign — product and lifestyle photography, short-form video for paid social, and a Meta and Google campaign structure designed to be tested and refined post-launch.",
-    creative:
-      "Clean, editorial product photography styled around a modern take on the game, cut into short-form video built specifically for paid placements rather than repurposed from elsewhere.",
-    results:
-      "A cohesive creative library ready for launch, with a paid media structure in place to test audiences and offers from day one.",
-  },
-  {
-    slug: "north-street-fitness",
-    client: "North Street Fitness",
-    industry: "Boutique Fitness Studio",
-    title: "A studio outgrowing word of mouth.",
-    description:
-      "Website, content and social for a growing boutique fitness studio.",
-    categories: ["WEB", "CONTENT", "SOCIAL"],
-    services: ["Website", "Content", "Social"],
+      "A phone-first website and short-form video for an independent garage, with three Reels reaching 111.2K views between them.",
+    categories: ["WEB", "SOCIAL"],
+    services: ["Web design", "Web development", "Short-form video", "Social content"],
     accent: "charcoal",
-    challenge:
-      "North Street Fitness had a strong local reputation but no website worth sending people to, and a social presence that didn't reflect the energy of the studio in person.",
+    kind: "web",
+    media: {
+      frame: "browser",
+      images: ["/work/wheelers-home.jpg"],
+      url: "wheelersautoworks.com",
+    },
+    liveUrl: "https://wheelersautoworks.com",
+    metrics: [
+      { value: "111.2K", label: "Combined views across three Reels" },
+      { value: "52.6K", label: "Views on the most-watched Reel" },
+    ],
+    metricsNote: "View counts as shown on the platform, October 2026.",
+    videos: wheelersReels,
+    gallery: [
+      {
+        src: "/work/wheelers-home.jpg",
+        width: 1600,
+        height: 792,
+        alt: "Wheelers Autoworks homepage with call-to-book button",
+      },
+      {
+        src: "/work/wheelers-services.jpg",
+        width: 1600,
+        height: 740,
+        alt: "Wheelers Autoworks services section",
+      },
+    ],
+    brief:
+      "Wheelers Autoworks wins work on trust: straight answers, clear pricing and no upselling. The brief was to carry that reputation online, giving local drivers a site that is quick to read and easy to act on, and giving the garage a way to be found beyond word of mouth.",
     approach:
-      "We designed and built a fast, class-booking-ready website, ran a content day across peak classes, and set up a social system the studio team run day to day.",
-    creative:
-      "A high-contrast, energetic visual language carried through the website and social content — built to convert first-time visitors into class bookings.",
-    results:
-      "A website built to turn visits into bookings, backed by a content library and social system the studio can run independently.",
+      "The site is built around how customers actually book. There is no online booking, so every page leads to a call, an email or WhatsApp. A trust strip puts the garage's Google rating and its no-upselling promise above the fold, services are grouped in plain language, and real workshop photography replaces stock imagery. On social, the Reels show the mechanic explaining real faults on real cars, from a worn cam belt to a corroded suspension arm, which suits the garage's honest-advice positioning.",
+    deliverables: [
+      "Website design and build",
+      "Trust signals and service structure",
+      "Call, email and WhatsApp conversion paths",
+      "Workshop gallery and reviews",
+      "Short-form Reel production and editing",
+    ],
+    tools: [],
   },
   {
-    slug: "field-and-form",
-    client: "Field & Form",
-    industry: "Independent Retail",
-    title: "A homeware brand ready to look the part online.",
+    slug: "c-m-booker",
+    status: "client",
+    client: "C M Booker",
+    industry: "Furniture restoration, London & Surrey",
+    title: "A fifty-year-old workshop, presented as the craft it is.",
     description:
-      "Brand, website and photography for an independent retail brand moving online.",
-    categories: ["BRAND", "WEB", "CONTENT"],
-    services: ["Brand", "Website", "Photography"],
+      "A photo-led single-page website for a family furniture restoration and bespoke joinery workshop.",
+    categories: ["WEB"],
+    services: ["Web design", "Web development"],
     accent: "cream",
-    challenge:
-      "Field & Form's in-store experience was considered and well-loved, but its online presence — a basic template site and inconsistent product photography — undersold the brand entirely.",
+    kind: "web",
+    media: {
+      frame: "browser",
+      images: ["/work/cmbooker-home.jpg"],
+      url: "cmbooker.co.uk",
+    },
+    liveUrl: "https://www.cmbooker.co.uk",
+    gallery: [
+      {
+        src: "/work/cmbooker-home.jpg",
+        width: 1600,
+        height: 900,
+        alt: "C M Booker homepage with restored furniture photography",
+      },
+      {
+        src: "/work/cmbooker-work.jpg",
+        width: 1600,
+        height: 808,
+        alt: "C M Booker three areas of work",
+      },
+    ],
+    brief:
+      "C M Booker has restored fine furniture across London and Surrey since 1974 and still works largely by recommendation. The workshop needed a site that shows the standard of the craft immediately and makes it easy to ask for a quote.",
     approach:
-      "We built a brand system built to travel from shopfront to screen, a new ecommerce-ready website, and a product photography style consistent enough to scale across a growing range.",
-    creative:
-      "A calm, considered identity and photographic style that lets the products lead, built to extend easily as the range grows.",
-    results:
-      "An online presence that finally matches the quality of the range and the shop it comes from.",
+      "The craft leads. Photography of restored pieces sits directly under the headline, followed by the firm's history, three clear areas of work and a gallery of recent projects. A warm italic serif and terracotta accent give the page the character of a workshop rather than a template, and a three-step 'how we work' section (send photos, talk it through, receive a written quote) lowers the barrier to a first enquiry.",
+    deliverables: [
+      "Single-page site design and build",
+      "Photo-led hero and project gallery",
+      "Three areas of work with enquiry links",
+      "Quote request journey by photo and email",
+      "Responsive layout",
+    ],
+    tools: [],
+  },
+  {
+    slug: "beechwood-tree-care",
+    status: "client",
+    client: "Beechwood Tree Care & Landscaping",
+    industry: "Tree care and landscaping, West Sussex",
+    title: "One local team, every outdoor job, one clear route to a free quote.",
+    description:
+      "A website for a West Sussex tree care and landscaping business, structured around its full range of services and a call-first quote journey.",
+    categories: ["WEB"],
+    services: ["Web design", "Web development"],
+    accent: "green",
+    kind: "web",
+    media: {
+      frame: "browser",
+      images: ["/work/beechwood-home.jpg"],
+    },
+    gallery: [
+      {
+        src: "/work/beechwood-mobile.jpg",
+        width: 900,
+        height: 858,
+        alt: "Beechwood Tree Care mobile homepage with free quote and call buttons",
+      },
+      {
+        src: "/work/beechwood-home.jpg",
+        width: 1600,
+        height: 900,
+        alt: "Beechwood Tree Care homepage and services grid",
+      },
+      {
+        src: "/work/beechwood-why.jpg",
+        width: 1600,
+        height: 502,
+        alt: "Beechwood Tree Care reasons to choose section",
+      },
+    ],
+    brief:
+      "Beechwood covers everything from hedge cutting and tree felling to fencing, patios and turfing. Customers search for one job and often have several, so the site needed to present one team for every outdoor job.",
+    approach:
+      "An immersive woodland hero leads with a free quote and a one-tap call button, repeated in the mobile header. A grid of ten services makes the full range scannable at a glance, followed by customer reviews, four reasons to choose Beechwood and a three-step 'how it works' that ends in a free, no-obligation quote. Deep greens and a warm brass accent echo the brand mark.",
+    deliverables: [
+      "Website design and build",
+      "Service grid across tree care and landscaping",
+      "Free quote and call-first conversion paths",
+      "Reviews and how-it-works sections",
+      "Mobile-first layout",
+    ],
+    tools: [],
+  },
+  {
+    slug: "jmb-social-ad-creative",
+    status: "studio",
+    client: "JMB Social",
+    industry: "Studio outreach campaign",
+    title: "Animated ads that lead with proof.",
+    description:
+      "Two animated 4:5 ad creatives for JMB Social's own outreach, built around real client work and a single clear call to action.",
+    categories: ["ADS", "BRAND"],
+    services: ["Ad creative", "Motion design", "Copywriting", "Audio"],
+    accent: "sage",
+    kind: "ads",
+    media: {
+      frame: "stack",
+      images: ["/work/video/ad-general-poster.jpg", "/work/video/ad-trades-poster.jpg"],
+    },
+    videos: [
+      {
+        src: "/work/video/ad-general.mp4",
+        poster: "/work/video/ad-general-poster.jpg",
+        title: "General version",
+        caption: "Opens on the problem every business with weak ads recognises.",
+        aspect: "4/5",
+      },
+      {
+        src: "/work/video/ad-trades.mp4",
+        poster: "/work/video/ad-trades-poster.jpg",
+        title: "Trades version",
+        caption: "The same proof, aimed at mechanics, landscapers and tradespeople.",
+        aspect: "4/5",
+      },
+    ],
+    brief:
+      "Outreach to independent businesses has to prove the work before it asks for anything. These ads open on a problem each audience recognises, show real client websites and Reels, and end with one direct action: a DM for a free ad check.",
+    approach:
+      "Short, kinetic type and a restrained palette keep each ad readable with the sound off. Both share one structure: hook, problem, proof, action. The trades version swaps the hook and the audience line so the same proof lands with mechanics and landscapers, which gives a clean split to test against the general version.",
+    deliverables: [
+      "Two 4:5 ad creatives for Instagram and Facebook",
+      "Kinetic typography and motion design",
+      "Proof-led storyboard using client work",
+      "Audio mixed and mastered for social",
+      "General and trades variants for testing",
+    ],
+    tools: [],
+  },
+  {
+    slug: "jmb-social-studio-site",
+    status: "studio",
+    client: "JMB Social",
+    industry: "Creative & Growth Studio",
+    title: "Our own studio site, built the way we build for clients.",
+    description:
+      "A fast, statically rendered studio site with a custom design system, structured data and Git-based deployment.",
+    categories: ["WEB", "BRAND"],
+    services: ["Web design", "Web development", "Technical SEO", "Brand"],
+    accent: "green",
+    kind: "web",
+    brief:
+      "JMB needed a studio site that proves the standard before a client has to take it on trust: clear positioning, a credible service catalogue and a frictionless route to enquiry.",
+    approach:
+      "A custom type and colour system, and a data-driven content model so services, pricing and projects update from a single file. Static rendering and optimised fonts keep it fast, while a sitemap, robots file, Open Graph images and structured data handle discoverability.",
+    deliverables: [
+      "Positioning and information architecture",
+      "Custom design system",
+      "Responsive build in Next.js and Tailwind CSS",
+      "Technical SEO foundations",
+      "Enquiry flow and API route",
+      "Git-based CI/CD on Vercel",
+    ],
+    tools: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+  },
+  {
+    slug: "concept-ai-front-desk",
+    status: "concept",
+    client: "Concept",
+    industry: "Independent dental clinic",
+    title: "An AI front desk that answers, qualifies and books.",
+    description:
+      "A retrieval-grounded enquiry and booking agent that handles patient questions around the clock and hands over to reception when it should.",
+    categories: ["AI"],
+    services: ["AI agent", "Retrieval (RAG)", "Calendar integration", "Automation"],
+    accent: "charcoal",
+    kind: "ai",
+    brief:
+      "Missed calls and slow replies cost clinics bookings. The goal: respond to every enquiry in seconds, answer treatment and pricing questions accurately, and book into real availability.",
+    approach:
+      "A retrieval-grounded agent answers only from approved clinic content, collects the details reception needs, checks live availability and books the slot. Anything clinical, sensitive or uncertain is escalated to a person with the full conversation attached. Behaviour is checked against a test set before launch and monitored after it.",
+    deliverables: [
+      "Knowledge base ingestion and grounding",
+      "Conversation design and guardrails",
+      "Calendar and CRM integration",
+      "Human hand-off and escalation rules",
+      "Evaluation set and monitoring",
+    ],
+    tools: ["LLM APIs", "Vector search", "n8n / custom workflows", "Calendar & CRM APIs"],
+  },
+  {
+    slug: "concept-studio-booking-app",
+    status: "concept",
+    client: "Concept",
+    industry: "Boutique fitness studio",
+    title: "Class booking and membership in one native-feeling app.",
+    description:
+      "A cross-platform app for class booking, passes and member communication, with an admin console for the studio team.",
+    categories: ["APP"],
+    services: ["Product design", "Mobile app", "Payments", "Admin dashboard"],
+    accent: "sage",
+    kind: "app",
+    brief:
+      "Studios lose revenue to clunky booking and no-shows. The brief: a fast booking flow, flexible passes and memberships, and tools for staff to run the timetable without a spreadsheet.",
+    approach:
+      "Delivered in phases. Validate the flows in a clickable prototype, ship an MVP covering timetable, booking, payments and push reminders, then iterate on waitlists and retention features using real usage data.",
+    deliverables: [
+      "User flows and Figma prototype",
+      "iOS and Android app",
+      "Payments, passes and memberships",
+      "Staff admin console",
+      "Analytics and event tracking",
+    ],
+    tools: ["React Native", "TypeScript", "Postgres", "Stripe"],
   },
 ];
 
-export const processSteps = [
-  {
-    number: "01",
-    title: "Understand",
-    description: "We learn the business, audience and commercial goals.",
-  },
-  {
-    number: "02",
-    title: "Build",
-    description:
-      "We create the strategy, identity, content or digital infrastructure needed.",
-  },
-  {
-    number: "03",
-    title: "Launch",
-    description: "Everything goes live with a clear plan behind it.",
-  },
-  {
-    number: "04",
-    title: "Grow",
-    description: "We measure what works, improve it and build from there.",
-  },
-];
+/* -------------------------------------------------------------------------- */
+/*  Contact form                                                              */
+/* -------------------------------------------------------------------------- */
 
 export const helpOptions = [
-  "Branding",
-  "Content",
+  "Website design / redesign",
+  "App development",
+  "AI agents & automation",
+  "Ad management",
+  "Ad creative & branding",
   "Social media",
-  "Website",
-  "Meta Ads",
-  "Google Ads",
+  "SEO & analytics",
   "Not sure yet",
 ] as const;
 
@@ -323,6 +971,7 @@ export const budgetOptions = [
   "£1,000–£2,500",
   "£2,500–£5,000",
   "£5,000–£10,000",
-  "£10,000+",
+  "£10,000–£25,000",
+  "£25,000+",
   "Not sure yet",
 ] as const;

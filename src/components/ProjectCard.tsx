@@ -1,6 +1,6 @@
 import Link from "next/link";
-import PlaceholderImage from "./PlaceholderImage";
-import type { Project } from "@/lib/data";
+import ProjectVisual from "./ProjectVisual";
+import { categoryLabels, type Project } from "@/lib/data";
 
 export default function ProjectCard({
   project,
@@ -13,11 +13,17 @@ export default function ProjectCard({
     <Link href={`/work/${project.slug}`} className="group block">
       <div
         className={`overflow-hidden ${
-          size === "large" ? "aspect-[4/3] md:aspect-[16/11]" : "aspect-[4/3]"
+          size === "large" ? "aspect-[4/3] md:aspect-[16/9]" : "aspect-[4/3]"
         }`}
       >
         <div className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-          <PlaceholderImage accent={project.accent} tag={project.categories[0]} />
+          <ProjectVisual
+            kind={project.kind}
+            accent={project.accent}
+            tag={categoryLabels[project.categories[0]]}
+            status={project.status}
+            media={project.media}
+          />
         </div>
       </div>
 

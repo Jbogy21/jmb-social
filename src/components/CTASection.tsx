@@ -3,7 +3,7 @@ import RevealOnScroll from "./RevealOnScroll";
 
 export default function CTASection({
   heading = "Got something in mind?",
-  copy = "Whether you need a new website, better content, someone to take ownership of your social channels or a paid campaign that actually has a strategy behind it, let's talk.",
+  copy = "A new website, an app, an AI agent to take work off your plate, or ads that finally have a strategy behind them. Tell us where you want the business to be and we'll map the route.",
   ctaLabel = "Start a project",
   ctaHref = "/contact",
 }: {
