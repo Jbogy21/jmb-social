@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "./Button";
 import ServiceIcon from "./ServiceIcon";
-import { siteConfig, serviceFamilies } from "@/lib/data";
+import { siteConfig, serviceFamilies, coreServiceSlugs } from "@/lib/data";
 
 export default function Hero() {
   return (
@@ -33,7 +33,7 @@ export default function Hero() {
             style={{ animationDelay: "180ms" }}
           >
             <p className="max-w-sm text-lg leading-relaxed text-ink-70">
-              {siteConfig.description}
+              {siteConfig.heroDescription}
             </p>
             <div className="flex flex-wrap gap-4">
               <Button href="/contact">Start a project</Button>
@@ -50,20 +50,28 @@ export default function Hero() {
         >
           <p className="font-mono-label text-[11px] text-ink-70">What we do</p>
           <div className="mt-4 flex flex-wrap gap-2.5">
-            {serviceFamilies.map((family) => (
-              <Link
-                key={family.slug}
-                href={`/services#${family.slug}`}
-                className="font-mono-label group inline-flex items-center gap-2.5 bg-green px-4 py-3 text-[11px] text-cream transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink hover:shadow-[0_12px_20px_-12px_rgba(28,27,22,0.6)]"
-              >
-                <ServiceIcon
-                  slug={family.slug}
-                  size={16}
-                  className="text-sage transition-colors duration-300 group-hover:text-cream"
-                />
-                {family.shortTitle}
-              </Link>
-            ))}
+            {serviceFamilies
+              .filter((family) => coreServiceSlugs.includes(family.slug))
+              .map((family) => (
+                <Link
+                  key={family.slug}
+                  href={`/services#${family.slug}`}
+                  className="font-mono-label group inline-flex items-center gap-2.5 bg-green px-4 py-3 text-[11px] text-cream transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink hover:shadow-[0_12px_20px_-12px_rgba(28,27,22,0.6)]"
+                >
+                  <ServiceIcon
+                    slug={family.slug}
+                    size={16}
+                    className="text-sage transition-colors duration-300 group-hover:text-cream"
+                  />
+                  {family.shortTitle}
+                </Link>
+              ))}
+            <Link
+              href="/services"
+              className="font-mono-label inline-flex items-center border border-ink/40 px-4 py-3 text-[11px] text-ink transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-cream"
+            >
+              Apps, AI, ads &amp; SEO →
+            </Link>
           </div>
         </div>
       </div>

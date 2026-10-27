@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: "Services & Pricing",
   description:
     "Website design and redesign, app development, AI agents and automation, Meta and Google ads, ad creative, social media management and SEO — with clear starting prices.",
+  alternates: { canonical: "/services" },
 };
 
 const pricingPrinciples = [
@@ -47,7 +48,7 @@ export default function ServicesPage() {
             one, or combine them so your website, apps, automations and
             advertising are designed to work as one system.
           </p>
-          <p className="font-mono-label mt-6 inline-block border border-ink/30 px-3.5 py-2 text-[10px] text-ink-70">
+          <p className="font-mono-label mt-6 inline-block border border-ink/30 px-3.5 py-2 text-[11px] text-ink-70">
             Introductory rates for new clients
           </p>
 
@@ -123,13 +124,13 @@ export default function ServicesPage() {
                         </p>
                       </div>
                       <div className="sm:min-w-28 sm:text-right">
-                        <p className="font-mono-label text-[10px] text-ink-50">
+                        <p className="font-mono-label text-[11px] text-ink-50">
                           {variant.price.includes("–") ? "Typically" : "From"}
                         </p>
                         <p className="font-display text-3xl font-medium leading-none text-ink whitespace-nowrap">
                           {variant.price}
                         </p>
-                        <p className="font-mono-label mt-1.5 text-[10px] text-ink-50">
+                        <p className="font-mono-label mt-1.5 text-[11px] text-ink-50">
                           {cadenceLabel[variant.cadence]}
                         </p>
                       </div>

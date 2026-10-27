@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import SectionLabel from "@/components/SectionLabel";
 import RevealOnScroll from "@/components/RevealOnScroll";
-import StudioPanel from "@/components/StudioPanel";
+import FounderCard from "@/components/FounderCard";
+import Principles from "@/components/Principles";
 import CTASection from "@/components/CTASection";
-import { background, siteConfig } from "@/lib/data";
+import { background, founder, siteConfig } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "About",
   description:
     "JMB Social is a founder-led studio combining design, engineering, AI and paid media, built to be hands-on rather than layered.",
+  alternates: { canonical: "/about" },
 };
 
 const disciplines = [
@@ -69,8 +71,28 @@ export default function AboutPage() {
           </div>
 
           <div className="aspect-[4/5]">
-            <StudioPanel />
+            <FounderCard />
           </div>
+        </div>
+      </section>
+
+      <section className="border-b border-line py-20 md:py-28">
+        <div className="container-edge grid gap-10 md:grid-cols-12 md:gap-8">
+          <RevealOnScroll className="md:col-span-4">
+            <SectionLabel label="From the founder" />
+            <h2 className="font-display mt-6 text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
+              {founder.intro}
+            </h2>
+          </RevealOnScroll>
+          <RevealOnScroll className="md:col-span-8">
+            <div className="flex max-w-2xl flex-col gap-5">
+              {founder.story.map((paragraph) => (
+                <p key={paragraph} className="text-lg leading-relaxed text-ink-70">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
 
@@ -166,6 +188,8 @@ export default function AboutPage() {
           </RevealOnScroll>
         </div>
       </section>
+
+      <Principles index="—" />
 
       <CTASection
         heading="Let's start with a conversation."

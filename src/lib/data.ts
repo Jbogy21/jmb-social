@@ -5,12 +5,19 @@ export const siteConfig = {
   name: "JMB Social",
   shortName: "JMB",
   descriptor: "Creative & Growth Studio",
-  url: "https://www.jmbsocial.co.uk",
+  // Switch this to the custom domain once it is registered and connected.
+  url: "https://jmb-social.vercel.app",
   email: "JMBSocial0@gmail.com",
   location: "UK",
+  phone: "07847 743022",
+  phoneHref: "tel:+447847743022",
+  whatsappHref:
+    "https://wa.me/447847743022?text=Hi%20JMB%20Social%2C%20I%27d%20like%20to%20talk%20about%20a%20project.",
   foundedYear: "2026",
   description:
-    "JMB Social is a founder-led studio designing and building high-performance websites, apps and AI agents — and running the paid media that grows them.",
+    "JMB Social is a founder-led studio building websites, short-form video and ads for independent local businesses across Sussex, Surrey and London, with apps and AI agents on request.",
+  heroDescription:
+    "JMB Social builds websites, short-form video and ads for independent local businesses, so more of the right people find you, trust you and get in touch.",
   social: {
     instagram: "https://www.instagram.com/jmb_social/",
     linkedin: "https://www.linkedin.com/in/jackson-booker-214874427",
@@ -437,6 +444,9 @@ export const serviceFamilies: ServiceFamily[] = [
   },
 ];
 
+// Services with real proof behind them are led with on the home page.
+export const coreServiceSlugs = ["web", "social", "creative"];
+
 export type ServicePackage = {
   name: string;
   price: string;
@@ -568,6 +578,16 @@ export const processSteps = [
 ];
 
 export const faqs = [
+  {
+    question: "What happens after I get in touch?",
+    answer:
+      "You'll hear back within one to two working days, usually sooner, by WhatsApp or email. We start with a short chat about what you need and what you want to happen, then I send a written scope, timeline and price. Nothing starts until you've agreed it.",
+  },
+  {
+    question: "What do I get from the free website review?",
+    answer:
+      "Send me your website (and your ad account if you run ads) and I'll reply with three specific, practical improvements you can act on, with no obligation to hire me.",
+  },
   {
     question: "How much does a project cost?",
     answer:
@@ -975,6 +995,42 @@ export const projects: Project[] = [
 ];
 
 /* -------------------------------------------------------------------------- */
+/*  Founder, testimonials, free review                                        */
+/* -------------------------------------------------------------------------- */
+
+export const founder = {
+  firstName: "Jackson",
+  name: "Jackson Booker",
+  role: "Founder, JMB Social",
+  // Add a photo at public/founder.jpg and set this to "/founder.jpg" to show it.
+  photo: "",
+  photoAlt: "Jackson Booker, founder of JMB Social",
+  intro: "Hi, I'm Jackson.",
+  story: [
+    "I run JMB Social. I build websites, short-form video and ads for independent local businesses, and I answer every message myself.",
+    "My first projects were for real businesses I know: a garage in Cowfold, a furniture restoration workshop and a tree care company. This summer I interned at Class Agency, where I learned how a working agency scopes and delivers client work.",
+    "If you'd like to talk about a project, or just want an honest second opinion on your website, message me.",
+  ],
+};
+
+export type Testimonial = {
+  quote: string;
+  name: string;
+  business: string;
+};
+
+// Add real client testimonials here (with permission). The section stays
+// hidden while this list is empty, so nothing is ever invented.
+export const testimonials: Testimonial[] = [];
+
+export const freeReview = {
+  title: "Free website review",
+  headline: "Not sure what's holding your website back?",
+  detail:
+    "Send me your website, and your ad account if you run ads. I'll reply within two working days with three specific, practical improvements you can act on. No obligation, no sales pitch.",
+};
+
+/* -------------------------------------------------------------------------- */
 /*  Seasonal offer                                                            */
 /* -------------------------------------------------------------------------- */
 
@@ -1001,6 +1057,7 @@ export function isChristmasOfferActive(now: Date = new Date()): boolean {
 /* -------------------------------------------------------------------------- */
 
 export const helpOptions = [
+  "Free website review",
   "Website design / redesign",
   "App development",
   "AI agents & automation",

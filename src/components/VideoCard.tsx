@@ -48,7 +48,7 @@ export default function VideoCard({ video }: { video: ProjectVideo }) {
               </svg>
             </span>
             {video.views && (
-              <span className="font-mono-label absolute bottom-4 left-4 bg-cream px-2.5 py-1.5 text-[10px] text-ink">
+              <span className="font-mono-label absolute bottom-4 left-4 bg-cream px-2.5 py-1.5 text-[11px] text-ink">
                 {video.views} views
               </span>
             )}

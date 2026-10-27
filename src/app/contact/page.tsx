@@ -6,7 +6,8 @@ import { siteConfig, isChristmasOfferActive } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Start a project with JMB Social — tell us what you need help with and your approximate budget, and we'll come back to you within one to two working days.",
+    "Start a project with JMB Social: tell us what you need help with and we'll come back to you within one to two working days. Call, WhatsApp, email or use the form.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
@@ -23,8 +24,24 @@ export default function ContactPage() {
             an AI agent, ad management or something in between. We read every
             enquiry personally and reply within one to two working days.
           </p>
-          <div className="mt-10 border-t border-line pt-6">
-            <p className="font-mono-label text-xs text-ink-50">Or email us directly</p>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row md:flex-col lg:flex-row">
+            <a
+              href={siteConfig.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono-label inline-flex items-center justify-center gap-2.5 bg-green px-6 py-4 text-[11px] text-cream transition-colors duration-300 hover:bg-green-deep"
+            >
+              WhatsApp {siteConfig.phone}
+            </a>
+            <a
+              href={siteConfig.phoneHref}
+              className="font-mono-label inline-flex items-center justify-center border border-ink/25 px-6 py-4 text-[11px] text-ink transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-cream"
+            >
+              Call
+            </a>
+          </div>
+          <div className="mt-8 border-t border-line pt-6">
+            <p className="font-mono-label text-xs text-ink-70">Or email me directly</p>
             <a
               href={`mailto:${siteConfig.email}`}
               className="font-display underline-hover mt-2 block text-xl font-medium text-ink"

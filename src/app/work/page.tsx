@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Work",
   description:
     "Selected work from JMB Social across websites, apps, AI agents, paid media and brand.",
+  alternates: { canonical: "/work" },
 };
 
 export default function WorkPage() {

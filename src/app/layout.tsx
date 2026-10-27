@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Newsreader, Inter, IBM_Plex_Mono } from "next/font/google";
 import Nav from "@/components/Nav";
 import AnnouncementBar from "@/components/AnnouncementBar";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import { Analytics } from "@vercel/analytics/next";
 import Footer from "@/components/Footer";
 import { siteConfig } from "@/lib/data";
 import "./globals.css";
@@ -52,7 +54,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_GB",
-    url: siteConfig.url,
     siteName: siteConfig.name,
     title: `${siteConfig.name} — ${siteConfig.descriptor}`,
     description: siteConfig.description,
@@ -61,9 +62,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteConfig.name} — ${siteConfig.descriptor}`,
     description: siteConfig.description,
-  },
-  alternates: {
-    canonical: "/",
   },
 };
 
@@ -81,6 +79,7 @@ const organizationSchema = {
   ],
   url: siteConfig.url,
   email: siteConfig.email,
+  telephone: "+447847743022",
   description: siteConfig.description,
   areaServed: "GB",
   sameAs: [siteConfig.social.instagram, siteConfig.social.linkedin].filter(Boolean),
@@ -102,6 +101,8 @@ export default function RootLayout({
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
+        <WhatsAppButton />
+        <Analytics />
       </body>
     </html>
   );

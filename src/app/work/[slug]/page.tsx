@@ -25,6 +25,7 @@ export async function generateMetadata({
   return {
     title: `${project.client}: ${project.title}`,
     description: project.description,
+    alternates: { canonical: `/work/${project.slug}` },
   };
 }
 
@@ -74,7 +75,7 @@ export default async function CaseStudyPage({
             {project.services.map((service) => (
               <span
                 key={service}
-                className="font-mono-label border border-line px-3 py-1.5 text-[10px] text-ink-70"
+                className="font-mono-label border border-line px-3 py-1.5 text-[11px] text-ink-70"
               >
                 {service}
               </span>
@@ -212,7 +213,7 @@ export default async function CaseStudyPage({
                 {project.tools.map((tool) => (
                   <span
                     key={tool}
-                    className="font-mono-label border border-line px-3 py-1.5 text-[10px] text-ink-70"
+                    className="font-mono-label border border-line px-3 py-1.5 text-[11px] text-ink-70"
                   >
                     {tool}
                   </span>

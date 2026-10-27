@@ -77,6 +77,21 @@ export default function Footer() {
           >
             {siteConfig.email}
           </a>
+          <a
+            href={siteConfig.phoneHref}
+            className="font-display mt-3 block text-2xl font-medium leading-snug text-cream hover:text-sage"
+          >
+            {siteConfig.phone}
+          </a>
+          <a
+            href={siteConfig.whatsappHref}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="underline-hover mt-4 inline-flex items-center gap-1.5 text-cream/90 hover:text-cream"
+          >
+            Message on WhatsApp
+            <ExternalArrow />
+          </a>
           <p className="font-mono-label mt-6 text-[11px] text-cream-50">
             {siteConfig.location} / {siteConfig.foundedYear}
           </p>
@@ -86,7 +101,12 @@ export default function Footer() {
       <div className="border-t border-line-on-green">
         <div className="container-edge flex flex-col gap-2 py-6 text-xs text-cream-50 sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} JMB Social. All rights reserved.</p>
-          <p>{siteConfig.descriptor}</p>
+          <p className="flex items-center gap-5">
+            <Link href="/privacy" className="underline-hover hover:text-cream">
+              Privacy notice
+            </Link>
+            <span>{siteConfig.descriptor}</span>
+          </p>
         </div>
       </div>
     </footer>

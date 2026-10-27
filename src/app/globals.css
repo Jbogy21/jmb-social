@@ -6,15 +6,15 @@
   --color-cream-3: #d6c795;
   --color-ink: #1c1b16;
   --color-ink-70: rgba(28, 27, 22, 0.7);
-  --color-ink-50: rgba(28, 27, 22, 0.5);
+  --color-ink-50: rgba(28, 27, 22, 0.66);
   --color-green: #333d22;
   --color-green-deep: #262e19;
   --color-green-tint: #4a5633;
   --color-sage: #a7ab8f;
   --color-line: rgba(28, 27, 22, 0.16);
   --color-line-on-green: rgba(236, 226, 200, 0.18);
-  --color-cream-70: rgba(236, 226, 200, 0.7);
-  --color-cream-50: rgba(236, 226, 200, 0.5);
+  --color-cream-70: rgba(236, 226, 200, 0.8);
+  --color-cream-50: rgba(236, 226, 200, 0.66);
 }
 
 @theme inline {

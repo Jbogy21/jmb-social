@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { Button } from "./Button";
 import { helpOptions, budgetOptions, christmasOffer } from "@/lib/data";
 
@@ -91,23 +92,8 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
           <input id="name" name="name" type="text" required autoComplete="name" className={inputClasses} />
         </Field>
 
-        <Field label="Company" htmlFor="company">
-          <input id="company" name="company" type="text" autoComplete="organization" className={inputClasses} />
-        </Field>
-
         <Field label="Email" htmlFor="email" required>
           <input id="email" name="email" type="email" required autoComplete="email" className={inputClasses} />
-        </Field>
-
-        <Field label="Website" htmlFor="website">
-          <input
-            id="website"
-            name="website"
-            type="url"
-            placeholder="https://"
-            autoComplete="url"
-            className={inputClasses}
-          />
         </Field>
       </div>
 
@@ -137,22 +123,14 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
         </div>
       </fieldset>
 
-      <fieldset>
-        <legend className="font-mono-label text-xs text-ink-70">
-          Approximate project budget
-        </legend>
-        <div className="mt-5 flex flex-wrap gap-3">
-          {budgetOptions.map((option) => (
-            <label
-              key={option}
-              className="font-mono-label has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-cream flex cursor-pointer items-center border border-line px-4 py-2.5 text-[11px] text-ink-70 transition-colors duration-200 hover:border-ink hover:text-ink"
-            >
-              <input type="radio" name="budget" value={option} className="sr-only" />
-              {option}
-            </label>
-          ))}
-        </div>
-      </fieldset>
+      <Field label="Tell us a bit about the project" htmlFor="details">
+        <textarea
+          id="details"
+          name="details"
+          rows={4}
+          className={`${inputClasses} resize-none`}
+        />
+      </Field>
 
       {offerActive && (
         <label className="flex cursor-pointer items-start gap-4 border border-line bg-cream-2 p-5 has-[:checked]:border-ink">
@@ -173,14 +151,51 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
         </label>
       )}
 
-      <Field label="Tell us a bit about the project" htmlFor="details">
-        <textarea
-          id="details"
-          name="details"
-          rows={5}
-          className={`${inputClasses} resize-none`}
-        />
-      </Field>
+      <details className="group border-t border-line pt-6">
+        <summary className="font-mono-label flex cursor-pointer list-none items-center gap-3 text-xs text-ink-70 hover:text-ink [&::-webkit-details-marker]:hidden">
+          <span
+            aria-hidden="true"
+            className="relative h-3 w-3 shrink-0 before:absolute before:left-0 before:top-1/2 before:h-px before:w-full before:bg-current after:absolute after:left-1/2 after:top-0 after:h-full after:w-px after:bg-current after:transition-transform after:duration-300 group-open:after:scale-y-0"
+          />
+          Add more detail (optional)
+        </summary>
+
+        <div className="mt-8 space-y-10">
+          <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2">
+            <Field label="Company" htmlFor="company">
+              <input id="company" name="company" type="text" autoComplete="organization" className={inputClasses} />
+            </Field>
+
+            <Field label="Website" htmlFor="website">
+              <input
+                id="website"
+                name="website"
+                type="url"
+                placeholder="https://"
+                autoComplete="url"
+                className={inputClasses}
+              />
+            </Field>
+          </div>
+
+          <fieldset>
+            <legend className="font-mono-label text-xs text-ink-70">
+              Approximate project budget
+            </legend>
+            <div className="mt-5 flex flex-wrap gap-3">
+              {budgetOptions.map((option) => (
+                <label
+                  key={option}
+                  className="font-mono-label has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-cream flex cursor-pointer items-center border border-line px-4 py-2.5 text-[11px] text-ink-70 transition-colors duration-200 hover:border-ink hover:text-ink"
+                >
+                  <input type="radio" name="budget" value={option} className="sr-only" />
+                  {option}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        </div>
+      </details>
 
       {status === "error" && (
         <p role="alert" className="border border-ink/20 bg-ink/5 px-4 py-3 text-sm text-ink">
@@ -188,10 +203,19 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
         </p>
       )}
 
-      <div>
-        <Button type="submit" disabled={status === "submitting"} className="disabled:opacity-60">
-          {status === "submitting" ? "Sending…" : "Send enquiry"}
-        </Button>
+      <div className="flex flex-col gap-5">
+        <div>
+          <Button type="submit" disabled={status === "submitting"} className="disabled:opacity-60">
+            {status === "submitting" ? "Sending…" : "Send enquiry"}
+          </Button>
+        </div>
+        <p className="max-w-md text-xs leading-relaxed text-ink-70">
+          I&apos;ll only use your details to reply to you. See the{" "}
+          <Link href="/privacy" className="underline">
+            privacy notice
+          </Link>
+          .
+        </p>
       </div>
     </form>
   );
