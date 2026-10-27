@@ -85,7 +85,7 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         from: "JMB Social Website <onboarding@resend.dev>",
-        to: [siteConfig.email],
+        to: [siteConfig.email.toLowerCase()],
         reply_to: email,
         subject: `${claimedOffer ? "[Christmas offer] " : ""}New enquiry from ${name}`,
         text: lines.join("\n"),
