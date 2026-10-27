@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="max-w-sm">
           <StackedLogo />
           <p className="mt-6 text-sm leading-relaxed text-cream-70">
-            A senior-led studio for websites, apps, AI agents and paid media,
+            A founder-led studio for websites, apps, AI agents and paid media,
             designed to work together and built to grow your business.
           </p>
         </div>

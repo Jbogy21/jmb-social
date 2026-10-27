@@ -10,10 +10,10 @@ export const siteConfig = {
   location: "UK",
   foundedYear: "2026",
   description:
-    "JMB Social is a senior-led studio designing and building high-performance websites, apps and AI agents — and running the paid media that grows them.",
+    "JMB Social is a founder-led studio designing and building high-performance websites, apps and AI agents — and running the paid media that grows them.",
   social: {
     instagram: "https://www.instagram.com/jmb_social/",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/jackson-booker-214874427",
   },
 };
 
@@ -485,12 +485,35 @@ export const servicePackages: ServicePackage[] = [
 ];
 
 /* -------------------------------------------------------------------------- */
+/*  Founder background                                                        */
+/* -------------------------------------------------------------------------- */
+
+export const background = [
+  {
+    org: "JMB Social",
+    role: "Founder",
+    dates: "2026 to present",
+    description:
+      "Websites, short-form content and ad creative for independent businesses across Sussex, Surrey and London, with apps and AI agents as the next step.",
+    href: "",
+  },
+  {
+    org: "Class Agency",
+    role: "Intern",
+    dates: "28 July to 14 August 2026",
+    description:
+      "A remote and in-office placement. Built the C M Booker website and got hands-on with AI tools including Claude and ChatGPT, working inside an agency's day-to-day.",
+    href: "https://class.agency/",
+  },
+];
+
+/* -------------------------------------------------------------------------- */
 /*  Positioning, process, FAQ                                                 */
 /* -------------------------------------------------------------------------- */
 
 export const principles = [
   {
-    title: "Senior-led, end to end",
+    title: "Founder-led, end to end",
     description:
       "The person you brief is the person who designs, builds and optimises. No account-manager chain and no hand-offs lost in translation.",
   },

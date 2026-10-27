@@ -3,6 +3,7 @@ import SectionLabel from "@/components/SectionLabel";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import StudioPanel from "@/components/StudioPanel";
 import CTASection from "@/components/CTASection";
+import { background, siteConfig } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "About",
@@ -53,10 +54,66 @@ export default function AboutPage() {
               JMB exists to close that gap with design, engineering,
               automation and advertising that are planned together.
             </p>
+            {siteConfig.social.linkedin && (
+              <div className="mt-8">
+                <a
+                  href={siteConfig.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono-label underline-hover inline-flex items-center gap-2 text-xs text-ink"
+                >
+                  Connect with the founder on LinkedIn ↗
+                </a>
+              </div>
+            )}
           </div>
 
           <div className="aspect-[4/5]">
             <StudioPanel />
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-line py-20 md:py-28">
+        <div className="container-edge grid gap-10 md:grid-cols-12 md:gap-8">
+          <RevealOnScroll className="md:col-span-4">
+            <SectionLabel label="Background" />
+            <h2 className="font-display mt-6 text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
+              Where the work comes from.
+            </h2>
+          </RevealOnScroll>
+          <div className="md:col-span-8">
+            <ul className="border-t border-line">
+              {background.map((item, position) => (
+                <RevealOnScroll key={item.org} delay={position * 80}>
+                  <li className="grid gap-3 border-b border-line py-8 sm:grid-cols-[1fr_auto] sm:gap-10">
+                    <div>
+                      <h3 className="font-display text-2xl font-medium leading-tight text-ink">
+                        {item.role},{" "}
+                        {item.href ? (
+                          <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline-hover"
+                          >
+                            {item.org}
+                          </a>
+                        ) : (
+                          item.org
+                        )}
+                      </h3>
+                      <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-70">
+                        {item.description}
+                      </p>
+                    </div>
+                    <p className="font-mono-label text-[11px] text-ink-50 sm:text-right">
+                      {item.dates}
+                    </p>
+                  </li>
+                </RevealOnScroll>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
@@ -96,7 +153,7 @@ export default function AboutPage() {
           </RevealOnScroll>
           <RevealOnScroll className="md:col-span-8">
             <p className="font-display max-w-2xl text-3xl font-medium leading-[1.2] text-ink sm:text-4xl">
-              Clients get senior-level attention, not layers of agency
+              Clients get direct, hands-on attention from the person doing the work, not layers of agency
               account management.
             </p>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-70">

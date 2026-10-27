@@ -25,7 +25,7 @@ export default function AboutPreview({ index = "09" }: { index?: string }) {
             Every project starts with the same question: what does the
             business actually need to grow? Then we make it look excellent,
             build it properly and measure the result. Founder-led and
-            deliberately hands-on, you get senior attention from first call
+            deliberately hands-on, you get direct attention from first call
             to launch and beyond.
           </p>
           <div className="mt-8">
