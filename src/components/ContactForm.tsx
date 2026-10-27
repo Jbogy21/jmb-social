@@ -36,6 +36,7 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
       budget: formData.get("budget"),
       details: formData.get("details"),
       christmasOffer: formData.get("christmasOffer") === "on",
+      hp: formData.get("hp"),
     };
 
     try {
@@ -76,7 +77,15 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-12" noValidate>
+    <form onSubmit={handleSubmit} className="relative space-y-12" noValidate>
+      <input
+        type="text"
+        name="hp"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute -left-[9999px] h-0 w-0 opacity-0"
+      />
       <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2">
         <Field label="Name" htmlFor="name" required>
           <input id="name" name="name" type="text" required autoComplete="name" className={inputClasses} />
