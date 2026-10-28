@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { categoryLabels, projects } from "@/lib/data";
+import { categoryLabels, projects, testimonials } from "@/lib/data";
 import ProjectVisual from "@/components/ProjectVisual";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import VideoCard from "@/components/VideoCard";
@@ -46,6 +46,7 @@ export default async function CaseStudyPage({
 
   if (!project) notFound();
 
+  const testimonial = testimonials.find((item) => item.project === project.slug);
   const index = projects.findIndex((p) => p.slug === slug);
   const next = projects[(index + 1) % projects.length];
   const videoColumns = project.videos?.length === 2 ? "sm:grid-cols-2 lg:max-w-3xl" : "sm:grid-cols-3";
@@ -154,6 +155,23 @@ export default async function CaseStudyPage({
           </RevealOnScroll>
         </div>
       </section>
+
+      {testimonial && (
+        <section className="border-b border-line py-20 md:py-28">
+          <div className="container-edge grid gap-8 md:grid-cols-12">
+            <p className="font-mono-label text-xs text-ink-50 md:col-span-3">What they said</p>
+            <figure className="md:col-span-9">
+              <blockquote className="font-display max-w-3xl text-2xl font-medium leading-snug text-ink sm:text-3xl">
+                &ldquo;{testimonial.quote}&rdquo;
+              </blockquote>
+              <figcaption className="mt-6">
+                <p className="font-display text-xl font-medium text-ink">{testimonial.business}</p>
+                <p className="font-mono-label mt-1.5 text-[11px] text-ink-70">{testimonial.detail}</p>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+      )}
 
       {project.videos && (
         <section className="border-b border-line py-20 md:py-28">

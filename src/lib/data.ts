@@ -733,9 +733,9 @@ export const projects: Project[] = [
     industry: "Independent garage, Cowfold, West Sussex",
     title: "A garage website and Reels built around honest advice.",
     description:
-      "A phone-first website and short-form video for an independent garage, with three Reels reaching 111.2K views between them.",
+      "A phone-first website, plus ongoing management of the garage's Instagram, TikTok and Facebook, with three Reels reaching 111.2K views between them.",
     categories: ["WEB", "SOCIAL"],
-    services: ["Web design", "Web development", "Short-form video", "Social content"],
+    services: ["Web design", "Web development", "Social media management", "Short-form video"],
     accent: "charcoal",
     kind: "web",
     media: {
@@ -767,13 +767,14 @@ export const projects: Project[] = [
     brief:
       "Wheelers Autoworks wins work on trust: straight answers, clear pricing and no upselling. The brief was to carry that reputation online, giving local drivers a site that is quick to read and easy to act on, and giving the garage a way to be found beyond word of mouth.",
     approach:
-      "The site is built around how customers actually book. There is no online booking, so every page leads to a call, an email or WhatsApp. A trust strip puts the garage's Google rating and its no-upselling promise above the fold, services are grouped in plain language, and real workshop photography replaces stock imagery. On social, the Reels show the mechanic explaining real faults on real cars, from a worn cam belt to a corroded suspension arm, which suits the garage's honest-advice positioning.",
+      "The site is built around how customers actually book. There is no online booking, so every page leads to a call, an email or WhatsApp. A trust strip puts the garage's Google rating and its no-upselling promise above the fold, services are grouped in plain language, and real workshop photography replaces stock imagery. On social, the garage's Instagram, TikTok and Facebook are run as one ongoing content programme: regular Reels alongside educational posts and helpful tips. The Reels show the mechanic explaining real faults on real cars, from a worn cam belt to a corroded suspension arm, which suits the garage's honest-advice positioning.",
     deliverables: [
       "Website design and build",
       "Trust signals and service structure",
       "Call, email and WhatsApp conversion paths",
       "Workshop gallery and reviews",
-      "Short-form Reel production and editing",
+      "Ongoing management of Instagram, TikTok and Facebook",
+      "Regular Reels, educational posts and helpful tips",
     ],
     tools: [],
   },
@@ -1015,13 +1016,29 @@ export const founder = {
 
 export type Testimonial = {
   quote: string;
-  name: string;
   business: string;
+  detail: string;
+  project?: string;
 };
 
-// Add real client testimonials here (with permission). The section stays
-// hidden while this list is empty, so nothing is ever invented.
-export const testimonials: Testimonial[] = [];
+// Real client testimonials, supplied by the clients. Trimmed for length using
+// their own wording. The section hides itself if this list is ever empty.
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      "He designed and built a brand-new website for the business from the ground up, taking it through to launch and giving us a much more professional and modern online presence. He's been easy to work with throughout, has brought plenty of ideas to the table and has taken the initiative in looking at how we can continue improving our digital marketing.",
+    business: "C M Booker",
+    detail: "Furniture restoration · Family business",
+    project: "c-m-booker",
+  },
+  {
+    quote:
+      "He's brought fresh ideas to the business, created a more consistent content strategy and helped us produce engaging videos that showcase both the work we do and the personality behind the garage. He's reliable, creative and always looking for new ways to improve our online presence.",
+    business: "Wheelers Autoworks",
+    detail: "Independent garage · Website and social content",
+    project: "wheelers-autoworks",
+  },
+];
 
 export const freeReview = {
   title: "Free website review",
