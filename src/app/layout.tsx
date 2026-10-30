@@ -15,6 +15,7 @@ const newsreader = Newsreader({
   subsets: ["latin"],
   variable: "--font-newsreader",
   display: "swap",
+  style: ["normal", "italic"],
   axes: ["opsz"],
 });
 
@@ -91,7 +92,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-GB" className={`${newsreader.variable} ${inter.variable} ${plexMono.variable}`}>
+    <html lang="en-GB" suppressHydrationWarning className={`${newsreader.variable} ${inter.variable} ${plexMono.variable}`}>
       <body className="flex min-h-screen flex-col bg-cream text-ink antialiased">
         <script
           type="application/ld+json"

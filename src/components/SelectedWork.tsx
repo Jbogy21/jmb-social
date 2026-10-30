@@ -8,7 +8,7 @@ export default function SelectedWork() {
   const featured = projects.slice(0, 4);
 
   return (
-    <section className="border-b border-line py-24 md:py-32">
+    <section id="work" className="scroll-mt-20 border-b border-line py-24 md:py-32">
       <div className="container-edge">
         <RevealOnScroll className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>

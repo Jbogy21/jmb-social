@@ -27,6 +27,7 @@ export const siteConfig = {
 export const navLinks = [
   { label: "Work", href: "/work" },
   { label: "Services", href: "/services" },
+  { label: "Creative", href: "/creative" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
@@ -444,6 +445,88 @@ export const serviceFamilies: ServiceFamily[] = [
   },
 ];
 
+/* -------------------------------------------------------------------------- */
+/*  Services page structure: three pillars plus bigger builds on request      */
+/* -------------------------------------------------------------------------- */
+
+export type ServicePillar = {
+  slug: string;
+  number: string;
+  title: string;
+  tagline: string;
+  summary: string;
+  note?: string;
+  aliases?: string[];
+  headline: string[];
+  more: string[];
+};
+
+// Options are looked up by name from serviceFamilies, so prices live in one place.
+export const servicePillars: ServicePillar[] = [
+  {
+    slug: "web",
+    number: "01",
+    title: "Websites",
+    tagline: "Websites built to be found, trusted and contacted.",
+    summary:
+      "Strategy-led design and clean development. Every build is mobile-first, accessible, SEO-ready and fast, so the site works as a sales asset rather than a brochure.",
+    aliases: ["growth"],
+    headline: ["Business website", "Website redesign", "Landing pages & funnels", "E-commerce"],
+    more: [
+      "Bespoke brand website",
+      "Performance & technical SEO",
+      "Website care plan",
+      "SEO programme",
+      "Conversion rate optimisation",
+      "Analytics & reporting dashboards",
+      "Digital growth audit",
+    ],
+  },
+  {
+    slug: "social",
+    number: "02",
+    title: "Content & social",
+    tagline: "Short-form content that gets seen, posted consistently.",
+    summary:
+      "Reels, TikToks and posts planned, shot, edited and published for you, with a consistent voice and a plan behind every post.",
+    headline: [
+      "Social media management",
+      "Short-form content engine",
+      "Short-form video ads",
+      "Community management",
+    ],
+    more: ["Social strategy & audit", "Social design systems", "Email & CRM automation"],
+  },
+  {
+    slug: "ads",
+    number: "03",
+    title: "Ads & brand",
+    tagline: "Ads and identity that look the part and are built to be tested.",
+    summary:
+      "Account setup, creative testing and honest reporting across Meta and Google, with ad creative and brand design produced alongside so everything matches.",
+    note: "Ad spend is paid directly to the platforms by you. Fees cover strategy, build, management and reporting. A minimum of £300 per month in ad spend is recommended.",
+    aliases: ["creative"],
+    headline: [
+      "Meta Ads (Facebook & Instagram)",
+      "Google Ads",
+      "Ad creative packs",
+      "Brand identity",
+    ],
+    more: [
+      "TikTok & LinkedIn Ads",
+      "Full-funnel growth programme",
+      "Ad account audit",
+      "Tracking & attribution setup",
+      "Brand refresh",
+      "Campaign & launch design",
+      "Pitch decks & collateral",
+    ],
+  },
+];
+
+// Bigger builds are quoted per project rather than priced off a menu.
+export const biggerBuildSlugs = ["apps", "ai"];
+
 // Services with real proof behind them are led with on the home page.
 export const coreServiceSlugs = ["web", "social", "creative"];
 
@@ -591,7 +674,7 @@ export const faqs = [
   {
     question: "How much does a project cost?",
     answer:
-      "A website redesign starts from £350 and a brand new business website from £450. Apps, AI agents and ongoing ad management are priced by scope, with starting prices listed on the Services page. Every quote is agreed in writing before work begins, so you know the full cost up front.",
+      "A website redesign starts from £350 and a brand new business website from £450. Content and ad options have starting prices on the Services page, and apps and AI agents are quoted per project. Every quote is agreed in writing before work begins, so you know the full cost up front.",
   },
   {
     question: "How long does a website take?",
@@ -1082,6 +1165,7 @@ export const helpOptions = [
   "Ad creative & branding",
   "Social media",
   "SEO & analytics",
+  "Fashion, music or sport content",
   "Not sure yet",
 ] as const;
 
