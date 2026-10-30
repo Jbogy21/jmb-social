@@ -9,7 +9,7 @@ export default function VideoCard({ video }: { video: ProjectVideo }) {
   const ratio = video.aspect === "4/5" ? "aspect-[4/5]" : "aspect-[9/16]";
 
   return (
-    <figure>
+    <figure className={video.aspect === "9/16" ? "mx-auto w-full max-w-[440px]" : undefined}>
       <div className={`relative overflow-hidden bg-ink ${ratio}`}>
         {playing ? (
           <video

@@ -698,24 +698,24 @@ export type Project = {
 
 const wheelersReels: ProjectVideo[] = [
   {
-    src: "/work/video/reel-cam-belt.mp4",
-    poster: "/work/video/reel-cam-belt.jpg",
+    src: "/work/video/reel-cam-belt-hq.mp4",
+    poster: "/work/video/reel-cam-belt-sharp.jpg",
     title: "VW cam belt: change before 140,000 miles?",
     caption: "A worn belt, held up to the camera.",
     views: "52.6K",
     aspect: "9/16",
   },
   {
-    src: "/work/video/reel-guess-the-car.mp4",
-    poster: "/work/video/reel-guess-the-car.jpg",
+    src: "/work/video/reel-guess-the-car-hq.mp4",
+    poster: "/work/video/reel-guess-the-car-sharp.jpg",
     title: "Guess the car",
     caption: "A corroded suspension arm that was caught in time.",
     views: "45.9K",
     aspect: "9/16",
   },
   {
-    src: "/work/video/reel-reliable-unreliable.mp4",
-    poster: "/work/video/reel-reliable-unreliable.jpg",
+    src: "/work/video/reel-reliable-unreliable-hq.mp4",
+    poster: "/work/video/reel-reliable-unreliable-sharp.jpg",
     title: "Reliable or unreliable?",
     caption: "The mechanic sorts car brands, with no sales pitch.",
     views: "12.7K",

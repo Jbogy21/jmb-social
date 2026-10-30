@@ -6,7 +6,7 @@ export default function WhatsAppButton() {
       href={siteConfig.whatsappHref}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Message JMB Social on WhatsApp"
+      aria-label="WhatsApp: message JMB Social"
       className="font-mono-label group fixed bottom-5 right-5 z-40 inline-flex items-center gap-2.5 bg-green px-4 py-3.5 text-[11px] text-cream shadow-[0_14px_30px_-12px_rgba(38,46,25,0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink"
     >
       <svg
