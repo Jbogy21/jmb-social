@@ -13,6 +13,7 @@
   --color-sage: #a7ab8f;
   --color-signal: #e4572e;
   --color-signal-deep: #c9471f;
+  --color-signal-soft: #f0724a;
   --color-line: rgba(28, 27, 22, 0.16);
   --color-line-on-green: rgba(236, 226, 200, 0.18);
   --color-cream-70: rgba(236, 226, 200, 0.8);
@@ -32,6 +33,7 @@
   --color-sage: var(--color-sage);
   --color-signal: var(--color-signal);
   --color-signal-deep: var(--color-signal-deep);
+  --color-signal-soft: var(--color-signal-soft);
   --color-line: var(--color-line);
   --color-line-on-green: var(--color-line-on-green);
   --color-cream-70: var(--color-cream-70);
@@ -182,6 +184,21 @@ body {
 /* ---- Entrance (home page, first visit per session) ---- */
 html.intro-active {
   --intro-delay: 2.4s;
+}
+
+/* While the entrance plays, hero content slides into place without fading,
+   so text is never see-through (keeps contrast checks and readers happy). */
+@keyframes reveal-move {
+  from {
+    transform: translateY(1.25rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+html.intro-active .hero-reveal {
+  animation-name: reveal-move;
 }
 
 .intro-overlay {

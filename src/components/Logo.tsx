@@ -14,7 +14,7 @@ export function NavLogo({ tone = "ink" }: { tone?: Tone }) {
     <Link href="/" className="flex items-baseline gap-2.5" aria-label="JMB Social home">
       <span className={`font-display text-2xl font-semibold tracking-tight ${c.primary}`}>
         JMB
-      </span>
+      </span>{" "}
       <span className={`font-mono-label text-[11px] ${c.secondary}`}>Social</span>
     </Link>
   );

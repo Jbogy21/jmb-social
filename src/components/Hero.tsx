@@ -72,7 +72,7 @@ export default function Hero() {
                 <h2 className="font-display max-w-md text-3xl font-medium leading-[1.08] sm:text-4xl">
                   Content and portfolios for the <em className="text-signal">creative</em> side.
                 </h2>
-                <span className="font-mono-label mt-6 inline-flex items-center gap-2 text-[11px] text-signal transition-all duration-300 group-hover:gap-3">
+                <span className="font-mono-label mt-6 inline-flex items-center gap-2 text-[11px] text-signal-soft transition-all duration-300 group-hover:gap-3">
                   Enter the creative side <span aria-hidden="true">→</span>
                 </span>
               </div>
