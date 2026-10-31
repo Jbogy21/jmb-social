@@ -11,7 +11,7 @@ export default function ReelsShowcase({ index = "03" }: { index?: string }) {
   const combined = project.metrics?.[0];
 
   return (
-    <section className="border-b border-line bg-cream-2/50 py-24 md:py-32">
+    <section id="reels" className="scroll-mt-20 border-b border-line bg-cream-2/50 py-16 sm:py-24 md:py-32">
       <div className="container-edge">
         <RevealOnScroll className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>

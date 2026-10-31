@@ -15,9 +15,9 @@ export const siteConfig = {
     "https://wa.me/447847743022?text=Hi%20JMB%20Social%2C%20I%27d%20like%20to%20talk%20about%20a%20project.",
   foundedYear: "2026",
   description:
-    "JMB Social is a founder-led studio building websites, short-form video and ads for independent local businesses across Sussex, Surrey and London, with apps and AI agents on request.",
+    "JMB Social is a founder-led studio building websites, short-form video and ads for independent local businesses, and content and portfolios for emerging models, artists and athletes.",
   heroDescription:
-    "JMB Social builds websites, short-form video and ads for independent local businesses, so more of the right people find you, trust you and get in touch.",
+    "I'm Jackson. I make websites, short-form video and ads for local businesses, and content for people building a name in fashion, music and sport.",
   social: {
     instagram: "https://www.instagram.com/jmb_social/",
     linkedin: "https://www.linkedin.com/in/jackson-booker-214874427",
@@ -25,9 +25,9 @@ export const siteConfig = {
 };
 
 export const navLinks = [
-  { label: "Work", href: "/work" },
-  { label: "Services", href: "/services" },
+  { label: "Local business", href: "/local-business" },
   { label: "Creative", href: "/creative" },
+  { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
@@ -529,6 +529,99 @@ export const biggerBuildSlugs = ["apps", "ai"];
 
 // Services with real proof behind them are led with on the home page.
 export const coreServiceSlugs = ["web", "social", "creative"];
+
+/* -------------------------------------------------------------------------- */
+/*  Service stage (home page + Services page)                                 */
+/*  One service is shown at a time, with a short list underneath.             */
+/* -------------------------------------------------------------------------- */
+
+export type StagePanel = {
+  slug: string;
+  number: string;
+  title: string;
+  blurb: string;
+  items: { label: string; href: string }[];
+  cta: { label: string; href: string };
+  tone: "green" | "deep" | "khaki" | "signal";
+  exhibit:
+    | { kind: "image"; src: string; alt: string; caption: string; aspect: string }
+    | { kind: "stat"; value: string; label: string }
+    | { kind: "note"; label: string; text: string };
+};
+
+const pillarItems = (slug: string) =>
+  (servicePillars.find((pillar) => pillar.slug === slug)?.headline ?? []).map((label) => ({
+    label,
+    href: `/services#${slug}`,
+  }));
+
+export const stagePanels: StagePanel[] = [
+  {
+    slug: "web",
+    number: "01",
+    title: "Websites",
+    blurb: "Built to be found, trusted and called. Fast, mobile-first and clear.",
+    items: pillarItems("web"),
+    cta: { label: "Options & prices", href: "/services#web" },
+    tone: "green",
+    exhibit: {
+      kind: "image",
+      src: "/work/cmbooker-home.jpg",
+      alt: "The C M Booker website, designed and built by JMB Social",
+      caption: "C M Booker · furniture restoration",
+      aspect: "16/9",
+    },
+  },
+  {
+    slug: "social",
+    number: "02",
+    title: "Content & social",
+    blurb: "Reels, TikToks and posts planned, shot, edited and posted for you.",
+    items: pillarItems("social"),
+    cta: { label: "Options & prices", href: "/services#social" },
+    tone: "deep",
+    exhibit: {
+      kind: "stat",
+      value: "111.2K",
+      label: "Combined views across three Reels made for a local garage",
+    },
+  },
+  {
+    slug: "ads",
+    number: "03",
+    title: "Ads & brand",
+    blurb: "Ads set up, tested and reported on honestly, with matching creative.",
+    items: pillarItems("ads"),
+    cta: { label: "Options & prices", href: "/services#ads" },
+    tone: "khaki",
+    exhibit: {
+      kind: "image",
+      src: "/work/video/ad-general-poster.jpg",
+      alt: "An animated ad creative made for JMB Social's own outreach",
+      caption: "Ad creative · JMB Social outreach",
+      aspect: "4/5",
+    },
+  },
+  {
+    slug: "creative",
+    number: "04",
+    title: "Fashion, music & sport",
+    blurb: "Portfolio sites, content and a plan for your Instagram.",
+    items: [
+      { label: "Portfolio & comp-card sites", href: "/creative" },
+      { label: "Lookbook & Reels", href: "/creative" },
+      { label: "Release rollouts", href: "/creative" },
+      { label: "Instagram setup & planning", href: "/creative" },
+    ],
+    cta: { label: "The creative side", href: "/creative" },
+    tone: "signal",
+    exhibit: {
+      kind: "note",
+      label: "First collaboration · In production",
+      text: "A starter portfolio and an Instagram, built with an emerging model. The results go on the Creative page as they are finished.",
+    },
+  },
+];
 
 export type ServicePackage = {
   name: string;
@@ -1091,7 +1184,7 @@ export const founder = {
   photoAlt: "Jackson Booker, founder of JMB Social",
   intro: "Hi, I'm Jackson.",
   story: [
-    "I run JMB Social. I build websites, short-form video and ads for independent local businesses, and I answer every message myself.",
+    "I run JMB Social. I build websites, short-form video and ads for independent local businesses, and content for people building a name in fashion, music and sport. I answer every message myself.",
     "My first projects were for real businesses I know: a garage in Cowfold, a furniture restoration workshop and a tree care company. This summer I interned at Class Agency, where I learned how a working agency scopes and delivers client work.",
     "If you'd like to talk about a project, or just want an honest second opinion on your website, message me.",
   ],

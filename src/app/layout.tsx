@@ -86,14 +86,24 @@ const organizationSchema = {
   sameAs: [siteConfig.social.instagram, siteConfig.social.linkedin].filter(Boolean),
 };
 
+// Runs before first paint. On the home page only: the first visit in a session plays the
+// entrance, later loads skip it. The page content is already in the HTML underneath.
+const introScript = `try{var h=document.documentElement;if(location.pathname==='/'){if(!sessionStorage.getItem('jmb-intro')){h.classList.add('intro-active','intro-ran')}else{h.classList.add('intro-seen')}}}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-GB" suppressHydrationWarning className={`${newsreader.variable} ${inter.variable} ${plexMono.variable}`}>
+    <html
+      lang="en-GB"
+      suppressHydrationWarning
+      data-scroll-behavior="smooth"
+      className={`${newsreader.variable} ${inter.variable} ${plexMono.variable}`}
+    >
       <body className="flex min-h-screen flex-col bg-cream text-ink antialiased">
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

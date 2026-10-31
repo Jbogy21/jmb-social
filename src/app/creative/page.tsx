@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { projects, serviceFamilies, cadenceLabel } from "@/lib/data";
+import { serviceFamilies, cadenceLabel } from "@/lib/data";
 import SectionLabel from "@/components/SectionLabel";
 import RevealOnScroll from "@/components/RevealOnScroll";
-import ProjectCard from "@/components/ProjectCard";
 import { Button } from "@/components/Button";
 import { siteConfig } from "@/lib/data";
 
@@ -87,11 +86,26 @@ const steps = [
   },
 ];
 
-export default function CreativePage() {
-  const proof = ["wheelers-autoworks", "jmb-social-ad-creative"]
-    .map((slug) => projects.find((p) => p.slug === slug))
-    .filter((p): p is NonNullable<typeof p> => Boolean(p));
+const collaboration = [
+  {
+    label: "What I'm making",
+    text: "A set of edited portfolio photos, short Reels, and an Instagram that is set up and planned.",
+  },
+  {
+    label: "How",
+    text: "On location in natural light, with one camera and a tripod. No studio and no budget, so the planning does the work.",
+  },
+  {
+    label: "What you'll see here",
+    text: "The finished photos, the Reels with their real view counts and how the Instagram grows. Only real numbers, and nothing goes up until it's final.",
+  },
+  {
+    label: "Ground rules",
+    text: "A collaboration, not a client job, agreed in writing first. The model approves everything before it's public and can ask for anything to come down.",
+  },
+];
 
+export default function CreativePage() {
   return (
     <>
       <section className="grain relative overflow-hidden border-b border-line-on-green bg-green-deep text-cream">
@@ -114,7 +128,7 @@ export default function CreativePage() {
                 emerging designers, models, artists and athletes.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
-                <Button href="/contact" variant="signal">
+                <Button href="/contact?for=creative" variant="signal">
                   Start a creative project
                 </Button>
                 <Button href="#lanes" variant="ghost">
@@ -153,7 +167,7 @@ export default function CreativePage() {
           <div className="mt-16 grid gap-4 md:grid-cols-3">
             {lanes.map((lane, position) => (
               <RevealOnScroll key={lane.title} delay={position * 80}>
-                <div className="flex h-full flex-col justify-between gap-10 border border-ink/25 bg-cream-2 p-8 transition-colors duration-300 hover:border-ink">
+                <div className="group relative flex h-full flex-col justify-between gap-10 overflow-hidden border border-ink/25 bg-cream-2 p-8 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] before:absolute before:inset-x-0 before:top-0 before:h-1.5 before:origin-left before:scale-x-0 before:bg-signal before:transition-transform before:duration-500 hover:z-10 hover:-translate-y-3 hover:scale-[1.03] hover:border-ink hover:bg-cream hover:shadow-[0_32px_56px_-24px_rgba(28,27,22,0.55)] hover:before:scale-x-100 motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100">
                   <div>
                     <span className="font-mono-label text-[11px] text-ink-70">{lane.number}</span>
                     <h3 className="font-display mt-4 text-3xl font-medium leading-tight text-ink">
@@ -163,7 +177,10 @@ export default function CreativePage() {
                     <ul className="mt-6 flex flex-col gap-2.5 border-t border-line pt-5">
                       {lane.items.map((item) => (
                         <li key={item} className="flex gap-3 text-sm text-ink-70">
-                          <span aria-hidden="true" className="mt-[7px] h-2 w-2 shrink-0 rounded-full bg-signal" />
+                          <span
+                            aria-hidden="true"
+                            className="mt-[7px] h-2 w-2 shrink-0 rounded-full bg-signal transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-150"
+                          />
                           {item}
                         </li>
                       ))}
@@ -187,29 +204,38 @@ export default function CreativePage() {
           </RevealOnScroll>
           <RevealOnScroll className="md:col-span-7">
             <p className="max-w-xl text-lg leading-relaxed text-ink-70">
-              My proof so far is local business: websites for a garage, a
-              furniture workshop and a tree care firm, and Reels that reached
-              111.2K views between them. The creative portfolio is the next
-              chapter, and I&rsquo;m building it with emerging models,
-              designers and artists.
+              The creative side is new, so I won&rsquo;t dress it up. I&rsquo;m
+              building it properly, starting with a first collaboration, and
+              the results go on this page as they&rsquo;re finished.
             </p>
             <div className="mt-10 border border-ink bg-cream p-8">
               <p className="font-mono-label flex items-center gap-2.5 text-[11px] text-ink">
                 <span className="h-2 w-2 rounded-full bg-signal" aria-hidden="true" />
-                Collaboration projects
+                First collaboration · In production
               </p>
               <p className="font-display mt-4 text-2xl font-medium leading-snug text-ink">
-                I&rsquo;m taking on a small number of collaborations to build the
-                creative portfolio.
+                A starter portfolio and an Instagram, built with an emerging model.
               </p>
-              <p className="mt-4 max-w-lg text-sm leading-relaxed text-ink-70">
-                You get professional-quality content or a portfolio site at a
-                reduced rate. In return I ask for permission to feature the
-                work. Everything is agreed in writing first, and you approve
-                what goes public.
+              <dl className="mt-8 border-t border-line">
+                {collaboration.map((item) => (
+                  <div
+                    key={item.label}
+                    className="grid gap-2 border-b border-line py-5 sm:grid-cols-[9rem_1fr] sm:gap-6"
+                  >
+                    <dt className="font-mono-label text-[11px] text-ink-70">{item.label}</dt>
+                    <dd className="text-sm leading-relaxed text-ink-70">{item.text}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="mt-8 max-w-lg text-sm leading-relaxed text-ink-70">
+                Want to be next? I&rsquo;m taking on a small number of
+                collaborations. You get professional-quality content or a
+                portfolio site at a reduced rate, and in return I ask for
+                permission to feature the work. Everything is agreed in writing
+                first.
               </p>
-              <div className="mt-8">
-                <Button href="/contact" variant="primary">
+              <div className="mt-6">
+                <Button href="/contact?for=creative" variant="primary">
                   Propose a collaboration
                 </Button>
               </div>
@@ -221,25 +247,7 @@ export default function CreativePage() {
       <section className="border-b border-line py-24 md:py-32">
         <div className="container-edge">
           <RevealOnScroll>
-            <SectionLabel index="03" label="Proof so far" />
-            <h2 className="font-display mt-6 max-w-2xl text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
-              Short-form and motion work I can already show.
-            </h2>
-          </RevealOnScroll>
-          <div className="mt-14 grid gap-x-8 gap-y-16 md:grid-cols-2">
-            {proof.map((project, position) => (
-              <RevealOnScroll key={project.slug} delay={position * 80}>
-                <ProjectCard project={project} size="regular" />
-              </RevealOnScroll>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-b border-line py-24 md:py-32">
-        <div className="container-edge">
-          <RevealOnScroll>
-            <SectionLabel index="04" label="How it works" />
+            <SectionLabel index="03" label="How it works" />
           </RevealOnScroll>
           <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
             {steps.map((step, position) => (
@@ -266,7 +274,7 @@ export default function CreativePage() {
               needs to land. I&rsquo;ll reply within a couple of working days.
             </p>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
-              <Button href="/contact" variant="signal">
+              <Button href="/contact?for=creative" variant="signal">
                 Start a creative project
               </Button>
               <a
@@ -280,10 +288,10 @@ export default function CreativePage() {
             </div>
             <p className="mt-8">
               <Link
-                href="/"
+                href="/local-business"
                 className="font-mono-label underline-hover text-[11px] text-cream-70 hover:text-cream"
               >
-                ← Back to the local business side
+                Need a website or Reels for a local business? →
               </Link>
             </p>
           </RevealOnScroll>

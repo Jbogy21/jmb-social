@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteConfig, projects } from "@/lib/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/services", "/work", "/creative", "/about", "/contact", "/privacy"].map((path) => ({
+  const staticRoutes = ["", "/local-business", "/creative", "/services", "/work", "/about", "/contact", "/privacy"].map((path) => ({
     url: `${siteConfig.url}${path}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,

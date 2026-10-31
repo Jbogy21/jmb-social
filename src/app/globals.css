@@ -197,7 +197,10 @@ html.intro-active {
   }
 }
 
-html.intro-active .hero-reveal {
+/* intro-ran stays on after the entrance ends, so the animation is not swapped
+   (and restarted from invisible) the moment the overlay is removed. */
+html.intro-active .hero-reveal,
+html.intro-ran .hero-reveal {
   animation-name: reveal-move;
 }
 
@@ -208,9 +211,27 @@ html.intro-active .hero-reveal {
   display: none;
   align-items: center;
   justify-content: center;
-  background: var(--color-green-deep);
   color: var(--color-cream);
-  animation: intro-wipe 0.85s cubic-bezier(0.77, 0, 0.18, 1) 2.15s forwards;
+  animation: intro-gone 0.01s linear 3.1s forwards;
+}
+
+/* Two doors that part to reveal the choice screen. */
+.intro-door {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.5%;
+  background: var(--color-green-deep);
+}
+
+.intro-door-l {
+  left: 0;
+  animation: intro-door-l 0.9s cubic-bezier(0.77, 0, 0.18, 1) 2.15s forwards;
+}
+
+.intro-door-r {
+  right: 0;
+  animation: intro-door-r 0.9s cubic-bezier(0.77, 0, 0.18, 1) 2.15s forwards;
 }
 
 .intro-overlay::after {
@@ -224,10 +245,13 @@ html.intro-active .hero-reveal {
 }
 
 .intro-mark {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.25rem;
+  animation: intro-mark-out 0.45s ease 1.85s forwards;
 }
 
 .intro-word {
@@ -322,8 +346,20 @@ html.intro-active .intro-skip {
   to { opacity: 1; }
 }
 
-@keyframes intro-wipe {
-  to { transform: translateY(-101%); visibility: hidden; }
+@keyframes intro-door-l {
+  to { transform: translateX(-101%); }
+}
+
+@keyframes intro-door-r {
+  to { transform: translateX(101%); }
+}
+
+@keyframes intro-mark-out {
+  to { opacity: 0; transform: scale(1.04); }
+}
+
+@keyframes intro-gone {
+  to { visibility: hidden; pointer-events: none; }
 }
 
 @keyframes intro-skip-out {
@@ -338,6 +374,69 @@ html.intro-active .intro-skip {
 
   html.intro-active {
     --intro-delay: 0s;
+  }
+}
+
+/* ---- Home: choice screen and scroll effects ---- */
+.rise-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0 0.06em 0.14em;
+  margin: 0 -0.06em -0.14em;
+}
+
+.rise-word {
+  display: inline-block;
+  transform: translateY(112%);
+  animation: rise 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rise {
+  to { transform: translateY(0); }
+}
+
+.pop {
+  animation: pop 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--intro-delay, 0s) + 250ms);
+}
+
+@keyframes pop {
+  from { scale: 0.4; }
+  to { scale: 1; }
+}
+
+/* Scroll-linked effects (Chrome, Edge, Safari 26+); other browsers just show the
+   final state. The dimmest word stays above the large-text contrast minimum. */
+@keyframes lit {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+@supports (animation-timeline: view()) {
+  .lit-word {
+    animation: lit linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 42%;
+  }
+
+  .marquee-track.marquee-scroll {
+    animation: marquee linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-word {
+    animation: none;
+    transform: none;
+  }
+
+  .pop,
+  .lit-word,
+  .marquee-track.marquee-scroll {
+    animation: none;
   }
 }
 

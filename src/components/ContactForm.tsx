@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useSyncExternalStore, type FormEvent } from "react";
 import Link from "next/link";
 import { Button } from "./Button";
 import { helpOptions, budgetOptions, christmasOffer } from "@/lib/data";
 
 type Status = "idle" | "submitting" | "success" | "error";
+
+const subscribeNothing = () => () => {};
 
 const inputClasses =
   "w-full border-b border-line bg-transparent py-3 text-base text-ink placeholder:text-ink-50 focus:border-ink focus:outline-none";
@@ -13,11 +15,21 @@ const inputClasses =
 export default function ContactForm({ offerActive = false }: { offerActive?: boolean }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [helpNeeded, setHelpNeeded] = useState<string[]>([]);
+  const [picked, setPicked] = useState<string[] | null>(null);
+
+  // Arriving from the Creative side pre-selects that need and adjusts the prompt.
+  const forCreative = useSyncExternalStore(
+    subscribeNothing,
+    () => new URLSearchParams(window.location.search).get("for") === "creative",
+    () => false
+  );
+  const helpNeeded = picked ?? (forCreative ? ["Fashion, music or sport content"] : []);
 
   function toggleHelp(option: string) {
-    setHelpNeeded((prev) =>
-      prev.includes(option) ? prev.filter((item) => item !== option) : [...prev, option]
+    setPicked(
+      helpNeeded.includes(option)
+        ? helpNeeded.filter((item) => item !== option)
+        : [...helpNeeded, option]
     );
   }
 
@@ -53,7 +65,7 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
 
       setStatus("success");
       form.reset();
-      setHelpNeeded([]);
+      setPicked([]);
     } catch (error) {
       setStatus("error");
       setErrorMessage(
@@ -70,7 +82,7 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
           Thanks — that&apos;s with us.
         </h3>
         <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ink-70">
-          We read every enquiry personally and reply within one to two working
+          I read every enquiry myself and reply within one to two working
           days. Speak soon.
         </p>
       </div>
@@ -123,7 +135,14 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
         </div>
       </fieldset>
 
-      <Field label="Tell us a bit about the project" htmlFor="details">
+      <Field
+        label={
+          forCreative
+            ? "Tell me about you and what you're building"
+            : "Tell me a bit about the project"
+        }
+        htmlFor="details"
+      >
         <textarea
           id="details"
           name="details"

@@ -9,7 +9,7 @@ export default function Testimonials({ index = "—" }: { index?: string }) {
   const columns = testimonials.length <= 2 ? "md:grid-cols-2" : "md:grid-cols-3";
 
   return (
-    <section className="border-b border-line py-24 md:py-32">
+    <section className="border-b border-line py-16 sm:py-24 md:py-32">
       <div className="container-edge">
         <RevealOnScroll>
           <SectionLabel index={index} label="In their words" />

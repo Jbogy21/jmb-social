@@ -1,14 +1,13 @@
 import IntroSkip from "./IntroSkip";
 
-// Runs before first paint: first visit in a session plays the entrance, later
-// loads skip it. The page content is already in the HTML underneath.
-const decide = `try{var s=sessionStorage.getItem('jmb-intro');if(!s){document.documentElement.classList.add('intro-active')}else{document.documentElement.classList.add('intro-seen')}}catch(e){document.documentElement.classList.add('intro-seen')}`;
-
+// The decision script that adds `intro-active` lives in the root layout so it runs
+// once per page load (React will not run scripts rendered during navigation).
 export default function Intro() {
   return (
     <>
-      <script dangerouslySetInnerHTML={{ __html: decide }} />
       <div className="intro-overlay" aria-hidden="true">
+        <span className="intro-door intro-door-l" />
+        <span className="intro-door intro-door-r" />
         <div className="intro-mark">
           <p className="intro-word">
             <span className="intro-letter">J</span>

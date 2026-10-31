@@ -11,8 +11,9 @@ export default function Footer() {
         <div className="max-w-sm">
           <StackedLogo />
           <p className="mt-6 text-sm leading-relaxed text-cream-70">
-            A founder-led studio for websites, apps, AI agents and paid media,
-            designed to work together and built to grow your business.
+            Websites, short-form video and ads for local businesses, and
+            content and portfolios for people building a name in fashion,
+            music and sport.
           </p>
         </div>
 

@@ -6,7 +6,7 @@ import { siteConfig, isChristmasOfferActive } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Start a project with JMB Social: tell us what you need help with and we'll come back to you within one to two working days. Call, WhatsApp, email or use the form.",
+    "Start a project with JMB Social: tell me what you need help with and I'll come back to you within one to two working days. Call, WhatsApp, email or use the form.",
   alternates: { canonical: "/contact" },
 };
 
@@ -20,9 +20,10 @@ export default function ContactPage() {
             Let&rsquo;s make something good.
           </h1>
           <p className="mt-8 max-w-sm text-base leading-relaxed text-ink-70">
-            Tell us about the business and what you need: a new site, an app,
-            an AI agent, ad management or something in between. We read every
-            enquiry personally and reply within one to two working days.
+            Tell me about the business or the project and what you need: a
+            website, Reels, ads, content for your name in fashion, music or
+            sport, or something in between. I read every enquiry myself and
+            reply within one to two working days.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row md:flex-col lg:flex-row">
             <a

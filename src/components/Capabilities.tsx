@@ -1,29 +1,30 @@
 import Link from "next/link";
-import { serviceFamilies, coreServiceSlugs } from "@/lib/data";
+import { serviceFamilies, coreServiceSlugs, type Cadence } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
 import RevealOnScroll from "./RevealOnScroll";
 import ServiceIcon from "./ServiceIcon";
 import { Button } from "./Button";
 
+const unit: Record<Cadence, string> = { project: "", month: "/mo", pack: "/pack" };
+
 export default function Capabilities({ index = "03" }: { index?: string }) {
   const core = coreServiceSlugs
     .map((slug) => serviceFamilies.find((family) => family.slug === slug))
     .filter((family): family is NonNullable<typeof family> => Boolean(family));
-  const others = serviceFamilies.filter((family) => !coreServiceSlugs.includes(family.slug));
 
   return (
-    <section className="border-b border-line py-24 md:py-32">
+    <section className="border-b border-line py-16 sm:py-24 md:py-32">
       <div className="container-edge">
         <RevealOnScroll className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <SectionLabel index={index} label="What I do" />
             <h2 className="font-display mt-6 max-w-2xl text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
-              Three things done properly for local businesses.
+              Three things, done properly.
             </h2>
           </div>
           <p className="max-w-xs text-sm leading-relaxed text-ink-70">
             Websites, short-form content and ad creative are what I have the
-            proof for. Bigger builds are available on request.
+            proof for, with starting prices shown up front.
           </p>
         </RevealOnScroll>
 
@@ -50,11 +51,20 @@ export default function Capabilities({ index = "03" }: { index?: string }) {
                     {family.title}
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-cream-70">{family.tagline}</p>
-                  <ul className="mt-5 flex flex-col gap-1.5 border-t border-line-on-green pt-4 text-[13px] text-cream-70">
+                  <p className="font-mono-label mt-5 border-t border-line-on-green pt-4 text-[11px] text-cream-70">
+                    Starting prices
+                  </p>
+                  <ul className="mt-3 flex flex-col gap-2 text-[13px] text-cream-70">
                     {family.variants.slice(0, 3).map((variant) => (
-                      <li key={variant.name} className="flex gap-2.5">
-                        <span aria-hidden="true" className="mt-[9px] h-px w-3 shrink-0 bg-sage" />
-                        {variant.name}
+                      <li key={variant.name} className="flex items-baseline justify-between gap-3">
+                        <span className="flex gap-2.5">
+                          <span aria-hidden="true" className="mt-[9px] h-px w-3 shrink-0 bg-sage" />
+                          {variant.name}
+                        </span>
+                        <span className="font-mono-label shrink-0 text-[11px] text-cream">
+                          {variant.price}
+                          {unit[variant.cadence]}
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -88,33 +98,16 @@ export default function Capabilities({ index = "03" }: { index?: string }) {
           </RevealOnScroll>
         </div>
 
-        <RevealOnScroll className="mt-14">
-          <p className="font-mono-label text-[11px] text-ink-70">Also available</p>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {others.map((family) => (
-              <Link
-                key={family.slug}
-                href={`/services#${family.slug}`}
-                className="group flex items-start gap-4 border border-line p-5 transition-colors duration-300 hover:border-ink hover:bg-cream-2"
-              >
-                <ServiceIcon slug={family.slug} size={26} className="mt-0.5 shrink-0 text-ink-70" />
-                <span>
-                  <span className="font-display block text-xl font-medium leading-tight text-ink">
-                    {family.shortTitle}
-                  </span>
-                  <span className="mt-1.5 block text-sm leading-relaxed text-ink-70">
-                    {family.tagline}
-                  </span>
-                </span>
-              </Link>
-            ))}
-          </div>
-        </RevealOnScroll>
-
-        <RevealOnScroll className="mt-12">
+        <RevealOnScroll className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
           <Button href="/services" variant="secondary">
             See every service and price
           </Button>
+          <Link
+            href="/services#bigger-builds"
+            className="font-mono-label underline-hover text-[11px] text-ink-70 hover:text-ink"
+          >
+            Need an app or an AI agent? Quoted per project →
+          </Link>
         </RevealOnScroll>
       </div>
     </section>

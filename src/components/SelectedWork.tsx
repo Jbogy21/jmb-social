@@ -4,22 +4,28 @@ import SectionLabel from "./SectionLabel";
 import { Button } from "./Button";
 import RevealOnScroll from "./RevealOnScroll";
 
-export default function SelectedWork() {
-  const featured = projects.slice(0, 4);
+export default function SelectedWork({
+  index = "02",
+  limit = 4,
+}: {
+  index?: string;
+  limit?: number;
+}) {
+  const featured = projects.slice(0, limit);
 
   return (
-    <section id="work" className="scroll-mt-20 border-b border-line py-24 md:py-32">
+    <section id="work" className="scroll-mt-20 border-b border-line py-16 sm:py-24 md:py-32">
       <div className="container-edge">
         <RevealOnScroll className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
-            <SectionLabel index="02" label="Selected work" />
+            <SectionLabel index={index} label="Selected work" />
             <h2 className="font-display mt-6 max-w-xl text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
               Work that shows the standard.
             </h2>
           </div>
           <p className="max-w-xs text-sm leading-relaxed text-ink-70">
             Websites, short-form video and ad creative for independent
-            businesses across Sussex, Surrey and London, plus our own studio
+            businesses across Sussex, Surrey and London, plus my own studio
             work.
           </p>
         </RevealOnScroll>

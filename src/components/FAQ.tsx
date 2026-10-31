@@ -2,9 +2,17 @@ import { faqs } from "@/lib/data";
 import SectionLabel from "./SectionLabel";
 import RevealOnScroll from "./RevealOnScroll";
 
-export default function FAQ({ index = "08" }: { index?: string }) {
+export default function FAQ({
+  index = "08",
+  omit = [],
+}: {
+  index?: string;
+  omit?: string[];
+}) {
+  const items = faqs.filter((item) => !omit.some((text) => item.question.includes(text)));
+
   return (
-    <section className="border-b border-line py-24 md:py-32">
+    <section className="border-b border-line py-16 sm:py-24 md:py-32">
       <div className="container-edge grid gap-10 md:grid-cols-12 md:gap-8">
         <RevealOnScroll className="md:col-span-4">
           <SectionLabel index={index} label="Questions" />
@@ -15,7 +23,7 @@ export default function FAQ({ index = "08" }: { index?: string }) {
 
         <RevealOnScroll className="md:col-span-8">
           <div className="border-t border-line">
-            {faqs.map((item) => (
+            {items.map((item) => (
               <details key={item.question} className="group border-b border-line">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-left [&::-webkit-details-marker]:hidden">
                   <span className="font-display text-xl font-medium leading-snug text-ink sm:text-2xl">

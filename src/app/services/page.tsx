@@ -5,8 +5,10 @@ import {
   servicePillars,
   biggerBuildSlugs,
   cadenceLabel,
+  stagePanels,
   type ServiceVariant,
 } from "@/lib/data";
+import ServiceStage from "@/components/ServiceStage";
 import SectionLabel from "@/components/SectionLabel";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import { Button } from "@/components/Button";
@@ -119,6 +121,8 @@ export default function ServicesPage() {
           </nav>
         </div>
       </section>
+
+      <ServiceStage panels={stagePanels} />
 
       {servicePillars.map((pillar) => {
         const headline = resolve(pillar.headline);
