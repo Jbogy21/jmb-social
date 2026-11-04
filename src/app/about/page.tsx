@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SectionLabel from "@/components/SectionLabel";
+import PageHero from "@/components/PageHero";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import FounderCard from "@/components/FounderCard";
 import Principles from "@/components/Principles";
@@ -39,18 +40,18 @@ const disciplines = [
 export default function AboutPage() {
   return (
     <>
-      <section className="border-b border-line py-20 md:py-28">
+      <PageHero>
         <div className="container-edge grid gap-12 md:grid-cols-2 md:gap-16">
           <div>
-            <SectionLabel label="About" />
-            <h1 className="font-display mt-6 text-5xl font-medium leading-[1.05] text-ink sm:text-6xl">
-              Built to be hands-on.
+            <SectionLabel label="About" tone="cream" />
+            <h1 className="mt-6 font-sans text-[clamp(2.6rem,6.4vw,5.5rem)] font-light leading-[0.98] tracking-[-0.045em] text-cream [text-shadow:0_2px_30px_rgba(10,12,8,0.35)]">
+              Built to be <span className="font-display whitespace-nowrap font-normal italic tracking-[-0.03em] text-[#f1e3b0]">hands-on.</span>
             </h1>
-            <p className="mt-8 max-w-md text-lg leading-relaxed text-ink-70">
+            <p className="mt-8 max-w-md text-lg leading-relaxed text-cream/85">
               JMB Social is a founder-led studio for businesses that want to
               look better, work smarter and grow faster online.
             </p>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-ink-70">
+            <p className="mt-5 max-w-md text-base leading-relaxed text-cream/75">
               Great businesses often don&rsquo;t have a product problem —
               they have a presentation, a systems or an attention problem.
               JMB exists to close that gap with design, engineering,
@@ -62,7 +63,7 @@ export default function AboutPage() {
                   href={siteConfig.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono-label underline-hover inline-flex items-center gap-2 text-xs text-ink"
+                  className="font-mono-label underline-hover inline-flex items-center gap-2 text-xs text-cream"
                 >
                   Connect with the founder on LinkedIn ↗
                 </a>
@@ -74,20 +75,20 @@ export default function AboutPage() {
             <FounderCard />
           </div>
         </div>
-      </section>
+      </PageHero>
 
       <section className="border-b border-line py-20 md:py-28">
         <div className="container-edge grid gap-10 md:grid-cols-12 md:gap-8">
           <RevealOnScroll className="md:col-span-4">
             <SectionLabel label="From the founder" />
-            <h2 className="font-display mt-6 text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
+            <h2 className="font-display mt-6 text-4xl font-medium leading-[1.05] text-fg sm:text-5xl">
               {founder.intro}
             </h2>
           </RevealOnScroll>
           <RevealOnScroll className="md:col-span-8">
             <div className="flex max-w-2xl flex-col gap-5">
               {founder.story.map((paragraph) => (
-                <p key={paragraph} className="text-lg leading-relaxed text-ink-70">
+                <p key={paragraph} className="text-lg leading-relaxed text-fg-70">
                   {paragraph}
                 </p>
               ))}
@@ -100,17 +101,18 @@ export default function AboutPage() {
         <div className="container-edge grid gap-10 md:grid-cols-12 md:gap-8">
           <RevealOnScroll className="md:col-span-4">
             <SectionLabel label="Background" />
-            <h2 className="font-display mt-6 text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
+            <h2 className="font-display mt-6 text-4xl font-medium leading-[1.05] text-fg sm:text-5xl">
               Where the work comes from.
             </h2>
           </RevealOnScroll>
           <div className="md:col-span-8">
             <ul className="border-t border-line">
               {background.map((item, position) => (
-                <RevealOnScroll key={item.org} delay={position * 80}>
-                  <li className="grid gap-3 border-b border-line py-8 sm:grid-cols-[1fr_auto] sm:gap-10">
+                <li key={item.org} className="border-b border-line">
+                  <RevealOnScroll delay={position * 80}>
+                    <div className="grid gap-3 py-8 sm:grid-cols-[1fr_auto] sm:gap-10">
                     <div>
-                      <h3 className="font-display text-2xl font-medium leading-tight text-ink">
+                      <h3 className="font-display text-2xl font-medium leading-tight text-fg">
                         {item.role},{" "}
                         {item.href ? (
                           <a
@@ -125,15 +127,16 @@ export default function AboutPage() {
                           item.org
                         )}
                       </h3>
-                      <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-70">
+                      <p className="mt-3 max-w-xl text-sm leading-relaxed text-fg-70">
                         {item.description}
                       </p>
                     </div>
-                    <p className="font-mono-label text-[11px] text-ink-50 sm:text-right">
+                    <p className="font-mono-label text-[11px] text-fg-50 sm:text-right">
                       {item.dates}
                     </p>
-                  </li>
-                </RevealOnScroll>
+                  </div>
+                  </RevealOnScroll>
+                </li>
               ))}
             </ul>
           </div>
@@ -144,7 +147,7 @@ export default function AboutPage() {
         <div className="container-edge">
           <RevealOnScroll>
             <SectionLabel index="—" label="What it combines" />
-            <h2 className="font-display mt-6 max-w-2xl text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
+            <h2 className="font-display mt-6 max-w-2xl text-4xl font-medium leading-[1.05] text-fg sm:text-5xl">
               Four disciplines, brought together deliberately.
             </h2>
           </RevealOnScroll>
@@ -157,8 +160,8 @@ export default function AboutPage() {
                     index % 2 === 0 ? "sm:border-r" : ""
                   } ${index < disciplines.length - 2 ? "border-b" : ""}`}
                 >
-                  <h3 className="font-display text-2xl font-medium text-ink">{item.title}</h3>
-                  <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-70">
+                  <h3 className="font-display text-2xl font-medium text-fg">{item.title}</h3>
+                  <p className="mt-3 max-w-xs text-sm leading-relaxed text-fg-70">
                     {item.description}
                   </p>
                 </div>
@@ -174,11 +177,11 @@ export default function AboutPage() {
             <SectionLabel label="How we work" />
           </RevealOnScroll>
           <RevealOnScroll className="md:col-span-8">
-            <p className="font-display max-w-2xl text-3xl font-medium leading-[1.2] text-ink sm:text-4xl">
+            <p className="font-display max-w-2xl text-3xl font-medium leading-[1.2] text-fg sm:text-4xl">
               Clients get direct, hands-on attention from the person doing the work, not layers of agency
               account management.
             </p>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-70">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-fg-70">
               Every project is approached with the same principle: understand
               what the business actually needs, design and build it properly,
               then measure the commercial result. Nothing gets handed down a

@@ -6,9 +6,9 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-green text-cream">
-      <div className="container-edge grid gap-12 py-20 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:gap-8 md:py-24">
-        <div className="max-w-sm">
+    <footer className="border-t border-white/10 bg-black/25 text-cream backdrop-blur-sm">
+      <div className="container-edge grid grid-cols-2 gap-x-6 gap-y-12 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:gap-8 md:py-24">
+        <div className="col-span-2 max-w-sm md:col-span-1">
           <StackedLogo />
           <p className="mt-6 text-sm leading-relaxed text-cream-70">
             Websites, short-form video and ads for local businesses, and
@@ -48,7 +48,7 @@ export default function Footer() {
                 href={siteConfig.social.instagram}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="underline-hover inline-flex items-center gap-1.5 text-cream/90 hover:text-cream"
+                className="underline-hover inline-flex! items-center gap-1.5 text-cream/90 hover:text-cream"
               >
                 Instagram
                 <ExternalArrow />
@@ -60,7 +60,7 @@ export default function Footer() {
                   href={siteConfig.social.linkedin}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="underline-hover inline-flex items-center gap-1.5 text-cream/90 hover:text-cream"
+                  className="underline-hover inline-flex! items-center gap-1.5 text-cream/90 hover:text-cream"
                 >
                   LinkedIn
                   <ExternalArrow />
@@ -70,7 +70,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div>
+        <div className="col-span-2 md:col-span-1">
           <p className="font-mono-label text-[11px] text-cream-50">Get in touch</p>
           <a
             href={`mailto:${siteConfig.email}`}
@@ -88,7 +88,7 @@ export default function Footer() {
             href={siteConfig.whatsappHref}
             target="_blank"
             rel="noreferrer noopener"
-            className="underline-hover mt-4 inline-flex items-center gap-1.5 text-cream/90 hover:text-cream"
+            className="underline-hover mt-4 inline-flex! items-center gap-1.5 text-cream/90 hover:text-cream"
           >
             Message on WhatsApp
             <ExternalArrow />

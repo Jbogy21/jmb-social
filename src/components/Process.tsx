@@ -14,9 +14,9 @@ export default function Process({ index = "07" }: { index?: string }) {
           {processSteps.map((step, position) => (
             <RevealOnScroll key={step.number} delay={position * 80}>
               <div className="border-t border-line pt-6">
-                <span className="font-mono-label text-xs text-ink-50">{step.number}</span>
-                <h3 className="font-display mt-3 text-2xl font-medium text-ink">{step.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink-70">{step.description}</p>
+                <span className="font-mono-label text-xs text-fg-50">{step.number}</span>
+                <h3 className="font-display mt-3 text-2xl font-medium text-fg">{step.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-fg-70">{step.description}</p>
               </div>
             </RevealOnScroll>
           ))}

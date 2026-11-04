@@ -4,6 +4,7 @@ import SectionLabel from "./SectionLabel";
 import RevealOnScroll from "./RevealOnScroll";
 import ServiceIcon from "./ServiceIcon";
 import { Button } from "./Button";
+import RiseHeading from "./RiseHeading";
 
 const unit: Record<Cadence, string> = { project: "", month: "/mo", pack: "/pack" };
 
@@ -18,11 +19,9 @@ export default function Capabilities({ index = "03" }: { index?: string }) {
         <RevealOnScroll className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <SectionLabel index={index} label="What I do" />
-            <h2 className="font-display mt-6 max-w-2xl text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
-              Three things, done properly.
-            </h2>
+            <RiseHeading text="Three things, done properly." className="font-display mt-6 max-w-2xl text-4xl font-medium leading-[1.05] text-fg sm:text-5xl" />
           </div>
-          <p className="max-w-xs text-sm leading-relaxed text-ink-70">
+          <p className="max-w-xs text-sm leading-relaxed text-fg-70">
             Websites, short-form content and ad creative are what I have the
             proof for, with starting prices shown up front.
           </p>
@@ -33,7 +32,7 @@ export default function Capabilities({ index = "03" }: { index?: string }) {
             <RevealOnScroll key={family.slug} delay={position * 60}>
               <Link
                 href={`/services#${family.slug}`}
-                className="group relative flex h-full flex-col justify-between gap-10 overflow-hidden bg-green p-7 text-cream transition-all duration-300 hover:-translate-y-1 hover:bg-green-tint hover:shadow-[0_24px_40px_-24px_rgba(38,46,25,0.8)] sm:min-h-[24rem]"
+                className="group relative flex h-full flex-col justify-between gap-10 overflow-hidden rounded-3xl border border-white/12 bg-white/[0.06] p-7 text-cream backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:bg-white/10 hover:shadow-[0_24px_40px_-24px_rgba(0,0,0,0.8)] sm:min-h-[24rem]"
               >
                 <div className="flex items-start justify-between">
                   <span className="font-mono-label text-[11px] text-cream-70">
@@ -79,18 +78,18 @@ export default function Capabilities({ index = "03" }: { index?: string }) {
           <RevealOnScroll delay={core.length * 60}>
             <Link
               href="/contact"
-              className="group flex h-full flex-col justify-between gap-10 border border-ink/25 bg-cream-2 p-7 text-ink transition-all duration-300 hover:-translate-y-1 hover:border-ink hover:bg-cream-3/60 sm:min-h-[24rem]"
+              className="group flex h-full flex-col justify-between gap-10 rounded-3xl border border-white/12 bg-white/[0.03] p-7 text-fg transition-all duration-300 hover:-translate-y-1 hover:border-fg hover:bg-surface-3/60 sm:min-h-[24rem]"
             >
-              <span className="font-mono-label text-[11px] text-ink-70">04</span>
+              <span className="font-mono-label text-[11px] text-fg-70">04</span>
               <div>
                 <h3 className="font-display text-[1.7rem] font-medium leading-[1.1]">
                   Not sure what you need?
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-ink-70">
+                <p className="mt-3 text-sm leading-relaxed text-fg-70">
                   Tell me where the business is stuck and I&rsquo;ll point you to the
                   right starting point, including where not to spend.
                 </p>
-                <span className="font-mono-label mt-6 inline-flex items-center gap-2 text-[11px] text-ink transition-all duration-300 group-hover:gap-3">
+                <span className="font-mono-label mt-6 inline-flex items-center gap-2 text-[11px] text-fg transition-all duration-300 group-hover:gap-3">
                   Start a conversation <span aria-hidden="true">→</span>
                 </span>
               </div>
@@ -104,7 +103,7 @@ export default function Capabilities({ index = "03" }: { index?: string }) {
           </Button>
           <Link
             href="/services#bigger-builds"
-            className="font-mono-label underline-hover text-[11px] text-ink-70 hover:text-ink"
+            className="font-mono-label underline-hover text-[11px] text-fg-70 hover:text-fg"
           >
             Need an app or an AI agent? Quoted per project →
           </Link>

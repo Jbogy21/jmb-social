@@ -7,8 +7,8 @@ export default function SectionLabel({
   label: string;
   tone?: "ink" | "cream";
 }) {
-  const color = tone === "cream" ? "text-cream-70" : "text-ink-70";
-  const line = tone === "cream" ? "bg-cream-70" : "bg-ink-70";
+  const color = tone === "cream" ? "text-cream-70" : "text-fg-70";
+  const line = tone === "cream" ? "bg-cream-70" : "bg-fg-70";
 
   return (
     <div className={`flex items-center gap-4 font-mono-label text-xs ${color}`}>

@@ -47,7 +47,7 @@ export default function ProjectVisual({
   return (
     <div
       className={`grain relative h-full w-full overflow-hidden ${
-        isDark[accent] ? "text-cream" : "text-ink"
+        isDark[accent] ? "text-cream" : "text-fg"
       }`}
       style={{ backgroundImage: backgrounds[accent] }}
       role="img"

@@ -9,12 +9,11 @@ type CommonProps = {
 };
 
 const base =
-  "font-mono-label inline-flex items-center gap-2.5 px-7 py-4 text-[11px] transition-colors duration-300";
+  "font-mono-label inline-flex items-center gap-2.5 rounded-full px-7 py-4 text-[11px] transition-[color,background-color,border-color,transform] duration-300 active:scale-[0.97]";
 
 const variants: Record<NonNullable<CommonProps["variant"]>, string> = {
-  primary: "bg-green text-cream hover:bg-green-deep",
-  secondary:
-    "border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-cream",
+  primary: "bg-cream text-ink hover:bg-white",
+  secondary: "border border-cream/30 text-cream hover:bg-cream hover:text-ink",
   ghost: "border border-cream/30 text-cream hover:bg-cream hover:text-green",
   light: "bg-cream text-green hover:bg-sage hover:text-green-deep",
   signal: "bg-signal text-ink hover:bg-signal-deep",

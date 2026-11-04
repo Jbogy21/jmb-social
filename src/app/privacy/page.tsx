@@ -66,20 +66,20 @@ export default function PrivacyPage() {
       <div className="container-edge grid gap-12 md:grid-cols-12 md:gap-8">
         <div className="md:col-span-4">
           <SectionLabel label="Privacy" />
-          <h1 className="font-display mt-6 text-5xl font-medium leading-[1.05] text-ink sm:text-6xl">
+          <h1 className="font-display mt-6 text-5xl font-medium leading-[1.05] text-fg sm:text-6xl">
             Privacy notice.
           </h1>
-          <p className="font-mono-label mt-8 text-[11px] text-ink-70">Last updated 27 October 2026</p>
+          <p className="font-mono-label mt-8 text-[11px] text-fg-70">Last updated 27 October 2026</p>
         </div>
 
         <div className="md:col-span-8">
           <div className="max-w-2xl border-t border-line">
             {sections.map((section) => (
               <section key={section.title} className="border-b border-line py-8">
-                <h2 className="font-display text-2xl font-medium text-ink">{section.title}</h2>
+                <h2 className="font-display text-2xl font-medium text-fg">{section.title}</h2>
                 <div className="mt-4 flex flex-col gap-3">
                   {section.body.map((paragraph) => (
-                    <p key={paragraph} className="text-base leading-relaxed text-ink-70">
+                    <p key={paragraph} className="text-base leading-relaxed text-fg-70">
                       {paragraph}
                     </p>
                   ))}

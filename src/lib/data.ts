@@ -545,6 +545,7 @@ export type StagePanel = {
   tone: "green" | "deep" | "khaki" | "signal";
   exhibit:
     | { kind: "image"; src: string; alt: string; caption: string; aspect: string }
+    | { kind: "brand"; caption: string }
     | { kind: "stat"; value: string; label: string }
     | { kind: "note"; label: string; text: string };
 };
@@ -595,11 +596,8 @@ export const stagePanels: StagePanel[] = [
     cta: { label: "Options & prices", href: "/services#ads" },
     tone: "khaki",
     exhibit: {
-      kind: "image",
-      src: "/work/video/ad-general-poster.jpg",
-      alt: "An animated ad creative made for JMB Social's own outreach",
-      caption: "Ad creative · JMB Social outreach",
-      aspect: "4/5",
+      kind: "brand",
+      caption: "Ad formats and a brand kit · JMB Social's own",
     },
   },
   {

@@ -18,7 +18,7 @@ export default function ChristmasOffer() {
     <section className="border-b border-line">
       <div className="container-edge py-10 md:py-14">
         <RevealOnScroll>
-          <div className="grain relative overflow-hidden bg-green px-7 py-10 text-cream sm:px-12 sm:py-12 md:px-16 md:py-14">
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/15 bg-[linear-gradient(135deg,rgba(130,150,76,0.32),rgba(255,255,255,0.04))] px-7 py-10 text-cream backdrop-blur-md sm:px-12 sm:py-12 md:px-16 md:py-14">
             {flakes.map((flake) => (
               <Snowflake
                 key={flake.top + flake.right}

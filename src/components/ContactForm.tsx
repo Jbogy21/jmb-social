@@ -10,7 +10,7 @@ type Status = "idle" | "submitting" | "success" | "error";
 const subscribeNothing = () => () => {};
 
 const inputClasses =
-  "w-full border-b border-line bg-transparent py-3 text-base text-ink placeholder:text-ink-50 focus:border-ink focus:outline-none";
+  "w-full border-b border-line bg-transparent py-3 text-base text-fg placeholder:text-fg-50 focus:border-fg focus:outline-none";
 
 export default function ContactForm({ offerActive = false }: { offerActive?: boolean }) {
   const [status, setStatus] = useState<Status>("idle");
@@ -76,12 +76,12 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
 
   if (status === "success") {
     return (
-      <div className="border border-line bg-cream-2 px-8 py-16 text-center">
-        <p className="font-mono-label text-xs text-ink-70">Enquiry sent</p>
-        <h3 className="font-display mt-4 text-3xl font-medium text-ink">
+      <div className="border border-line bg-surface-2 px-8 py-16 text-center">
+        <p className="font-mono-label text-xs text-fg-70">Enquiry sent</p>
+        <h3 className="font-display mt-4 text-3xl font-medium text-fg">
           Thanks — that&apos;s with us.
         </h3>
-        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ink-70">
+        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-fg-70">
           I read every enquiry myself and reply within one to two working
           days. Speak soon.
         </p>
@@ -110,9 +110,10 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
       </div>
 
       <fieldset>
-        <legend className="font-mono-label text-xs text-ink-70">
+        <legend className="font-mono-label text-xs text-fg-70">
           What do you need help with?
         </legend>
+        <p className="mt-3 text-sm text-fg-70">Tap everything that applies. You can pick more than one.</p>
         <div className="mt-5 flex flex-wrap gap-3">
           {helpOptions.map((option) => {
             const active = helpNeeded.includes(option);
@@ -122,12 +123,22 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
                 key={option}
                 onClick={() => toggleHelp(option)}
                 aria-pressed={active}
-                className={`font-mono-label border px-4 py-2.5 text-[11px] transition-colors duration-200 ${
+                className={`font-mono-label group/opt flex items-center gap-3 border-2 px-4 py-2.5 text-[11px] transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.97] ${
                   active
-                    ? "border-ink bg-ink text-cream"
-                    : "border-line text-ink-70 hover:border-ink hover:text-ink"
+                    ? "border-cream bg-cream text-ink"
+                    : "border-fg/45 bg-surface-2 text-fg hover:border-fg hover:bg-surface-3"
                 }`}
               >
+                <span
+                  aria-hidden="true"
+                  className={`flex h-4 w-4 shrink-0 items-center justify-center border text-[10px] leading-none transition-colors ${
+                    active
+                      ? "border-ink bg-ink text-cream"
+                      : "border-fg/50 bg-surface group-hover/opt:border-fg"
+                  }`}
+                >
+                  {active ? "✓" : ""}
+                </span>
                 {option}
               </button>
             );
@@ -152,17 +163,17 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
       </Field>
 
       {offerActive && (
-        <label className="flex cursor-pointer items-start gap-4 border border-line bg-cream-2 p-5 has-[:checked]:border-ink">
+        <label className="flex cursor-pointer items-start gap-4 border border-line bg-surface-2 p-5 has-[:checked]:border-fg">
           <input
             type="checkbox"
             name="christmasOffer"
             className="mt-1 h-4 w-4 shrink-0 accent-[var(--color-green)]"
           />
           <span>
-            <span className="font-mono-label block text-[11px] text-ink">
+            <span className="font-mono-label block text-[11px] text-fg">
               Christmas offer · {christmasOffer.discount} off
             </span>
-            <span className="mt-1.5 block text-sm leading-relaxed text-ink-70">
+            <span className="mt-1.5 block text-sm leading-relaxed text-fg-70">
               I&apos;m a first-time client, please apply the offer. Booking by{" "}
               {christmasOffer.endsLabel}.
             </span>
@@ -171,7 +182,7 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
       )}
 
       <details className="group border-t border-line pt-6">
-        <summary className="font-mono-label flex cursor-pointer list-none items-center gap-3 text-xs text-ink-70 hover:text-ink [&::-webkit-details-marker]:hidden">
+        <summary className="font-mono-label flex cursor-pointer list-none items-center gap-3 text-xs text-fg-70 hover:text-fg [&::-webkit-details-marker]:hidden">
           <span
             aria-hidden="true"
             className="relative h-3 w-3 shrink-0 before:absolute before:left-0 before:top-1/2 before:h-px before:w-full before:bg-current after:absolute after:left-1/2 after:top-0 after:h-full after:w-px after:bg-current after:transition-transform after:duration-300 group-open:after:scale-y-0"
@@ -198,16 +209,21 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
           </div>
 
           <fieldset>
-            <legend className="font-mono-label text-xs text-ink-70">
+            <legend className="font-mono-label text-xs text-fg-70">
               Approximate project budget
             </legend>
+            <p className="mt-3 text-sm text-fg-70">Pick one. A rough idea is fine.</p>
             <div className="mt-5 flex flex-wrap gap-3">
               {budgetOptions.map((option) => (
                 <label
                   key={option}
-                  className="font-mono-label has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-cream flex cursor-pointer items-center border border-line px-4 py-2.5 text-[11px] text-ink-70 transition-colors duration-200 hover:border-ink hover:text-ink"
+                  className="font-mono-label group/opt has-[:checked]:border-cream has-[:checked]:bg-cream has-[:checked]:text-ink has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-fg flex cursor-pointer items-center gap-3 border-2 border-fg/45 bg-surface-2 px-4 py-2.5 text-[11px] text-fg transition-all duration-200 hover:-translate-y-0.5 hover:border-fg hover:bg-surface-3 active:scale-[0.97]"
                 >
                   <input type="radio" name="budget" value={option} className="sr-only" />
+                  <span
+                    aria-hidden="true"
+                    className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-fg/50 bg-surface before:h-2 before:w-2 before:rounded-full before:bg-cream before:opacity-0 group-has-[:checked]/opt:border-ink group-has-[:checked]/opt:bg-ink group-has-[:checked]/opt:before:opacity-100"
+                  />
                   {option}
                 </label>
               ))}
@@ -217,7 +233,7 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
       </details>
 
       {status === "error" && (
-        <p role="alert" className="border border-ink/20 bg-ink/5 px-4 py-3 text-sm text-ink">
+        <p role="alert" className="border border-fg/20 bg-fg/5 px-4 py-3 text-sm text-fg">
           {errorMessage} Please try again, or email us directly.
         </p>
       )}
@@ -228,7 +244,7 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
             {status === "submitting" ? "Sending…" : "Send enquiry"}
           </Button>
         </div>
-        <p className="max-w-md text-xs leading-relaxed text-ink-70">
+        <p className="max-w-md text-xs leading-relaxed text-fg-70">
           I&apos;ll only use your details to reply to you. See the{" "}
           <Link href="/privacy" className="underline">
             privacy notice
@@ -253,7 +269,7 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={htmlFor} className="font-mono-label text-xs text-ink-70">
+      <label htmlFor={htmlFor} className="font-mono-label text-xs text-fg-70">
         {label}
         {required && <span aria-hidden="true"> *</span>}
       </label>

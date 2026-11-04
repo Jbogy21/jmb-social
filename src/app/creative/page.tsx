@@ -4,6 +4,9 @@ import { serviceFamilies, cadenceLabel } from "@/lib/data";
 import SectionLabel from "@/components/SectionLabel";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import { Button } from "@/components/Button";
+import { Spot } from "@/components/Spot";
+import ReelPane from "@/components/ReelPane";
+import { heroScenes } from "@/lib/heroScenes";
 import { siteConfig } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -108,7 +111,18 @@ const collaboration = [
 export default function CreativePage() {
   return (
     <>
-      <section className="grain relative overflow-hidden border-b border-line-on-green bg-green-deep text-cream">
+      <section className="grain relative isolate -mt-[81px] overflow-hidden bg-ink pt-[81px] text-cream md:-mt-[97px] md:pt-[97px]">
+        <div className="absolute inset-0 -z-10">
+          <ReelPane
+            scenes={heroScenes.creative}
+            direction="down"
+            italic
+            showWords={false}
+            showCaption={false}
+            dwell={3600}
+          />
+          <div className="absolute inset-0 bg-fg/45" />
+        </div>
         <div className="container-edge relative pb-16 pt-16 md:pb-24 md:pt-24">
           <div className="hero-reveal flex items-center gap-3 font-mono-label text-xs text-cream-70">
             <span className="h-2 w-2 rounded-full bg-signal" aria-hidden="true" />
@@ -140,7 +154,7 @@ export default function CreativePage() {
         </div>
       </section>
 
-      <div className="overflow-hidden border-b border-ink bg-signal py-4 text-ink" aria-hidden="true">
+      <div className="overflow-hidden border-b border-fg bg-signal py-4 text-ink" aria-hidden="true">
         <div className="marquee-track">
           {[0, 1].map((copy) => (
             <div key={copy} className="flex shrink-0 items-center">
@@ -159,7 +173,7 @@ export default function CreativePage() {
         <div className="container-edge">
           <RevealOnScroll>
             <SectionLabel index="01" label="What I make" />
-            <h2 className="font-display mt-6 max-w-3xl text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
+            <h2 className="font-display mt-6 max-w-3xl text-4xl font-medium leading-[1.05] text-fg sm:text-5xl">
               Content with a point of view, made for the scene it lives in.
             </h2>
           </RevealOnScroll>
@@ -167,53 +181,50 @@ export default function CreativePage() {
           <div className="mt-16 grid gap-4 md:grid-cols-3">
             {lanes.map((lane, position) => (
               <RevealOnScroll key={lane.title} delay={position * 80}>
-                <div className="group relative flex h-full flex-col justify-between gap-10 overflow-hidden border border-ink/25 bg-cream-2 p-8 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] before:absolute before:inset-x-0 before:top-0 before:h-1.5 before:origin-left before:scale-x-0 before:bg-signal before:transition-transform before:duration-500 hover:z-10 hover:-translate-y-3 hover:scale-[1.03] hover:border-ink hover:bg-cream hover:shadow-[0_32px_56px_-24px_rgba(28,27,22,0.55)] hover:before:scale-x-100 motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:hover:scale-100">
+                <Spot className="pop-card flex h-full flex-col justify-between gap-10 border border-fg/25 bg-surface-2 p-8">
                   <div>
-                    <span className="font-mono-label text-[11px] text-ink-70">{lane.number}</span>
-                    <h3 className="font-display mt-4 text-3xl font-medium leading-tight text-ink">
+                    <span className="font-mono-label text-[11px] text-fg-70">{lane.number}</span>
+                    <h3 className="font-display mt-4 text-3xl font-medium leading-tight text-fg">
                       {lane.title}
                     </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-ink-70">{lane.blurb}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-fg-70">{lane.blurb}</p>
                     <ul className="mt-6 flex flex-col gap-2.5 border-t border-line pt-5">
                       {lane.items.map((item) => (
-                        <li key={item} className="flex gap-3 text-sm text-ink-70">
-                          <span
-                            aria-hidden="true"
-                            className="mt-[7px] h-2 w-2 shrink-0 rounded-full bg-signal transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-150"
-                          />
+                        <li key={item} className="flex gap-3 text-sm text-fg-70">
+                          <span aria-hidden="true" className="pop-dot mt-[7px] h-2 w-2 shrink-0 rounded-full bg-signal" />
                           {item}
                         </li>
                       ))}
                     </ul>
                   </div>
-                  <p className="font-mono-label text-[11px] text-ink">{lane.price}</p>
-                </div>
+                  <p className="font-mono-label text-[11px] text-fg">{lane.price}</p>
+                </Spot>
               </RevealOnScroll>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-b border-line bg-cream-2/50 py-24 md:py-32">
+      <section className="border-b border-line bg-surface-2/50 py-24 md:py-32">
         <div className="container-edge grid gap-12 md:grid-cols-12 md:gap-8">
           <RevealOnScroll className="md:col-span-5">
             <SectionLabel index="02" label="Where I am" />
-            <h2 className="font-display mt-6 text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
+            <h2 className="font-display mt-6 text-4xl font-medium leading-[1.05] text-fg sm:text-5xl">
               New to this world. <em className="italic">Serious</em> about it.
             </h2>
           </RevealOnScroll>
           <RevealOnScroll className="md:col-span-7">
-            <p className="max-w-xl text-lg leading-relaxed text-ink-70">
+            <p className="max-w-xl text-lg leading-relaxed text-fg-70">
               The creative side is new, so I won&rsquo;t dress it up. I&rsquo;m
               building it properly, starting with a first collaboration, and
               the results go on this page as they&rsquo;re finished.
             </p>
-            <div className="mt-10 border border-ink bg-cream p-8">
-              <p className="font-mono-label flex items-center gap-2.5 text-[11px] text-ink">
+            <div className="mt-10 border border-fg/40 bg-surface-2 p-5 sm:p-8">
+              <p className="font-mono-label flex items-center gap-2.5 text-[11px] text-fg">
                 <span className="h-2 w-2 rounded-full bg-signal" aria-hidden="true" />
                 First collaboration · In production
               </p>
-              <p className="font-display mt-4 text-2xl font-medium leading-snug text-ink">
+              <p className="font-display mt-4 text-2xl font-medium leading-snug text-fg">
                 A starter portfolio and an Instagram, built with an emerging model.
               </p>
               <dl className="mt-8 border-t border-line">
@@ -222,12 +233,12 @@ export default function CreativePage() {
                     key={item.label}
                     className="grid gap-2 border-b border-line py-5 sm:grid-cols-[9rem_1fr] sm:gap-6"
                   >
-                    <dt className="font-mono-label text-[11px] text-ink-70">{item.label}</dt>
-                    <dd className="text-sm leading-relaxed text-ink-70">{item.text}</dd>
+                    <dt className="font-mono-label text-[11px] text-fg-70">{item.label}</dt>
+                    <dd className="text-sm leading-relaxed text-fg-70">{item.text}</dd>
                   </div>
                 ))}
               </dl>
-              <p className="mt-8 max-w-lg text-sm leading-relaxed text-ink-70">
+              <p className="mt-8 max-w-lg text-sm leading-relaxed text-fg-70">
                 Want to be next? I&rsquo;m taking on a small number of
                 collaborations. You get professional-quality content or a
                 portfolio site at a reduced rate, and in return I ask for
@@ -252,10 +263,10 @@ export default function CreativePage() {
           <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
             {steps.map((step, position) => (
               <RevealOnScroll key={step.number} delay={position * 80}>
-                <div className="border-t border-ink pt-6">
-                  <span className="font-mono-label text-xs text-ink-70">{step.number}</span>
-                  <h3 className="font-display mt-3 text-3xl font-medium text-ink">{step.title}</h3>
-                  <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-70">{step.text}</p>
+                <div className="border-t border-fg pt-6">
+                  <span className="font-mono-label text-xs text-fg-70">{step.number}</span>
+                  <h3 className="font-display mt-3 text-3xl font-medium text-fg">{step.title}</h3>
+                  <p className="mt-3 max-w-xs text-sm leading-relaxed text-fg-70">{step.text}</p>
                 </div>
               </RevealOnScroll>
             ))}
@@ -263,7 +274,7 @@ export default function CreativePage() {
         </div>
       </section>
 
-      <section className="grain relative overflow-hidden bg-green-deep text-cream">
+      <section className="relative overflow-hidden bg-[radial-gradient(60%_90%_at_50%_100%,rgba(228,87,46,0.28),transparent_70%)] text-cream">
         <div className="container-edge relative py-24 text-center md:py-32">
           <RevealOnScroll>
             <h2 className="font-display mx-auto max-w-3xl text-5xl font-medium leading-[1.02] sm:text-6xl md:text-7xl">

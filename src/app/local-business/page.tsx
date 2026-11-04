@@ -12,6 +12,8 @@ import FreeReview from "@/components/FreeReview";
 import FAQ from "@/components/FAQ";
 import AboutPreview from "@/components/AboutPreview";
 import CTASection from "@/components/CTASection";
+import ReelPane from "@/components/ReelPane";
+import { heroScenes } from "@/lib/heroScenes";
 
 export const metadata: Metadata = {
   title: "Websites & Reels for local businesses",
@@ -25,21 +27,27 @@ const delay = (ms: number) => ({ animationDelay: `calc(var(--intro-delay, 0s) + 
 export default function LocalBusinessPage() {
   return (
     <>
-      <section className="border-b border-line">
-        <div className="container-edge grid gap-12 pb-16 pt-12 md:grid-cols-12 md:items-end md:gap-8 md:pb-24 md:pt-20">
+      <section className="grain relative isolate -mt-[81px] overflow-hidden bg-ink pt-[81px] text-cream md:-mt-[97px] md:pt-[97px]">
+        <div className="absolute inset-0 -z-10">
+          <ReelPane scenes={heroScenes.trades} showWords={false} showCaption={false} dwell={3600} />
+          <div className="absolute inset-0 bg-fg/50" />
+        </div>
+        <div className="container-edge relative grid gap-12 pb-16 pt-12 md:grid-cols-12 md:items-end md:gap-8 md:pb-24 md:pt-20">
           <div className="md:col-span-8">
-            <SectionLabel label="Local business" />
-            <h1 className="font-display mt-8 text-[13vw] font-medium leading-[0.98] tracking-tight text-ink sm:text-[9vw] md:text-[6.4vw] lg:text-[5.5rem]">
+            <SectionLabel label="Local business" tone="cream" />
+            <h1 className="font-display mt-8 text-[13vw] font-medium leading-[0.98] tracking-tight text-cream [text-shadow:0_2px_22px_rgba(10,12,8,0.55)] sm:text-[9vw] md:text-[6.4vw] lg:text-[5.5rem]">
               Websites and Reels for local businesses.
             </h1>
-            <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink-70">
+            <p className="mt-8 max-w-xl text-lg leading-relaxed text-cream/85">
               I build the website, film the short videos and run the ads, so
               people nearby find you, trust you and pick up the phone. Made for
               trades, shops and workshops.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
-              <Button href="/contact">Start a project</Button>
-              <Button href="#work" variant="secondary">
+              <Button href="/contact" variant="light">
+                Start a project
+              </Button>
+              <Button href="#work" variant="ghost">
                 See the work
               </Button>
             </div>
@@ -80,7 +88,7 @@ export default function LocalBusinessPage() {
         <p className="mt-10">
           <Link
             href="/creative"
-            className="font-mono-label underline-hover text-[11px] text-ink-70 hover:text-ink"
+            className="font-mono-label underline-hover text-[11px] text-fg-70 hover:text-fg"
           >
             Looking for fashion, music or sport content? →
           </Link>

@@ -7,7 +7,7 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp: message JMB Social"
-      className="font-mono-label group fixed bottom-5 right-5 z-40 inline-flex items-center gap-2.5 bg-green px-4 py-3.5 text-[11px] text-cream shadow-[0_14px_30px_-12px_rgba(38,46,25,0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink"
+      className="font-mono-label group fixed bottom-4 right-4 z-40 inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-white/20 bg-[#1b2113]/85 px-3.5 text-[11px] text-cream shadow-[0_14px_30px_-12px_rgba(0,0,0,0.8)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-cream hover:text-ink active:scale-95 sm:bottom-5 sm:right-5 sm:px-5"
     >
       <svg
         width="20"

@@ -10,6 +10,7 @@ import {
 } from "@/lib/data";
 import ServiceStage from "@/components/ServiceStage";
 import SectionLabel from "@/components/SectionLabel";
+import PageHero from "@/components/PageHero";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import { Button } from "@/components/Button";
 import ServiceIcon from "@/components/ServiceIcon";
@@ -49,19 +50,19 @@ const resolve = (names: string[]) =>
 
 function VariantRow({ variant }: { variant: ServiceVariant }) {
   return (
-    <li className="grid gap-4 border-b border-line py-7 sm:grid-cols-[1fr_auto] sm:gap-12">
+    <li className="grid gap-3 border-b border-line py-6 sm:grid-cols-[1fr_auto] sm:gap-12 sm:py-7">
       <div>
-        <h3 className="font-display text-2xl font-medium leading-tight text-ink">{variant.name}</h3>
-        <p className="mt-2.5 max-w-xl text-sm leading-relaxed text-ink-70">{variant.description}</p>
+        <h3 className="font-display text-2xl font-medium leading-tight text-fg">{variant.name}</h3>
+        <p className="mt-2.5 max-w-xl text-sm leading-relaxed text-fg-70">{variant.description}</p>
       </div>
-      <div className="sm:min-w-28 sm:text-right">
-        <p className="font-mono-label text-[11px] text-ink-50">
+      <div className="flex flex-wrap items-baseline gap-x-2 sm:block sm:min-w-28 sm:text-right">
+        <p className="font-mono-label text-[11px] text-fg-50">
           {variant.price.includes("–") ? "Typically" : "From"}
         </p>
-        <p className="font-display whitespace-nowrap text-3xl font-medium leading-none text-ink">
+        <p className="font-display whitespace-nowrap text-2xl font-medium leading-none text-fg sm:text-3xl">
           {variant.price}
         </p>
-        <p className="font-mono-label mt-1.5 text-[11px] text-ink-50">
+        <p className="font-mono-label text-[11px] text-fg-50 sm:mt-1.5">
           {cadenceLabel[variant.cadence]}
         </p>
       </div>
@@ -76,18 +77,18 @@ export default function ServicesPage() {
 
   return (
     <>
-      <section className="border-b border-line py-20 md:py-28">
+      <PageHero>
         <div className="container-edge">
-          <SectionLabel label="Services & pricing" />
-          <h1 className="font-display mt-6 max-w-4xl text-5xl font-medium leading-[1.05] text-ink sm:text-6xl md:text-7xl">
-            Clear services. Clear prices.
+          <SectionLabel label="Services & pricing" tone="cream" />
+          <h1 className="mt-6 max-w-4xl font-sans text-[clamp(2.6rem,6.4vw,5.5rem)] font-light leading-[0.98] tracking-[-0.045em] text-cream [text-shadow:0_2px_30px_rgba(10,12,8,0.35)]">
+            Clear services. <span className="font-display whitespace-nowrap font-normal italic tracking-[-0.03em] text-[#f1e3b0]">Clear prices.</span>
           </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink-70">
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-cream/85">
             Three things done properly: websites, content and social, and ads
             and brand. Bigger builds, like apps and AI agents, are quoted per
             project.
           </p>
-          <p className="font-mono-label mt-6 inline-block border border-ink/30 px-3.5 py-2 text-[11px] text-ink-70">
+          <p className="font-mono-label mt-6 inline-block rounded-full border border-white/30 px-4 py-2 text-[11px] text-cream/85">
             Introductory rates for new clients
           </p>
 
@@ -96,33 +97,33 @@ export default function ServicesPage() {
               <Link
                 key={pillar.slug}
                 href={`#${pillar.slug}`}
-                className="font-mono-label group inline-flex items-center gap-2.5 bg-green px-4 py-3 text-[11px] text-cream transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink"
+                className="font-mono-label group inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/10 px-5 py-3 text-[11px] text-cream backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-cream hover:text-ink"
               >
                 <ServiceIcon
                   slug={pillar.slug}
                   size={16}
-                  className="text-sage transition-colors duration-300 group-hover:text-cream"
+                  className="text-cream/80 transition-colors duration-300 group-hover:text-fg"
                 />
                 {pillar.title}
               </Link>
             ))}
             <Link
               href="#bigger-builds"
-              className="font-mono-label inline-flex items-center border border-ink/40 px-4 py-3 text-[11px] text-ink transition-colors duration-200 hover:bg-ink hover:text-cream"
+              className="font-mono-label inline-flex items-center rounded-full border border-white/25 px-5 py-3 text-[11px] text-cream transition-colors duration-200 hover:bg-cream hover:text-ink"
             >
               Apps &amp; AI
             </Link>
             <Link
               href="#packages"
-              className="font-mono-label inline-flex items-center border border-ink px-4 py-3 text-[11px] text-ink transition-colors duration-200 hover:bg-ink hover:text-cream"
+              className="font-mono-label inline-flex items-center rounded-full border border-white/25 px-5 py-3 text-[11px] text-cream transition-colors duration-200 hover:bg-cream hover:text-ink"
             >
               Packages
             </Link>
           </nav>
         </div>
-      </section>
+      </PageHero>
 
-      <ServiceStage panels={stagePanels} />
+      <ServiceStage panels={stagePanels} skipTo="#web" />
 
       {servicePillars.map((pillar) => {
         const headline = resolve(pillar.headline);
@@ -140,14 +141,14 @@ export default function ServicesPage() {
             <div className="container-edge grid gap-12 md:grid-cols-12 md:gap-10">
               <RevealOnScroll className="md:col-span-4">
                 <div className="md:sticky md:top-32">
-                  <span className="font-mono-label text-xs text-ink-50">{pillar.number}</span>
-                  <h2 className="font-display mt-4 text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
+                  <span className="font-mono-label text-xs text-fg-50">{pillar.number}</span>
+                  <h2 className="font-display mt-4 text-4xl font-medium leading-[1.05] text-fg sm:text-5xl">
                     {pillar.title}
                   </h2>
-                  <p className="font-display mt-5 text-xl leading-snug text-ink">{pillar.tagline}</p>
-                  <p className="mt-5 text-base leading-relaxed text-ink-70">{pillar.summary}</p>
+                  <p className="font-display mt-5 text-xl leading-snug text-fg">{pillar.tagline}</p>
+                  <p className="mt-5 text-base leading-relaxed text-fg-70">{pillar.summary}</p>
                   {pillar.note && (
-                    <p className="mt-5 border-l border-ink/30 pl-4 text-xs leading-relaxed text-ink-70">
+                    <p className="mt-5 border-l border-fg/30 pl-4 text-xs leading-relaxed text-fg-70">
                       {pillar.note}
                     </p>
                   )}
@@ -160,7 +161,7 @@ export default function ServicesPage() {
               </RevealOnScroll>
 
               <div className="md:col-span-8">
-                <p className="font-mono-label pb-4 text-xs text-ink-50">Options &amp; starting prices</p>
+                <p className="font-mono-label pb-4 text-xs text-fg-50">Options &amp; starting prices</p>
                 <ul className="border-t border-line">
                   {headline.map((variant) => (
                     <VariantRow key={variant.name} variant={variant} />
@@ -169,7 +170,7 @@ export default function ServicesPage() {
 
                 {more.length > 0 && (
                   <details className="group border-b border-line">
-                    <summary className="font-mono-label flex cursor-pointer list-none items-center gap-3 py-6 text-xs text-ink-70 hover:text-ink [&::-webkit-details-marker]:hidden">
+                    <summary className="font-mono-label flex cursor-pointer list-none items-center gap-3 py-6 text-xs text-fg-70 hover:text-fg [&::-webkit-details-marker]:hidden">
                       <span
                         aria-hidden="true"
                         className="relative h-3 w-3 shrink-0 before:absolute before:left-0 before:top-1/2 before:h-px before:w-full before:bg-current after:absolute after:left-1/2 after:top-0 after:h-full after:w-px after:bg-current after:transition-transform after:duration-300 group-open:after:scale-y-0"
@@ -189,7 +190,7 @@ export default function ServicesPage() {
         );
       })}
 
-      <section id="bigger-builds" className="scroll-mt-24 border-b border-line bg-cream-2/50 py-20 md:py-28">
+      <section id="bigger-builds" className="scroll-mt-24 border-b border-line bg-surface-2/50 py-20 md:py-28">
         {biggerBuilds.map((family) => (
           <span key={family.slug} id={family.slug} className="block scroll-mt-24" aria-hidden="true" />
         ))}
@@ -197,11 +198,11 @@ export default function ServicesPage() {
           <RevealOnScroll className="grid gap-8 md:grid-cols-12">
             <div className="md:col-span-5">
               <SectionLabel index="04" label="Bigger builds" />
-              <h2 className="font-display mt-6 text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
+              <h2 className="font-display mt-6 text-4xl font-medium leading-[1.05] text-fg sm:text-5xl">
                 Apps and AI agents, quoted per project.
               </h2>
             </div>
-            <p className="max-w-lg text-base leading-relaxed text-ink-70 md:col-span-6 md:col-start-7 md:self-end">
+            <p className="max-w-lg text-base leading-relaxed text-fg-70 md:col-span-6 md:col-start-7 md:self-end">
               These are scoped properly rather than priced off a menu. Tell me
               what you need and I&rsquo;ll come back with a clear written quote,
               a timeline and a phased plan, so you can start small and grow it.
@@ -211,23 +212,23 @@ export default function ServicesPage() {
           <div className="mt-14 grid gap-4 md:grid-cols-2">
             {biggerBuilds.map((family, position) => (
               <RevealOnScroll key={family.slug} delay={position * 80}>
-                <div className="flex h-full flex-col justify-between gap-8 border border-ink/25 bg-cream p-8">
+                <div className="flex h-full flex-col justify-between gap-8 border border-fg/25 bg-surface-2 p-8">
                   <div>
-                    <ServiceIcon slug={family.slug} size={30} className="text-ink-70" />
-                    <h3 className="font-display mt-5 text-3xl font-medium leading-tight text-ink">
+                    <ServiceIcon slug={family.slug} size={30} className="text-fg-70" />
+                    <h3 className="font-display mt-5 text-3xl font-medium leading-tight text-fg">
                       {family.title}
                     </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-ink-70">{family.summary}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-fg-70">{family.summary}</p>
                     <ul className="mt-6 flex flex-col gap-2 border-t border-line pt-5">
                       {family.variants.map((variant) => (
-                        <li key={variant.name} className="flex gap-3 text-sm text-ink-70">
+                        <li key={variant.name} className="flex gap-3 text-sm text-fg-70">
                           <span aria-hidden="true" className="mt-[9px] h-px w-3 shrink-0 bg-ink-50" />
                           {variant.name}
                         </li>
                       ))}
                     </ul>
                     {family.note && (
-                      <p className="mt-5 border-l border-ink/30 pl-4 text-xs leading-relaxed text-ink-70">
+                      <p className="mt-5 border-l border-fg/30 pl-4 text-xs leading-relaxed text-fg-70">
                         {family.note}
                       </p>
                     )}
@@ -250,7 +251,7 @@ export default function ServicesPage() {
         <div className="container-edge">
           <RevealOnScroll>
             <SectionLabel label="How pricing works" />
-            <h2 className="font-display mt-6 max-w-2xl text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
+            <h2 className="font-display mt-6 max-w-2xl text-4xl font-medium leading-[1.05] text-fg sm:text-5xl">
               Fair prices, agreed before we start.
             </h2>
           </RevealOnScroll>
@@ -258,13 +259,13 @@ export default function ServicesPage() {
             {pricingPrinciples.map((item, position) => (
               <RevealOnScroll key={item.title} delay={position * 80}>
                 <div className="border-t border-line pt-6">
-                  <h3 className="font-display text-2xl font-medium text-ink">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-70">{item.description}</p>
+                  <h3 className="font-display text-2xl font-medium text-fg">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-fg-70">{item.description}</p>
                 </div>
               </RevealOnScroll>
             ))}
           </div>
-          <p className="mt-12 max-w-xl text-xs leading-relaxed text-ink-50">
+          <p className="mt-12 max-w-xl text-xs leading-relaxed text-fg-50">
             All prices shown are introductory starting points rather than fixed
             quotes, offered while the studio builds its client portfolio. The
             final figure depends on scope, complexity and timeline.

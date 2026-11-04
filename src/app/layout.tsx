@@ -102,7 +102,7 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${newsreader.variable} ${inter.variable} ${plexMono.variable}`}
     >
-      <body className="flex min-h-screen flex-col bg-cream text-ink antialiased">
+      <body className="flex min-h-screen flex-col text-fg antialiased">
         <script dangerouslySetInnerHTML={{ __html: introScript }} />
         <script
           type="application/ld+json"

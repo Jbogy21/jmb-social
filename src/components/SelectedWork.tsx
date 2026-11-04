@@ -3,6 +3,7 @@ import ProjectCard from "./ProjectCard";
 import SectionLabel from "./SectionLabel";
 import { Button } from "./Button";
 import RevealOnScroll from "./RevealOnScroll";
+import RiseHeading from "./RiseHeading";
 
 export default function SelectedWork({
   index = "02",
@@ -19,30 +20,30 @@ export default function SelectedWork({
         <RevealOnScroll className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <SectionLabel index={index} label="Selected work" />
-            <h2 className="font-display mt-6 max-w-xl text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
-              Work that shows the standard.
-            </h2>
+            <RiseHeading text="Work that shows the standard." className="font-display mt-6 max-w-xl text-4xl font-medium leading-[1.05] text-fg sm:text-5xl" />
           </div>
-          <p className="max-w-xs text-sm leading-relaxed text-ink-70">
+          <p className="max-w-xs text-sm leading-relaxed text-fg-70">
             Websites, short-form video and ad creative for independent
             businesses across Sussex, Surrey and London, plus my own studio
             work.
           </p>
         </RevealOnScroll>
 
-        <div className="mt-16 grid gap-x-8 gap-y-16 md:grid-cols-2">
+        <div className="-mx-6 mt-16 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-16 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden">
           {featured.map((project, index) => (
             <RevealOnScroll
               key={project.slug}
               delay={index * 80}
-              className={index === 0 ? "md:col-span-2" : undefined}
+              className={`w-[86%] shrink-0 snap-center md:w-auto ${index === 0 ? "md:col-span-2" : ""}`}
             >
               <ProjectCard project={project} size={index === 0 ? "large" : "regular"} />
             </RevealOnScroll>
           ))}
         </div>
 
-        <RevealOnScroll className="mt-16 flex justify-center md:justify-start">
+        <p className="font-mono-label mt-1 text-[11px] text-fg-70 md:hidden">Swipe for more →</p>
+
+        <RevealOnScroll className="mt-10 flex justify-center md:mt-16 md:justify-start">
           <Button href="/work" variant="secondary">
             View all work
           </Button>

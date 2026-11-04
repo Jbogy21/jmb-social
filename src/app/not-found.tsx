@@ -6,10 +6,10 @@ export default function NotFound() {
     <section className="py-24 md:py-36">
       <div className="container-edge">
         <SectionLabel label="Error 404" />
-        <h1 className="font-display mt-6 max-w-3xl text-5xl font-medium leading-[1.05] text-ink sm:text-6xl md:text-7xl">
+        <h1 className="font-display mt-6 max-w-3xl text-5xl font-medium leading-[1.05] text-fg sm:text-6xl md:text-7xl">
           This page has wandered off.
         </h1>
-        <p className="mt-8 max-w-md text-lg leading-relaxed text-ink-70">
+        <p className="mt-8 max-w-md text-lg leading-relaxed text-fg-70">
           The link may be old or mistyped. Here are the places most people are
           looking for.
         </p>

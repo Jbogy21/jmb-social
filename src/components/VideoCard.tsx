@@ -56,9 +56,9 @@ export default function VideoCard({ video }: { video: ProjectVideo }) {
         )}
       </div>
       <figcaption className="mt-4">
-        <p className="font-display text-xl font-medium leading-snug text-ink">{video.title}</p>
+        <p className="font-display text-xl font-medium leading-snug text-fg">{video.title}</p>
         {video.caption && (
-          <p className="mt-1.5 text-sm leading-relaxed text-ink-70">{video.caption}</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-fg-70">{video.caption}</p>
         )}
       </figcaption>
     </figure>

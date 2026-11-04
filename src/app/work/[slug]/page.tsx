@@ -57,18 +57,18 @@ export default async function CaseStudyPage({
         <div className="container-edge">
           <Link
             href="/work"
-            className="font-mono-label underline-hover inline-flex items-center gap-2 text-xs text-ink-70"
+            className="font-mono-label underline-hover inline-flex items-center gap-2 text-xs text-fg-70"
           >
             ← All work
           </Link>
 
-          <div className="mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono-label text-xs text-ink-70">
+          <div className="mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono-label text-xs text-fg-70">
             <span>{project.client}</span>
             <span aria-hidden="true">—</span>
             <span>{project.industry}</span>
           </div>
 
-          <h1 className="font-display mt-6 max-w-3xl text-4xl font-medium leading-[1.08] text-ink sm:text-5xl md:text-6xl">
+          <h1 className="font-display mt-6 max-w-3xl text-4xl font-medium leading-[1.08] text-fg sm:text-5xl md:text-6xl">
             {project.title}
           </h1>
 
@@ -76,7 +76,7 @@ export default async function CaseStudyPage({
             {project.services.map((service) => (
               <span
                 key={service}
-                className="font-mono-label border border-line px-3 py-1.5 text-[11px] text-ink-70"
+                className="font-mono-label border border-line px-3 py-1.5 text-[11px] text-fg-70"
               >
                 {service}
               </span>
@@ -89,7 +89,7 @@ export default async function CaseStudyPage({
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono-label underline-hover inline-flex items-center gap-2 text-xs text-ink"
+                className="font-mono-label underline-hover inline-flex items-center gap-2 text-xs text-fg"
               >
                 Visit the live site ↗
               </a>
@@ -116,17 +116,17 @@ export default async function CaseStudyPage({
             <div className="flex flex-wrap gap-x-16 gap-y-10">
               {project.metrics.map((metric) => (
                 <div key={metric.label}>
-                  <p className="font-display text-6xl font-medium leading-none text-ink sm:text-7xl">
+                  <p className="font-display text-6xl font-medium leading-none text-fg sm:text-7xl">
                     {metric.value}
                   </p>
-                  <p className="font-mono-label mt-4 max-w-[16rem] text-[11px] leading-relaxed text-ink-70">
+                  <p className="font-mono-label mt-4 max-w-[16rem] text-[11px] leading-relaxed text-fg-70">
                     {metric.label}
                   </p>
                 </div>
               ))}
             </div>
             {project.metricsNote && (
-              <p className="mt-8 text-xs text-ink-50">{project.metricsNote}</p>
+              <p className="mt-8 text-xs text-fg-50">{project.metricsNote}</p>
             )}
           </div>
         </section>
@@ -135,18 +135,18 @@ export default async function CaseStudyPage({
       <section className="border-b border-line py-20 md:py-28">
         <div className="container-edge grid gap-12 md:grid-cols-3 md:gap-8">
           <RevealOnScroll>
-            <p className="font-mono-label text-xs text-ink-50">The brief</p>
-            <p className="mt-4 text-base leading-relaxed text-ink-70">{project.brief}</p>
+            <p className="font-mono-label text-xs text-fg-50">The brief</p>
+            <p className="mt-4 text-base leading-relaxed text-fg-70">{project.brief}</p>
           </RevealOnScroll>
           <RevealOnScroll delay={80}>
-            <p className="font-mono-label text-xs text-ink-50">The approach</p>
-            <p className="mt-4 text-base leading-relaxed text-ink-70">{project.approach}</p>
+            <p className="font-mono-label text-xs text-fg-50">The approach</p>
+            <p className="mt-4 text-base leading-relaxed text-fg-70">{project.approach}</p>
           </RevealOnScroll>
           <RevealOnScroll delay={160}>
-            <p className="font-mono-label text-xs text-ink-50">What&rsquo;s delivered</p>
+            <p className="font-mono-label text-xs text-fg-50">What&rsquo;s delivered</p>
             <ul className="mt-4 flex flex-col gap-2.5">
               {project.deliverables.map((item) => (
-                <li key={item} className="flex gap-3 text-base text-ink-70">
+                <li key={item} className="flex gap-3 text-base text-fg-70">
                   <span aria-hidden="true" className="mt-[11px] h-px w-3 shrink-0 bg-ink-50" />
                   {item}
                 </li>
@@ -159,14 +159,14 @@ export default async function CaseStudyPage({
       {testimonial && (
         <section className="border-b border-line py-20 md:py-28">
           <div className="container-edge grid gap-8 md:grid-cols-12">
-            <p className="font-mono-label text-xs text-ink-50 md:col-span-3">What they said</p>
+            <p className="font-mono-label text-xs text-fg-50 md:col-span-3">What they said</p>
             <figure className="md:col-span-9">
-              <blockquote className="font-display max-w-3xl text-2xl font-medium leading-snug text-ink sm:text-3xl">
+              <blockquote className="font-display max-w-3xl text-2xl font-medium leading-snug text-fg sm:text-3xl">
                 &ldquo;{testimonial.quote}&rdquo;
               </blockquote>
               <figcaption className="mt-6">
-                <p className="font-display text-xl font-medium text-ink">{testimonial.business}</p>
-                <p className="font-mono-label mt-1.5 text-[11px] text-ink-70">{testimonial.detail}</p>
+                <p className="font-display text-xl font-medium text-fg">{testimonial.business}</p>
+                <p className="font-mono-label mt-1.5 text-[11px] text-fg-70">{testimonial.detail}</p>
               </figcaption>
             </figure>
           </div>
@@ -177,7 +177,7 @@ export default async function CaseStudyPage({
         <section className="border-b border-line py-20 md:py-28">
           <div className="container-edge">
             <RevealOnScroll>
-              <p className="font-mono-label text-xs text-ink-50">
+              <p className="font-mono-label text-xs text-fg-50">
                 {project.categories.includes("SOCIAL") ? "The content" : "The creative"}
               </p>
             </RevealOnScroll>
@@ -196,7 +196,7 @@ export default async function CaseStudyPage({
         <section className="border-b border-line py-20 md:py-28">
           <div className="container-edge">
             <RevealOnScroll>
-              <p className="font-mono-label text-xs text-ink-50">The website</p>
+              <p className="font-mono-label text-xs text-fg-50">The website</p>
             </RevealOnScroll>
             <div className="mt-8 grid gap-6 md:grid-cols-2">
               {project.gallery.map((image, position) => (
@@ -226,12 +226,12 @@ export default async function CaseStudyPage({
         <div className="container-edge grid gap-10 md:grid-cols-3 md:gap-8">
           {project.tools.length > 0 && (
             <div>
-              <p className="font-mono-label text-xs text-ink-50">Built with</p>
+              <p className="font-mono-label text-xs text-fg-50">Built with</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {project.tools.map((tool) => (
                   <span
                     key={tool}
-                    className="font-mono-label border border-line px-3 py-1.5 text-[11px] text-ink-70"
+                    className="font-mono-label border border-line px-3 py-1.5 text-[11px] text-fg-70"
                   >
                     {tool}
                   </span>
@@ -240,8 +240,8 @@ export default async function CaseStudyPage({
             </div>
           )}
           <div className={project.tools.length > 0 ? "md:col-span-2" : "md:col-span-3"}>
-            <p className="font-mono-label text-xs text-ink-50">Project status</p>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-ink-70">
+            <p className="font-mono-label text-xs text-fg-50">Project status</p>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-fg-70">
               {statusText[project.status]}
             </p>
           </div>
@@ -250,10 +250,10 @@ export default async function CaseStudyPage({
 
       <section className="border-b border-line py-16">
         <div className="container-edge flex items-center justify-between gap-6">
-          <span className="font-mono-label text-xs text-ink-50">Next project</span>
+          <span className="font-mono-label text-xs text-fg-50">Next project</span>
           <Link
             href={`/work/${next.slug}`}
-            className="font-display underline-hover text-right text-2xl font-medium text-ink sm:text-3xl"
+            className="font-display underline-hover text-right text-2xl font-medium text-fg sm:text-3xl"
           >
             {next.client === "Concept" ? next.industry : next.client} →
           </Link>

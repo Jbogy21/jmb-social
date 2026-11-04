@@ -27,14 +27,14 @@ export default function ProjectCard({
         </div>
       </div>
 
-      <div className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono-label text-xs text-ink-70">
+      <div className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono-label text-xs text-fg-70">
         <span>{project.client}</span>
         <span aria-hidden="true">—</span>
         <span>{project.industry}</span>
       </div>
 
       <h3
-        className={`font-display mt-3 max-w-xl font-medium leading-tight text-ink ${
+        className={`font-display mt-3 max-w-xl font-medium leading-tight text-fg ${
           size === "large" ? "text-3xl md:text-4xl" : "text-2xl"
         }`}
       >
@@ -43,7 +43,7 @@ export default function ProjectCard({
         </span>
       </h3>
 
-      <p className="mt-3 max-w-md text-sm leading-relaxed text-ink-70">
+      <p className="mt-3 max-w-md text-sm leading-relaxed text-fg-70">
         {project.description}
       </p>
     </Link>

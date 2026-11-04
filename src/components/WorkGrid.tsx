@@ -36,7 +36,7 @@ export default function WorkGrid({ projects }: { projects: Project[] }) {
       </div>
 
       {filtered.length === 0 && (
-        <p className="mt-16 text-sm text-ink-70">No projects in this category yet.</p>
+        <p className="mt-16 text-sm text-fg-70">No projects in this category yet.</p>
       )}
     </div>
   );
@@ -58,8 +58,8 @@ function FilterChip({
       aria-pressed={active}
       className={`font-mono-label border px-4 py-2.5 text-[11px] transition-colors duration-200 ${
         active
-          ? "border-ink bg-ink text-cream"
-          : "border-line text-ink-70 hover:border-ink hover:text-ink"
+          ? "border-cream bg-cream text-ink"
+          : "border-line text-fg-70 hover:border-fg hover:text-fg"
       }`}
     >
       {label}

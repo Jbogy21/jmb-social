@@ -8,7 +8,7 @@ export default function Principles({ index = "06" }: { index?: string }) {
       <div className="container-edge">
         <RevealOnScroll>
           <SectionLabel index={index} label="Why JMB" />
-          <h2 className="font-display mt-6 max-w-3xl text-4xl font-medium leading-[1.05] text-ink sm:text-5xl">
+          <h2 className="font-display mt-6 max-w-3xl text-4xl font-medium leading-[1.05] text-fg sm:text-5xl">
             Agency-grade craft, without the agency layers.
           </h2>
         </RevealOnScroll>
@@ -17,10 +17,10 @@ export default function Principles({ index = "06" }: { index?: string }) {
           {principles.map((item, position) => (
             <RevealOnScroll key={item.title} delay={position * 80}>
               <div className="border-t border-line pt-6">
-                <h3 className="font-display text-2xl font-medium leading-tight text-ink">
+                <h3 className="font-display text-2xl font-medium leading-tight text-fg">
                   {item.title}
                 </h3>
-                <p className="mt-4 text-sm leading-relaxed text-ink-70">{item.description}</p>
+                <p className="mt-4 text-sm leading-relaxed text-fg-70">{item.description}</p>
               </div>
             </RevealOnScroll>
           ))}

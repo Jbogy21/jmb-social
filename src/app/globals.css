@@ -14,10 +14,19 @@
   --color-signal: #e4572e;
   --color-signal-deep: #c9471f;
   --color-signal-soft: #f0724a;
-  --color-line: rgba(28, 27, 22, 0.16);
+  --color-line: rgba(240, 231, 207, 0.14);
   --color-line-on-green: rgba(236, 226, 200, 0.18);
   --color-cream-70: rgba(236, 226, 200, 0.8);
   --color-cream-50: rgba(236, 226, 200, 0.66);
+
+  /* Page surfaces and text. The whole site now sits on a dark, softly lit canvas;
+     these are the roles that used to be cream paper and ink. */
+  --color-surface: #13170d;
+  --color-surface-2: rgba(255, 255, 255, 0.05);
+  --color-surface-3: rgba(255, 255, 255, 0.09);
+  --color-fg: #f0e7cf;
+  --color-fg-70: rgba(240, 231, 207, 0.78);
+  --color-fg-50: rgba(240, 231, 207, 0.6);
 }
 
 @theme inline {
@@ -38,6 +47,12 @@
   --color-line-on-green: var(--color-line-on-green);
   --color-cream-70: var(--color-cream-70);
   --color-cream-50: var(--color-cream-50);
+  --color-surface: var(--color-surface);
+  --color-surface-2: var(--color-surface-2);
+  --color-surface-3: var(--color-surface-3);
+  --color-fg: var(--color-fg);
+  --color-fg-70: var(--color-fg-70);
+  --color-fg-50: var(--color-fg-50);
 
   --font-display: var(--font-newsreader);
   --font-sans: var(--font-inter);
@@ -63,20 +78,34 @@
 
 html {
   scroll-behavior: smooth;
-  background: var(--color-cream);
+  background: var(--color-surface);
+}
+
+/* One continuous canvas behind every page: soft olive, khaki and ember light. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(62rem 42rem at 10% -6%, rgba(122, 142, 72, 0.2), transparent 62%),
+    radial-gradient(52rem 38rem at 94% 30%, rgba(214, 185, 100, 0.09), transparent 64%),
+    radial-gradient(48rem 36rem at 18% 98%, rgba(228, 87, 46, 0.085), transparent 64%),
+    linear-gradient(180deg, #161b0f 0%, #11140c 100%);
 }
 
 body {
-  background: var(--color-cream);
-  color: var(--color-ink);
+  background: transparent;
+  color: var(--color-fg);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--color-green);
-  color: var(--color-cream);
+  background: var(--color-signal);
+  color: var(--color-ink);
 }
 
 .font-display {
@@ -102,24 +131,6 @@ body {
   animation-fill-mode: both;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .reveal {
-    opacity: 1;
-    animation: none;
-    transform: none;
-  }
-
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
 
 .grain {
   position: relative;
@@ -406,39 +417,121 @@ html.intro-active .intro-skip {
   to { scale: 1; }
 }
 
-/* Scroll-linked effects (Chrome, Edge, Safari 26+); other browsers just show the
-   final state. The dimmest word stays above the large-text contrast minimum. */
-@keyframes lit {
-  from { opacity: 0.5; }
-  to { opacity: 1; }
+/* Headings that rise into view when scrolled to (RiseHeading) */
+.rise-view .rise-word {
+  animation-play-state: paused;
 }
 
-@supports (animation-timeline: view()) {
-  .lit-word {
-    animation: lit linear both;
-    animation-timeline: view();
-    animation-range: cover 0% cover 42%;
+.rise-view.is-in .rise-word {
+  animation-play-state: running;
+}
+
+/* Cards that lift on hover, and on touch screens when they reach the middle of the screen
+   or are pressed (Spot sets data-active). */
+.pop-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.5s ease;
+}
+
+.pop-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 0.375rem;
+  background: var(--color-signal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pop-card .pop-dot {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pop-card[data-active="true"],
+.pop-card:active {
+  z-index: 10;
+  transform: translateY(-0.75rem) scale(1.03);
+  background-color: var(--color-surface-3);
+  border-color: var(--color-cream);
+  box-shadow: 0 32px 56px -24px rgba(0, 0, 0, 0.7);
+}
+
+.pop-card[data-active="true"]::before,
+.pop-card:active::before {
+  transform: scaleX(1);
+}
+
+.pop-card[data-active="true"] .pop-dot,
+.pop-card:active .pop-dot {
+  transform: scale(1.5);
+}
+
+@media (hover: hover) {
+  .pop-card:hover {
+    z-index: 10;
+    transform: translateY(-0.75rem) scale(1.03);
+    background-color: var(--color-surface-3);
+    border-color: var(--color-cream);
+    box-shadow: 0 32px 56px -24px rgba(0, 0, 0, 0.7);
   }
 
-  .marquee-track.marquee-scroll {
-    animation: marquee linear both;
-    animation-timeline: view();
-    animation-range: cover 0% cover 100%;
+  .pop-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .pop-card:hover .pop-dot {
+    transform: scale(1.5);
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .rise-word {
-    animation: none;
-    transform: none;
+/* Touch screens have no hover, so the main buttons get a slow shine and the collapsed
+   service rows a gentle nudge to show they can be tapped. */
+.cta-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.4) 50%, transparent 65%);
+  transform: translateX(-120%);
+}
+
+@keyframes shine {
+  0%,
+  55% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+@keyframes nudge {
+  0%,
+  100% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+}
+
+@media (hover: none) {
+  .cta-shine::after {
+    animation: shine 3.4s ease-in-out 3.2s infinite;
   }
 
-  .pop,
-  .lit-word,
-  .marquee-track.marquee-scroll {
-    animation: none;
+  .nudge {
+    animation: nudge 2.4s ease-in-out infinite;
   }
 }
+
+/* Service panels slide in one after another when the section is reached */
+.stage-in > * {
+  animation: reveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.stage-in > :nth-child(2) { animation-delay: 100ms; }
+.stage-in > :nth-child(3) { animation-delay: 200ms; }
+.stage-in > :nth-child(4) { animation-delay: 300ms; }
 
 /* ---- Creative page marquee ---- */
 .marquee-track {
@@ -453,6 +546,503 @@ html.intro-active .intro-skip {
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
+    animation: none;
+  }
+}
+
+/* ---- Home opening: each side flicks through its own scenes (ReelPane) ---- */
+.reel {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #10130c;
+}
+
+.reel-scene {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(100% 0 0 0);
+}
+
+.reel[data-dir="down"] .reel-scene {
+  clip-path: inset(0 0 100% 0);
+}
+
+.reel .reel-scene.is-prev {
+  z-index: 1;
+  clip-path: inset(0);
+}
+
+.reel .reel-scene.is-active {
+  z-index: 2;
+  clip-path: inset(0);
+  transition: clip-path 0.85s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.reel-art {
+  position: absolute;
+  inset: -6%;
+  overflow: hidden;
+  transform: scale(1.14);
+}
+
+.reel-scene.is-active .reel-art,
+.reel-scene.is-prev .reel-art {
+  transform: scale(1);
+  transition: transform 7.5s linear;
+}
+
+.reel-word {
+  position: absolute;
+  left: 0;
+  top: 12%;
+  font-size: clamp(7rem, 26vw, 20rem);
+  line-height: 0.8;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  color: rgba(236, 226, 200, 0.14);
+  transform: translateX(6%);
+}
+
+.reel-scene:nth-child(even) .reel-word {
+  top: 26%;
+}
+
+.reel-scene.is-active .reel-word,
+.reel-scene.is-prev .reel-word {
+  animation: reel-drift 7.5s linear both;
+}
+
+@keyframes reel-drift {
+  from { transform: translateX(6%); }
+  to { transform: translateX(-9%); }
+}
+
+.reel-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(14, 16, 10, 0.93) 0%,
+    rgba(14, 16, 10, 0.74) 40%,
+    rgba(14, 16, 10, 0.3) 68%,
+    rgba(14, 16, 10, 0.06) 100%
+  );
+  transition: opacity 0.5s ease;
+}
+
+.group:hover .reel-shade {
+  opacity: 0.78;
+}
+
+.reel-caption {
+  position: absolute;
+  z-index: 5;
+  top: clamp(1.25rem, 5vh, 2.5rem);
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+@media (min-width: 640px) {
+  .reel-caption { right: 2.5rem; }
+}
+
+@media (min-width: 768px) {
+  .reel-caption { right: 3rem; }
+}
+
+@media (min-width: 1024px) {
+  .reel-caption { right: 4rem; }
+}
+
+.reel-label {
+  animation: reel-label-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes reel-label-in {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: none; }
+}
+
+.reel-progress {
+  display: block;
+  width: 9rem;
+  height: 1px;
+  margin-top: 0.6rem;
+  overflow: hidden;
+  background: rgba(236, 226, 200, 0.22);
+}
+
+.reel-progress > span {
+  display: block;
+  height: 100%;
+  background: var(--color-signal);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: reel-fill linear both;
+}
+
+@keyframes reel-fill {
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reel-art,
+  .reel-scene.is-active .reel-art,
+  .reel-scene.is-prev .reel-art {
+    transform: none;
+    transition: none;
+  }
+
+  .reel-word,
+  .reel-label {
+    animation: none !important;
+    transform: none;
+  }
+
+  .reel-progress {
+    display: none;
+  }
+}
+
+/* Hovering a side of the opening screen warms the scene instead of resizing the side. */
+.reel {
+  transition: scale 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes shine-once {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
+
+@media (hover: hover) {
+  .group:hover .reel {
+    scale: 1.04;
+  }
+
+  .group:hover .cta-shine::after {
+    animation: shine-once 0.9s ease-out;
+  }
+}
+
+/* ---- First screen: fluted-glass light field (GlowField) ---- */
+.glow {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(160deg, #36442b 0%, #212a19 52%, #12160d 100%);
+}
+
+.glow-layer {
+  position: absolute;
+  border-radius: 9999px;
+  translate: calc(var(--mx, 0) * var(--px, 0px)) calc(var(--my, 0) * var(--py, 0px));
+  will-change: transform;
+}
+
+.glow-gold {
+  --px: 36px;
+  --py: 20px;
+  left: -6%;
+  top: 20%;
+  width: 64%;
+  height: 66%;
+  background: radial-gradient(
+    closest-side,
+    rgba(244, 224, 150, 0.98),
+    rgba(222, 190, 104, 0.7) 48%,
+    rgba(222, 190, 104, 0) 100%
+  );
+  filter: blur(48px);
+  animation:
+    glow-in 2s cubic-bezier(0.16, 1, 0.3, 1) both,
+    drift-a 18s ease-in-out infinite alternate;
+  animation-delay: calc(var(--intro-delay, 0s) + 100ms), 0s;
+}
+
+.glow-streak {
+  --px: 48px;
+  --py: 8px;
+  left: 6%;
+  top: 44%;
+  width: 52%;
+  height: 20%;
+  border-radius: 40%;
+  background: linear-gradient(
+    90deg,
+    rgba(250, 232, 170, 0) 0%,
+    rgba(250, 232, 170, 0.85) 45%,
+    rgba(228, 160, 70, 0.9) 70%,
+    rgba(228, 160, 70, 0) 100%
+  );
+  filter: blur(30px);
+  animation:
+    glow-in 2s cubic-bezier(0.16, 1, 0.3, 1) both,
+    drift-b 14s ease-in-out infinite alternate;
+  animation-delay: calc(var(--intro-delay, 0s) + 250ms), 0s;
+}
+
+.glow-orange {
+  --px: -30px;
+  --py: 12px;
+  left: 34%;
+  top: 56%;
+  width: 36%;
+  height: 24%;
+  background: radial-gradient(closest-side, rgba(228, 87, 46, 0.92), rgba(228, 87, 46, 0));
+  filter: blur(34px);
+  animation:
+    glow-in 2s cubic-bezier(0.16, 1, 0.3, 1) both,
+    drift-c 16s ease-in-out infinite alternate;
+  animation-delay: calc(var(--intro-delay, 0s) + 400ms), 0s;
+}
+
+.glow-figure {
+  --px: -16px;
+  --py: 6px;
+  right: 12%;
+  top: 4%;
+  width: 25%;
+  height: 84%;
+  border-radius: 46% 46% 36% 36% / 22% 22% 10% 10%;
+  background: linear-gradient(180deg, #0b0e08 0%, #121709 58%, rgba(18, 23, 9, 0.15) 100%);
+  filter: blur(24px);
+  animation:
+    glow-in 2s cubic-bezier(0.16, 1, 0.3, 1) both,
+    drift-c 11s ease-in-out infinite alternate-reverse;
+  animation-delay: calc(var(--intro-delay, 0s) + 550ms), 0s;
+}
+
+.glow-flutes {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  mix-blend-mode: overlay;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.26) 0,
+    rgba(255, 255, 255, 0.04) 5px,
+    rgba(0, 0, 0, 0.2) 11px,
+    rgba(255, 255, 255, 0) 14px
+  );
+}
+
+.glow-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(12, 15, 8, 0.84) 0%, rgba(12, 15, 8, 0.22) 36%, rgba(12, 15, 8, 0) 60%),
+    linear-gradient(to bottom, rgba(12, 15, 8, 0.5) 0%, rgba(12, 15, 8, 0) 24%);
+}
+
+@keyframes glow-in {
+  from { opacity: 0; scale: 0.88; }
+  to { opacity: 1; scale: 1; }
+}
+
+@keyframes drift-a {
+  from { transform: translate3d(-3%, -2%, 0); }
+  to { transform: translate3d(5%, 3%, 0); }
+}
+
+@keyframes drift-b {
+  from { transform: translate3d(4%, 0, 0); }
+  to { transform: translate3d(-6%, 4%, 0); }
+}
+
+@keyframes drift-c {
+  from { transform: translate3d(0, 0, 0) rotate(-1deg); }
+  to { transform: translate3d(-4%, 1%, 0) rotate(2deg); }
+}
+
+@media (max-width: 767px) {
+  .glow-gold { filter: blur(32px); }
+  .glow-streak { filter: blur(22px); }
+  .glow-orange { filter: blur(26px); }
+  .glow-figure { filter: blur(18px); right: 4%; width: 34%; }
+}
+
+/* Inner pages: one soft pool of light in the corner, no dark figure. */
+.glow-page {
+  background: transparent;
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+}
+
+.glow-page .glow-vignette {
+  display: none;
+}
+
+.glow-page .glow-figure,
+.glow-page .glow-streak {
+  display: none;
+}
+
+.glow-page .glow-gold {
+  left: auto;
+  right: -12%;
+  top: -30%;
+  width: 70%;
+  height: 150%;
+  background: radial-gradient(
+    closest-side,
+    rgba(238, 214, 140, 0.62),
+    rgba(222, 190, 104, 0.36) 48%,
+    rgba(222, 190, 104, 0) 100%
+  );
+}
+
+@media (max-width: 767px) {
+  .glow-page .glow-gold {
+    right: -40%;
+    top: -22%;
+    width: 100%;
+    height: 56%;
+  }
+
+  .glow-page .glow-orange {
+    right: -20%;
+    top: 30%;
+    width: 60%;
+    height: 24%;
+  }
+}
+
+.glow-page .glow-orange {
+  left: auto;
+  right: 8%;
+  top: 58%;
+  width: 34%;
+  height: 40%;
+}
+
+/* Scroll cue: the arrow drifts down and fades, over and over. */
+.scroll-cue-arrow {
+  animation: cue 1.9s ease-in-out infinite;
+}
+
+@keyframes cue {
+  0% { transform: translateY(-9px); opacity: 0; }
+  35% { opacity: 1; }
+  100% { transform: translateY(9px); opacity: 0; }
+}
+
+/* Entrance animations inside a ViewTrigger wait until it is scrolled to. */
+.rise-view .hero-reveal,
+.rise-view .pop {
+  animation-play-state: paused;
+}
+
+.rise-view.is-in .hero-reveal,
+.rise-view.is-in .pop {
+  animation-play-state: running;
+}
+
+/* Reduced motion means no movement, not no feedback: things still fade in gently. */
+@keyframes reveal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    scroll-behavior: auto !important;
+  }
+
+  .reveal.is-visible {
+    animation: reveal-fade 0.6s ease both;
+  }
+
+  .hero-reveal,
+  html.intro-ran .hero-reveal,
+  .stage-in > * {
+    animation: reveal-fade 0.6s ease both;
+  }
+
+  .rise-word {
+    animation: reveal-fade 0.6s ease both;
+    transform: none;
+  }
+
+  .pop,
+  .cta-shine::after,
+  .nudge,
+  .pop-card,
+  .pop-card::before,
+  .pop-card .pop-dot {
+    animation: none;
+    transition: none;
+  }
+
+  .pop-card[data-active="true"],
+  .pop-card:active,
+  .pop-card:hover {
+    transform: none;
+  }
+}
+
+/* With reduced motion the pinned sections are simply laid out in place. */
+@media (prefers-reduced-motion: reduce) {
+  .stage-wrap,
+  .film-wrap {
+    height: auto !important;
+  }
+
+  .stage-pin,
+  .film-pin {
+    position: static !important;
+    height: auto !important;
+  }
+
+  .stage-panels {
+    min-height: 40rem;
+  }
+
+  .film-pin {
+    gap: 2rem;
+  }
+
+  .film-track {
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-layer {
+    animation: none;
+  }
+}
+
+/* Reduced motion: the guided chapters are laid out one after another instead. */
+@media (prefers-reduced-motion: reduce) {
+  .chapter-wrap {
+    height: auto !important;
+  }
+
+  .chapter-pin {
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .chapter {
+    position: relative !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    min-height: 100svh;
+  }
+
+  .chapter-chrome {
+    display: none;
+  }
+
+  .scroll-cue-arrow {
     animation: none;
   }
 }
