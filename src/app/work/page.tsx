@@ -22,10 +22,10 @@ export default function WorkPage() {
             Selected <span className="font-display whitespace-nowrap font-normal italic tracking-[-0.03em] text-[#f1e3b0]">work.</span>
           </h1>
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-cream/85">
-            Websites, short-form video and ad creative for independent
-            businesses across Sussex, Surrey and London, plus our own studio
-            work. Concept projects are clearly labelled and show how we would
-            approach apps and AI agents.
+            Websites and short-form video for independent businesses across
+            Sussex, Surrey and London, plus the studio site itself. Concept
+            projects are clearly labelled and show how I would approach apps
+            and AI agents.
           </p>
         </div>
       </PageHero>

@@ -1047,51 +1047,6 @@ export const projects: Project[] = [
     tools: [],
   },
   {
-    slug: "jmb-social-ad-creative",
-    status: "studio",
-    client: "JMB Social",
-    industry: "Studio outreach campaign",
-    title: "Animated ads that lead with proof.",
-    description:
-      "Two animated 4:5 ad creatives for JMB Social's own outreach, built around real client work and a single clear call to action.",
-    categories: ["ADS", "BRAND"],
-    services: ["Ad creative", "Motion design", "Copywriting", "Audio"],
-    accent: "sage",
-    kind: "ads",
-    media: {
-      frame: "stack",
-      images: ["/work/video/ad-general-poster.jpg", "/work/video/ad-trades-poster.jpg"],
-    },
-    videos: [
-      {
-        src: "/work/video/ad-general.mp4",
-        poster: "/work/video/ad-general-poster.jpg",
-        title: "General version",
-        caption: "Opens on the problem every business with weak ads recognises.",
-        aspect: "4/5",
-      },
-      {
-        src: "/work/video/ad-trades.mp4",
-        poster: "/work/video/ad-trades-poster.jpg",
-        title: "Trades version",
-        caption: "The same proof, aimed at mechanics, landscapers and tradespeople.",
-        aspect: "4/5",
-      },
-    ],
-    brief:
-      "Outreach to independent businesses has to prove the work before it asks for anything. These ads open on a problem each audience recognises, show real client websites and Reels, and end with one direct action: a DM for a free ad check.",
-    approach:
-      "Short, kinetic type and a restrained palette keep each ad readable with the sound off. Both share one structure: hook, problem, proof, action. The trades version swaps the hook and the audience line so the same proof lands with mechanics and landscapers, which gives a clean split to test against the general version.",
-    deliverables: [
-      "Two 4:5 ad creatives for Instagram and Facebook",
-      "Kinetic typography and motion design",
-      "Proof-led storyboard using client work",
-      "Audio mixed and mastered for social",
-      "General and trades variants for testing",
-    ],
-    tools: [],
-  },
-  {
     slug: "jmb-social-studio-site",
     status: "studio",
     client: "JMB Social",

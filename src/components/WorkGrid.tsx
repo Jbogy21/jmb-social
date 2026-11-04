@@ -4,10 +4,16 @@ import { useMemo, useState } from "react";
 import { categoryLabels, type Project, type ProjectCategory } from "@/lib/data";
 import ProjectCard from "./ProjectCard";
 
-const categories = Object.keys(categoryLabels) as ProjectCategory[];
+const allCategories = Object.keys(categoryLabels) as ProjectCategory[];
 
 export default function WorkGrid({ projects }: { projects: Project[] }) {
   const [active, setActive] = useState<ProjectCategory | "ALL">("ALL");
+
+  // Only offer filters that have something behind them.
+  const categories = useMemo(
+    () => allCategories.filter((c) => projects.some((p) => p.categories.includes(c))),
+    [projects]
+  );
 
   const filtered = useMemo(
     () =>
@@ -56,7 +62,7 @@ function FilterChip({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`font-mono-label border px-4 py-2.5 text-[11px] transition-colors duration-200 ${
+      className={`font-mono-label rounded-full border px-4 py-2.5 text-[11px] transition-colors duration-200 ${
         active
           ? "border-cream bg-cream text-ink"
           : "border-line text-fg-70 hover:border-fg hover:text-fg"
