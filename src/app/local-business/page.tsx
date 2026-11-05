@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/Button";
 import SectionLabel from "@/components/SectionLabel";
@@ -22,8 +21,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/local-business" },
 };
 
-const delay = (ms: number) => ({ animationDelay: `calc(var(--intro-delay, 0s) + ${ms}ms)` });
-
 export default function LocalBusinessPage() {
   return (
     <>
@@ -32,8 +29,8 @@ export default function LocalBusinessPage() {
           <ReelPane scenes={heroScenes.trades} showWords={false} showCaption={false} dwell={3600} />
           <div className="absolute inset-0 bg-fg/50" />
         </div>
-        <div className="container-edge relative grid gap-12 pb-16 pt-12 md:grid-cols-12 md:items-end md:gap-8 md:pb-24 md:pt-20">
-          <div className="md:col-span-8">
+        <div className="container-edge relative pb-16 pt-12 md:pb-24 md:pt-20">
+          <div className="max-w-4xl">
             <SectionLabel label="Local business" tone="cream" />
             <h1 className="font-display mt-8 text-[13vw] font-medium leading-[0.98] tracking-tight text-cream [text-shadow:0_2px_22px_rgba(10,12,8,0.55)] sm:text-[9vw] md:text-[6.4vw] lg:text-[5.5rem]">
               Websites and Reels for local businesses.
@@ -47,29 +44,20 @@ export default function LocalBusinessPage() {
               <Button href="/contact" variant="light">
                 Start a project
               </Button>
-              <Button href="#work" variant="ghost">
-                See the work
+              <Button href="#reels" variant="ghost" arrow>
+                Watch the Reels
               </Button>
             </div>
+            <p className="mt-6">
+              <Link
+                href="#work"
+                className="font-mono-label underline-hover inline-flex min-h-8 items-center text-[11px] text-cream/80 hover:text-cream"
+              >
+                See the websites →
+              </Link>
+            </p>
           </div>
 
-          <a
-            href="#reels"
-            className="hero-reveal group relative block aspect-[9/16] w-full max-w-[16rem] overflow-hidden bg-green-deep md:col-span-4 md:justify-self-end"
-            style={delay(150)}
-          >
-            <Image
-              src="/work/video/reel-reliable-unreliable-sharp.jpg"
-              alt="A mechanic at Wheelers Autoworks talking to camera in the workshop, from one of their Reels"
-              fill
-              priority
-              sizes="256px"
-              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-            />
-            <span className="font-mono-label absolute bottom-3 left-3 bg-cream px-2.5 py-1.5 text-[11px] text-ink">
-              Wheelers Autoworks · Reel
-            </span>
-          </a>
         </div>
       </section>
 

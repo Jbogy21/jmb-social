@@ -47,7 +47,7 @@ export default function ReelPane({
     };
 
     // Wait for the entrance to finish before the first flick.
-    const waiting = document.documentElement.classList.contains("intro-active") ? 2700 : 500;
+    const waiting = document.documentElement.classList.contains("intro-active") ? 2300 : 500;
     timer = window.setTimeout(() => {
       setRunning(true);
       timer = window.setTimeout(tick, dwell);

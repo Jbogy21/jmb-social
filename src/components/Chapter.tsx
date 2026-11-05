@@ -25,6 +25,10 @@ const tone: Record<
 
 // One half of the story on the home page: a question, a few honest lines, one proof point
 // and one way in, beside a framed flick-through of the scenes that belong to it.
+//
+// On phones the picture is the flexible part: it takes whatever height is left between
+// the header and the bottom controls (so nothing is ever cut off or covered), and the
+// longer paragraph drops away on very short screens.
 export default function Chapter({
   side,
   eyebrow,
@@ -44,23 +48,23 @@ export default function Chapter({
   pills: string[];
   proof: { text: string; live?: boolean };
   cta: { label: string; href: string };
-  link: { label: string; href: string };
+  link: { label: string; short?: string; href: string };
   scenes: HeroScene[];
   flip?: boolean;
 }) {
   const t = tone[side];
 
   return (
-    <div className="container-edge grid h-full content-center items-center gap-6 pb-28 pt-[calc(var(--hdr)+0.5rem)] md:grid-cols-12 md:gap-14 md:pb-24">
-      <div className={`order-2 md:col-span-6 ${flip ? "md:order-2" : "md:order-1"}`}>
+    <div className="container-edge flex h-full flex-col justify-center gap-4 pb-[calc(var(--chrome)+0.5rem)] pt-[calc(var(--hdr)+0.75rem)] md:grid md:grid-cols-12 md:content-center md:items-center md:gap-14 md:pb-24 md:pt-[calc(var(--hdr)+0.5rem)]">
+      <div className={`order-2 shrink-0 md:col-span-6 ${flip ? "md:order-2" : "md:order-1"}`}>
         <p className="font-mono-label flex items-center gap-2.5 text-[11px] text-cream/75">
           <span className={`h-2 w-2 rounded-full ${t.dot}`} aria-hidden="true" />
           {eyebrow}
         </p>
-        <h2 className="mt-4 font-sans text-[clamp(2.1rem,4.9vw,4.5rem)] font-light leading-[1] tracking-[-0.04em] text-cream [text-shadow:0_2px_30px_rgba(10,12,8,0.35)] md:mt-5">
+        <h2 className="mt-3 font-sans text-[clamp(1.85rem,8.2vw,2.4rem)] font-light leading-[1] tracking-[-0.04em] text-cream [text-shadow:0_2px_30px_rgba(10,12,8,0.35)] md:mt-5 md:text-[clamp(2.4rem,4.9vw,4.5rem)]">
           {title}
         </h2>
-        <p className="mt-4 max-w-md text-[15px] leading-relaxed text-cream/80 md:mt-6 md:text-base">
+        <p className="mt-3 max-w-md text-[15px] leading-relaxed text-cream/80 md:mt-6 md:text-base [@media(max-height:600px)]:hidden">
           {body}
         </p>
 
@@ -75,14 +79,14 @@ export default function Chapter({
           ))}
         </ul>
 
-        <p className="mt-5 flex items-center gap-2.5 text-sm text-cream/70">
+        <p className="mt-3 flex items-center gap-2.5 text-sm text-cream/70 md:mt-5">
           {proof.live && (
             <span className="h-2 w-2 shrink-0 rounded-full bg-signal" aria-hidden="true" />
           )}
           {proof.text}
         </p>
 
-        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 md:mt-8">
+        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3 md:mt-8">
           <Link
             href={cta.href}
             className={`group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.97] ${t.cta}`}
@@ -99,7 +103,14 @@ export default function Chapter({
             href={link.href}
             className="group inline-flex min-h-8 items-center gap-1.5 text-sm text-cream/85 transition-colors hover:text-white"
           >
-            {link.label}
+            {link.short ? (
+              <>
+                <span className="sm:hidden">{link.short}</span>
+                <span className="hidden sm:inline">{link.label}</span>
+              </>
+            ) : (
+              link.label
+            )}
             <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
@@ -107,12 +118,12 @@ export default function Chapter({
         </div>
       </div>
 
-      <div className={`order-1 md:col-span-6 ${flip ? "md:order-1" : "md:order-2"}`}>
-        <div
-          className={`relative mx-auto h-[24svh] min-h-[9.5rem] w-full max-w-xl overflow-hidden rounded-[1.75rem] border border-white/15 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] md:h-[min(64svh,34rem)] md:rounded-[2.25rem] ${
-            flip ? "md:ml-0" : "md:mr-0 md:ml-auto"
-          }`}
-        >
+      <div
+        className={`relative order-1 max-h-[15rem] min-h-[6rem] w-full flex-1 md:col-span-6 md:max-h-none md:h-[min(64svh,34rem)] md:max-w-xl md:flex-none ${
+          flip ? "md:order-1 md:mr-auto" : "md:order-2 md:ml-auto"
+        }`}
+      >
+        <div className="absolute inset-0 overflow-hidden rounded-[1.75rem] border border-white/15 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] md:rounded-[2.25rem]">
           <ReelPane
             scenes={scenes}
             direction={side === "trades" ? "up" : "down"}

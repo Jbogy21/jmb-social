@@ -1,141 +1,29 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import SectionLabel from "./SectionLabel";
+import ChapterStage from "./ChapterStage";
+import { ServiceFit } from "./ServiceCards";
+import { Exhibit, tones } from "./ServiceParts";
 import type { StagePanel } from "@/lib/data";
 
 // How much scrolling (in screen heights) each service gets while the section is pinned.
 const SEGMENT_SVH = 55;
 
-const tones: Record<
-  StagePanel["tone"],
-  { box: string; muted: string; rule: string; glow: string }
-> = {
-  green: {
-    box: "border border-white/12 bg-[linear-gradient(135deg,rgba(130,150,76,0.3),rgba(255,255,255,0.04))] text-cream",
-    muted: "text-cream/75",
-    rule: "border-cream/15",
-    glow: "group-hover/panel:border-cream/45 group-hover/panel:bg-white/10",
-  },
-  deep: {
-    box: "border border-white/12 bg-[linear-gradient(135deg,rgba(78,98,52,0.32),rgba(255,255,255,0.03))] text-cream",
-    muted: "text-cream/75",
-    rule: "border-cream/15",
-    glow: "group-hover/panel:border-cream/45 group-hover/panel:bg-white/10",
-  },
-  khaki: {
-    box: "border border-white/12 bg-[linear-gradient(135deg,rgba(222,190,104,0.3),rgba(255,255,255,0.04))] text-cream",
-    muted: "text-cream/75",
-    rule: "border-cream/15",
-    glow: "group-hover/panel:border-cream/45 group-hover/panel:bg-white/10",
-  },
-  signal: {
-    box: "border border-white/12 bg-[linear-gradient(135deg,rgba(228,87,46,0.4),rgba(255,255,255,0.04))] text-cream",
-    muted: "text-cream/80",
-    rule: "border-cream/20",
-    glow: "group-hover/panel:border-cream/50 group-hover/panel:bg-white/10",
-  },
-};
-
-function Exhibit({ exhibit }: { exhibit: StagePanel["exhibit"] }) {
-  if (exhibit.kind === "image") {
-    return (
-      <figure className="w-full max-w-md">
-        <div
-          className="relative w-full overflow-hidden rounded-2xl border border-white/15 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.7)]"
-          style={{ aspectRatio: exhibit.aspect }}
-        >
-          <Image
-            src={exhibit.src}
-            alt={exhibit.alt}
-            fill
-            sizes="(min-width: 1024px) 30vw, 0px"
-            className="object-cover"
-          />
-        </div>
-        <figcaption className="font-mono-label mt-3 text-[11px] opacity-80">
-          {exhibit.caption}
-        </figcaption>
-      </figure>
-    );
-  }
-
-  if (exhibit.kind === "brand") {
-    const formats = [
-      { label: "1:1 Square", w: 56, h: 56 },
-      { label: "4:5 Feed", w: 56, h: 70 },
-      { label: "9:16 Story", w: 44, h: 78 },
-    ];
-    const swatches = [
-      { name: "Olive", hex: "#333d22" },
-      { name: "Khaki", hex: "#d6c795" },
-      { name: "Cream", hex: "#ece2c8" },
-      { name: "Ember", hex: "#e4572e" },
-    ];
-    return (
-      <figure className="w-full max-w-md">
-        <div className="rounded-2xl border border-white/15 bg-white/[0.06] p-6 backdrop-blur-sm">
-          <p className="font-mono-label text-[10px] text-cream/70">Ad formats</p>
-          <div className="mt-4 flex items-end gap-5">
-            {formats.map((format) => (
-              <div key={format.label} className="flex flex-col items-start gap-2">
-                <span
-                  className="block rounded-md border border-cream/60 bg-white/[0.08]"
-                  style={{ width: format.w, height: format.h }}
-                />
-                <span className="font-mono-label text-[10px] text-cream/75">{format.label}</span>
-              </div>
-            ))}
-          </div>
-
-          <p className="font-mono-label mt-7 text-[10px] text-cream/70">Brand kit</p>
-          <ul className="mt-4 grid grid-cols-4 gap-3">
-            {swatches.map((swatch) => (
-              <li key={swatch.name} className="flex flex-col gap-2">
-                <span
-                  className="block h-12 rounded-xl border border-white/20"
-                  style={{ background: swatch.hex }}
-                />
-                <span className="font-mono-label text-[10px] text-cream/75">{swatch.name}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-6 flex items-baseline gap-3 leading-none text-cream">
-            <span className="font-display text-5xl font-medium">Aa</span>
-            <span className="font-sans text-3xl font-light">Aa</span>
-          </p>
-        </div>
-        <figcaption className="font-mono-label mt-3 text-[11px] opacity-80">
-          {exhibit.caption}
-        </figcaption>
-      </figure>
-    );
-  }
-
-  if (exhibit.kind === "stat") {
-    return (
-      <div className="max-w-xs">
-        <p className="font-display text-8xl font-medium leading-none">{exhibit.value}</p>
-        <p className="font-mono-label mt-4 max-w-[16rem] text-[11px] leading-relaxed opacity-80">
-          {exhibit.label}
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="max-w-xs rounded-2xl border border-white/25 bg-white/[0.06] p-6">
-      <p className="font-mono-label text-[11px]">{exhibit.label}</p>
-      <p className="font-display mt-4 text-2xl font-medium leading-snug">{exhibit.text}</p>
-    </div>
-  );
-}
+const phoneCues = ["Scroll for content", "Scroll for ads", "Scroll for creative", "Scroll to continue"];
+const wideCues = [
+  "Scroll for content & social",
+  "Scroll for ads & brand",
+  "Scroll for fashion, music & sport",
+  "Scroll to continue",
+];
 
 // Services as side-by-side panels. The section holds still for a short while and opens one
-// panel after another as the page scrolls; hovering (or tapping, or tabbing to) a panel
-// opens it straight away, and Skip jumps past the whole thing.
+// panel after another as the page scrolls; hovering (or tabbing to) a panel opens it
+// straight away, and Skip jumps past the whole thing. Below the desktop width the same
+// four services become pinned cards that fit the screen, one after another, each with its
+// picture.
 export default function ServiceStage({
   panels,
   skipTo = "#about-me",
@@ -237,9 +125,23 @@ export default function ServiceStage({
       <h2 id="stage-heading" className="sr-only">
         What I do
       </h2>
+      <div className="lg:hidden">
+        <ChapterStage
+          id="what-i-do-cards"
+          label="What I do"
+          chapters={panels.map((panel) => (
+            <ServiceFit key={panel.slug} panel={panel} />
+          ))}
+          cues={wideCues}
+          shortCues={phoneCues}
+          skipTo={skipTo}
+          stepSvh={70}
+        />
+      </div>
+
       <div
         ref={wrap}
-        className="stage-wrap relative [--hdr:81px] md:[--hdr:97px]"
+        className="stage-wrap relative hidden [--hdr:81px] md:[--hdr:97px] lg:block"
         style={{ height: `calc(100svh - var(--hdr) + ${last * SEGMENT_SVH}svh)` }}
       >
         <div

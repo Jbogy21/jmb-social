@@ -98,7 +98,7 @@ export default function HomeHero() {
               </span>
             </h1>
             <p
-              className="hero-reveal mt-6 max-w-md text-base leading-relaxed text-cream/85"
+              className="hero-reveal mt-6 max-w-md text-base leading-relaxed text-cream [text-shadow:0_1px_2px_rgba(10,12,8,0.55),0_2px_22px_rgba(10,12,8,0.75)]"
               style={delay(450)}
             >
               Websites, short-form video and ads for local businesses, and content for people

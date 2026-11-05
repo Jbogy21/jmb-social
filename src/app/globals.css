@@ -194,7 +194,9 @@ body {
 
 /* ---- Entrance (home page, first visit per session) ---- */
 html.intro-active {
-  --intro-delay: 2.4s;
+  /* The hero's words rise as the wordmark clears; its glow blooms as the veil lifts. */
+  --intro-delay: 1.35s;
+  --glow-delay: 1s;
 }
 
 /* While the entrance plays, hero content slides into place without fading,
@@ -223,29 +225,19 @@ html.intro-ran .hero-reveal {
   align-items: center;
   justify-content: center;
   color: var(--color-cream);
-  animation: intro-gone 0.01s linear 3.1s forwards;
+  animation: intro-gone 0.01s linear 2.3s forwards;
 }
 
-/* Two doors that part to reveal the choice screen. */
-.intro-door {
+/* A dark veil over the page. It lifts to show the hero's own glow blooming underneath,
+   so the entrance and the first screen are one continuous picture, not two scenes. */
+.intro-veil {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50.5%;
-  background: var(--color-green-deep);
+  inset: 0;
+  background: #10130b;
+  animation: intro-veil-lift 0.85s cubic-bezier(0.4, 0, 0.2, 1) 1.35s forwards;
 }
 
-.intro-door-l {
-  left: 0;
-  animation: intro-door-l 0.9s cubic-bezier(0.77, 0, 0.18, 1) 2.15s forwards;
-}
-
-.intro-door-r {
-  right: 0;
-  animation: intro-door-r 0.9s cubic-bezier(0.77, 0, 0.18, 1) 2.15s forwards;
-}
-
-.intro-overlay::after {
+.intro-veil::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -262,7 +254,8 @@ html.intro-ran .hero-reveal {
   flex-direction: column;
   align-items: center;
   gap: 1.25rem;
-  animation: intro-mark-out 0.45s ease 1.85s forwards;
+  text-shadow: 0 2px 40px rgba(10, 12, 8, 0.45);
+  animation: intro-mark-out 0.45s ease 1.5s forwards;
 }
 
 .intro-word {
@@ -282,9 +275,9 @@ html.intro-ran .hero-reveal {
   animation: intro-rise 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.intro-letter:nth-child(1) { animation-delay: 0.15s; }
-.intro-letter:nth-child(2) { animation-delay: 0.27s; }
-.intro-letter:nth-child(3) { animation-delay: 0.39s; }
+.intro-letter:nth-child(1) { animation-delay: 0.1s; }
+.intro-letter:nth-child(2) { animation-delay: 0.22s; }
+.intro-letter:nth-child(3) { animation-delay: 0.34s; }
 
 .intro-line {
   position: relative;
@@ -301,7 +294,7 @@ html.intro-ran .hero-reveal {
   transform: scaleX(0);
   transform-origin: left;
   background: var(--color-signal);
-  animation: intro-fill 1.5s cubic-bezier(0.65, 0, 0.35, 1) 0.45s forwards;
+  animation: intro-fill 1s cubic-bezier(0.65, 0, 0.35, 1) 0.35s forwards;
 }
 
 .intro-caption {
@@ -311,7 +304,7 @@ html.intro-ran .hero-reveal {
   text-transform: uppercase;
   opacity: 0;
   color: var(--color-cream-70);
-  animation: intro-fade 0.6s ease 0.7s forwards;
+  animation: intro-fade 0.6s ease 0.55s forwards;
 }
 
 .intro-skip {
@@ -329,7 +322,7 @@ html.intro-ran .hero-reveal {
   text-transform: uppercase;
   cursor: pointer;
   display: none;
-  animation: intro-skip-out 0.01s linear 2.15s forwards;
+  animation: intro-skip-out 0.01s linear 1.5s forwards;
 }
 
 .intro-skip:hover {
@@ -357,12 +350,8 @@ html.intro-active .intro-skip {
   to { opacity: 1; }
 }
 
-@keyframes intro-door-l {
-  to { transform: translateX(-101%); }
-}
-
-@keyframes intro-door-r {
-  to { transform: translateX(101%); }
+@keyframes intro-veil-lift {
+  to { opacity: 0; }
 }
 
 @keyframes intro-mark-out {
@@ -385,6 +374,7 @@ html.intro-active .intro-skip {
 
   html.intro-active {
     --intro-delay: 0s;
+    --glow-delay: 0s;
   }
 }
 
@@ -759,7 +749,7 @@ html.intro-active .intro-skip {
   animation:
     glow-in 2s cubic-bezier(0.16, 1, 0.3, 1) both,
     drift-a 18s ease-in-out infinite alternate;
-  animation-delay: calc(var(--intro-delay, 0s) + 100ms), 0s;
+  animation-delay: calc(var(--glow-delay, var(--intro-delay, 0s)) + 100ms), 0s;
 }
 
 .glow-streak {
@@ -781,7 +771,7 @@ html.intro-active .intro-skip {
   animation:
     glow-in 2s cubic-bezier(0.16, 1, 0.3, 1) both,
     drift-b 14s ease-in-out infinite alternate;
-  animation-delay: calc(var(--intro-delay, 0s) + 250ms), 0s;
+  animation-delay: calc(var(--glow-delay, var(--intro-delay, 0s)) + 250ms), 0s;
 }
 
 .glow-orange {
@@ -796,7 +786,7 @@ html.intro-active .intro-skip {
   animation:
     glow-in 2s cubic-bezier(0.16, 1, 0.3, 1) both,
     drift-c 16s ease-in-out infinite alternate;
-  animation-delay: calc(var(--intro-delay, 0s) + 400ms), 0s;
+  animation-delay: calc(var(--glow-delay, var(--intro-delay, 0s)) + 400ms), 0s;
 }
 
 .glow-figure {
@@ -812,7 +802,7 @@ html.intro-active .intro-skip {
   animation:
     glow-in 2s cubic-bezier(0.16, 1, 0.3, 1) both,
     drift-c 11s ease-in-out infinite alternate-reverse;
-  animation-delay: calc(var(--intro-delay, 0s) + 550ms), 0s;
+  animation-delay: calc(var(--glow-delay, var(--intro-delay, 0s)) + 550ms), 0s;
 }
 
 .glow-flutes {

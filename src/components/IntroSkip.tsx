@@ -15,7 +15,7 @@ export default function IntroSkip() {
     } catch {
       /* storage unavailable: the entrance simply plays each visit */
     }
-    const timer = window.setTimeout(finish, 3900);
+    const timer = window.setTimeout(finish, 2500);
     return () => window.clearTimeout(timer);
   }, []);
 

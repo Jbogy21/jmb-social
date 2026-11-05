@@ -6,8 +6,7 @@ export default function Intro() {
   return (
     <>
       <div className="intro-overlay" aria-hidden="true">
-        <span className="intro-door intro-door-l" />
-        <span className="intro-door intro-door-r" />
+        <span className="intro-veil" />
         <div className="intro-mark">
           <p className="intro-word">
             <span className="intro-letter">J</span>

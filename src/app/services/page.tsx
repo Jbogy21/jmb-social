@@ -8,7 +8,7 @@ import {
   stagePanels,
   type ServiceVariant,
 } from "@/lib/data";
-import ServiceStage from "@/components/ServiceStage";
+import { ServiceFlow } from "@/components/ServiceCards";
 import SectionLabel from "@/components/SectionLabel";
 import PageHero from "@/components/PageHero";
 import RevealOnScroll from "@/components/RevealOnScroll";
@@ -123,7 +123,7 @@ export default function ServicesPage() {
         </div>
       </PageHero>
 
-      <ServiceStage panels={stagePanels} skipTo="#web" />
+      <ServiceFlow panels={stagePanels} />
 
       {servicePillars.map((pillar) => {
         const headline = resolve(pillar.headline);

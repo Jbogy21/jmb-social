@@ -30,7 +30,7 @@ const chapters = [
     pills={["Websites", "Reels", "Ads"]}
     proof={{ text: "111.2K combined views on three Reels made for a local garage." }}
     cta={{ label: "Yes, that's me", href: "/local-business" }}
-    link={{ label: "Every service and price", href: "/services" }}
+    link={{ label: "Every service and price", short: "See prices", href: "/services" }}
     scenes={heroScenes.trades}
   />,
   <Chapter
@@ -63,6 +63,7 @@ export default function Home() {
       <ChapterStage
         chapters={chapters}
         cues={["Scroll for the creative side", "Scroll to continue"]}
+        shortCues={["Scroll for creative", "Scroll to continue"]}
         skipTo="#what-i-do"
       />
       <ServiceStage panels={stagePanels} skipTo="#about-me" />
