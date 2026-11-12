@@ -7,6 +7,7 @@ import SelectedWork from "@/components/SelectedWork";
 import ReelsShowcase from "@/components/ReelsShowcase";
 import Testimonials from "@/components/Testimonials";
 import Capabilities from "@/components/Capabilities";
+import LocalServices from "@/components/LocalServices";
 import FreeReview from "@/components/FreeReview";
 import FAQ from "@/components/FAQ";
 import AboutPreview from "@/components/AboutPreview";
@@ -36,8 +37,8 @@ export default function LocalBusinessPage() {
               Websites and Reels for local businesses.
             </h1>
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-cream/85">
-              I build the website, film the short videos and run the ads, so
-              people nearby find you, trust you and pick up the phone. Made for
+              Helping local businesses look more professional online, build
+              trust and make it easier for customers to enquire. Made for
               trades, shops and workshops.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
@@ -65,9 +66,10 @@ export default function LocalBusinessPage() {
       <SelectedWork index="" limit={3} />
       <ReelsShowcase index="" />
       <Testimonials index="" />
+      <LocalServices index="" />
       <Capabilities index="" />
       <FreeReview />
-      <FAQ index="" omit={["AI agent"]} />
+      <FAQ index="" omit={["AI agent", "press coverage"]} />
       <AboutPreview />
       <CTASection
         heading="Want more people to find you?"
@@ -78,7 +80,7 @@ export default function LocalBusinessPage() {
             href="/creative"
             className="font-mono-label underline-hover text-[11px] text-fg-70 hover:text-fg"
           >
-            Looking for fashion, music or sport content? →
+            Looking for fashion, music or modelling content? →
           </Link>
         </p>
       </CTASection>

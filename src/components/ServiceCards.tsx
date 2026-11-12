@@ -71,7 +71,8 @@ export function ServiceFlow({ panels }: { panels: StagePanel[] }) {
           return (
             <RevealOnScroll key={panel.slug} className="group/reveal">
               <article
-                className={`grid gap-6 overflow-hidden rounded-3xl p-5 sm:p-8 lg:grid-cols-2 lg:items-center lg:gap-14 lg:p-12 ${tone.box}`}
+                id={`group-${panel.slug}`}
+                className={`grid scroll-mt-24 gap-6 overflow-hidden rounded-3xl p-5 sm:p-8 lg:grid-cols-2 lg:items-center lg:gap-14 lg:p-12 ${tone.box}`}
               >
                 <div className="h-48 sm:h-60 lg:order-2 lg:h-80">
                   <Exhibit exhibit={panel.exhibit} compact />
@@ -80,12 +81,38 @@ export function ServiceFlow({ panels }: { panels: StagePanel[] }) {
                 <div className="lg:order-1">
                   <span className="font-mono-label text-[11px]">{panel.number}</span>
                   <h3 className="font-display mt-2 text-4xl font-medium leading-[1.02] sm:text-5xl">
-                    {panel.title}
+                    {panel.fullTitle ?? panel.title}
                   </h3>
                   <p className={`mt-3 max-w-md text-base leading-relaxed ${tone.muted}`}>
                     {panel.blurb}
                   </p>
 
+                  {panel.scope ? (
+                    <>
+                      <ul className={`mt-6 grid gap-x-6 gap-y-2.5 border-t pt-5 sm:grid-cols-2 ${tone.rule}`}>
+                        {panel.scope.map((line, k) => (
+                          <li
+                            key={line}
+                            className="flex translate-y-3 gap-3 text-sm leading-relaxed opacity-0 transition-[opacity,transform] duration-700 group-[.is-visible]/reveal:translate-y-0 group-[.is-visible]/reveal:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none"
+                            style={{ transitionDelay: `${300 + k * 60}ms` }}
+                          >
+                            <span
+                              aria-hidden="true"
+                              className="mt-[8px] h-1.5 w-1.5 shrink-0 rounded-full bg-cream/80"
+                            />
+                            {line}
+                          </li>
+                        ))}
+                      </ul>
+                      {panel.note && (
+                        <p
+                          className={`mt-6 max-w-lg border-l-2 border-cream/40 pl-4 text-sm leading-relaxed ${tone.muted}`}
+                        >
+                          {panel.note}
+                        </p>
+                      )}
+                    </>
+                  ) : (
                   <ul className={`mt-6 border-t ${tone.rule}`}>
                     {panel.items.map((item, k) => (
                       <li
@@ -110,6 +137,7 @@ export function ServiceFlow({ panels }: { panels: StagePanel[] }) {
                       </li>
                     ))}
                   </ul>
+                  )}
 
                   <Link
                     href={panel.cta.href}

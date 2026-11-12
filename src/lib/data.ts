@@ -4,7 +4,7 @@
 export const siteConfig = {
   name: "JMB Social",
   shortName: "JMB",
-  descriptor: "Creative & Growth Studio",
+  descriptor: "Digital Studio",
   // Switch this to the custom domain once it is registered and connected.
   url: "https://jmb-social.vercel.app",
   email: "JMBSocial0@gmail.com",
@@ -15,9 +15,9 @@ export const siteConfig = {
     "https://wa.me/447847743022?text=Hi%20JMB%20Social%2C%20I%27d%20like%20to%20talk%20about%20a%20project.",
   foundedYear: "2026",
   description:
-    "JMB Social is a founder-led studio building websites, short-form video and ads for independent local businesses, and content and portfolios for emerging models, artists and athletes.",
+    "JMB Social is a founder-led digital studio, founded in West Sussex, making websites, creative direction and digital support for local businesses, brands and emerging talent across Sussex, Surrey and London.",
   heroDescription:
-    "I'm Jackson. I make websites, short-form video and ads for local businesses, and content for people building a name in fashion, music and sport.",
+    "I'm Jackson. I make websites, creative direction and digital support for local businesses, brands and emerging talent.",
   social: {
     instagram: "https://www.instagram.com/jmb_social/",
     linkedin: "https://www.linkedin.com/in/jackson-booker-214874427",
@@ -356,6 +356,13 @@ export const serviceFamilies: ServiceFamily[] = [
         price: "£150",
         cadence: "project",
       },
+      {
+        name: "Press kit & introductions pack",
+        description:
+          "A press kit, a researched list of 10 to 15 relevant contacts and five personalised pitch drafts. Design and research work: I don't promise replies or coverage.",
+        price: "£200",
+        cadence: "project",
+      },
     ],
   },
   {
@@ -520,6 +527,7 @@ export const servicePillars: ServicePillar[] = [
       "Brand refresh",
       "Campaign & launch design",
       "Pitch decks & collateral",
+      "Press kit & introductions pack",
     ],
   },
 ];
@@ -539,8 +547,15 @@ export type StagePanel = {
   slug: string;
   number: string;
   title: string;
+  /** The full name, used where there is room for it (the Services page). */
+  fullTitle?: string;
   blurb: string;
+  /** A short list of links, used on the home page where space is tight. */
   items: { label: string; href: string }[];
+  /** The complete list of what is offered, shown on the Services page. */
+  scope?: string[];
+  /** A short honest note shown under the scope on the Services page. */
+  note?: string;
   cta: { label: string; href: string };
   tone: "green" | "deep" | "khaki" | "signal";
   exhibit:
@@ -550,73 +565,105 @@ export type StagePanel = {
     | { kind: "note"; label: string; text: string };
 };
 
-const pillarItems = (slug: string) =>
-  (servicePillars.find((pillar) => pillar.slug === slug)?.headline ?? []).map((label) => ({
-    label,
-    href: `/services#${slug}`,
-  }));
-
+// Services are grouped by who they are for: local businesses and trades, creative people
+// and brands, and digital builds that either can use. Prices stay in `serviceFamilies`;
+// these panels describe the outcome and link to the options and starting prices.
 export const stagePanels: StagePanel[] = [
   {
-    slug: "web",
+    slug: "local",
     number: "01",
-    title: "Websites",
-    blurb: "Built to be found, trusted and called. Fast, mobile-first and clear.",
-    items: pillarItems("web"),
+    title: "Local business & trades",
+    fullTitle: "Local business & trades",
+    blurb: "A website that makes it easier for the right customer to trust you and get in touch.",
+    items: [
+      { label: "Website design & redesigns", href: "/services#web" },
+      { label: "Quote & enquiry journeys", href: "/services#web" },
+      { label: "Project content & social", href: "/services#social" },
+      { label: "Paid social creative", href: "/services#ads" },
+    ],
+    scope: [
+      "Website design and redesigns",
+      "Mobile-first service and booking websites",
+      "Landing pages and quote / enquiry journeys",
+      "Google Business Profile, reviews and local-trust direction",
+      "Short-form project content",
+      "Social media management",
+      "Brand direction",
+      "Paid social campaign creative",
+      "E-commerce, booking and service websites",
+    ],
+    note: "Clear customer journeys, proof and professional presentation. No promises about leads or rankings.",
     cta: { label: "Options & prices", href: "/services#web" },
     tone: "green",
     exhibit: {
       kind: "image",
-      src: "/work/cmbooker-home.jpg",
-      alt: "The C M Booker website, designed and built by JMB Social",
-      caption: "C M Booker · furniture restoration",
+      src: "/work/wheelers-home.jpg",
+      alt: "The Wheelers Autoworks website, designed and built by JMB Social",
+      caption: "Wheelers Autoworks · garage website and Reels",
       aspect: "16/9",
     },
   },
   {
-    slug: "social",
-    number: "02",
-    title: "Content & social",
-    blurb: "Reels, TikToks and posts planned, shot, edited and posted for you.",
-    items: pillarItems("social"),
-    cta: { label: "Options & prices", href: "/services#social" },
-    tone: "deep",
-    exhibit: {
-      kind: "stat",
-      value: "111.2K",
-      label: "Combined views across three Reels made for a local garage",
-    },
-  },
-  {
-    slug: "ads",
-    number: "03",
-    title: "Ads & brand",
-    blurb: "Ads set up, tested and reported on honestly, with matching creative.",
-    items: pillarItems("ads"),
-    cta: { label: "Options & prices", href: "/services#ads" },
-    tone: "khaki",
-    exhibit: {
-      kind: "brand",
-      caption: "Ad formats and a brand kit · JMB Social's own",
-    },
-  },
-  {
     slug: "creative",
-    number: "04",
-    title: "Fashion, music & sport",
-    blurb: "Portfolio sites, content and a plan for your Instagram.",
+    number: "02",
+    title: "Creative, campaign & PR",
+    fullTitle: "Creative profile, campaign & PR support",
+    blurb:
+      "A stronger digital portfolio, a launch page and campaign direction that give your work somewhere to land.",
     items: [
-      { label: "Portfolio & comp-card sites", href: "/creative" },
-      { label: "Lookbook & Reels", href: "/creative" },
-      { label: "Release rollouts", href: "/creative" },
-      { label: "Instagram setup & planning", href: "/creative" },
+      { label: "Portfolios, comp cards & EPKs", href: "/creative#lanes" },
+      { label: "Launch, release & event pages", href: "/creative#lanes" },
+      { label: "Campaign direction & content", href: "/creative#lanes" },
+      { label: "First projects & press kit pack", href: "/creative#first-projects" },
     ],
+    scope: [
+      "Personal brand and profile development",
+      "Creative direction",
+      "Portfolio websites",
+      "Model, artist and DJ portfolio presentation",
+      "Digital portfolios, comp cards and press-kit design",
+      "Artist EPKs, release pages and event pages",
+      "Fashion campaign concepts and drop launches",
+      "Music release campaigns and content direction",
+      "Social media strategy",
+      "Paid social campaign creative",
+      "Website design and launch pages",
+      "Brand positioning and visual identity direction",
+    ],
+    note: "PR here means profile development, press-kit preparation, contact research and launch direction. Nothing is guaranteed: no press placements, representation, streams or viral results. Media outreach beyond that is scoped separately.",
     cta: { label: "The creative side", href: "/creative" },
     tone: "signal",
     exhibit: {
       kind: "note",
       label: "First collaboration · In production",
       text: "A starter portfolio and an Instagram, built with an emerging model. The results go on the Creative page as they are finished.",
+    },
+  },
+  {
+    slug: "digital",
+    number: "03",
+    title: "Digital builds",
+    fullTitle: "Digital builds: AI & apps",
+    blurb: "Scoped solutions for a real business problem, for local businesses and creative clients alike.",
+    items: [
+      { label: "AI agents & practical automation", href: "/services#ai" },
+      { label: "App development", href: "/services#apps" },
+      { label: "Client portals", href: "/services#apps" },
+      { label: "Booking, enquiry & workflow tools", href: "/services#apps" },
+    ],
+    scope: [
+      "AI agents and practical automation",
+      "App development",
+      "Client portals",
+      "Booking, enquiry and workflow tools",
+      "Custom web applications",
+    ],
+    cta: { label: "Quoted per project", href: "/services#bigger-builds" },
+    tone: "deep",
+    exhibit: {
+      kind: "note",
+      label: "Quoted per project",
+      text: "Every build starts from one real problem in your business, and is scoped in writing before any work begins.",
     },
   },
 ];
@@ -684,9 +731,9 @@ export const background = [
   {
     org: "Class Agency",
     role: "Intern",
-    dates: "28 July to 14 August 2026",
+    dates: "28 July to 28 August 2026",
     description:
-      "A remote and in-office placement. Built the C M Booker website and got hands-on with AI tools including Claude and ChatGPT, working inside an agency's day-to-day.",
+      "A remote and in-office placement. Learned from the team, then built the C M Booker website with their help, and got hands-on with AI tools including Claude and ChatGPT. Also joined a team project for a café opening a food truck, helping edit and finish the designs in Affinity, including the menus and the food truck design.",
     href: "https://class.agency/",
   },
 ];
@@ -797,6 +844,11 @@ export const faqs = [
     answer:
       "Yes. Care plans cover hosting, security, monitoring and a monthly improvement hour, and retainers cover ongoing development, optimisation and ad management.",
   },
+  {
+    question: "Will you get me press coverage?",
+    answer:
+      "No, and nobody honestly can promise that. I build the press kit, research the right contacts and draft personalised pitches. Whether anyone replies is up to them, and you approve everything before it is sent.",
+  },
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -855,6 +907,8 @@ export type Project = {
   title: string;
   description: string;
   categories: ProjectCategory[];
+  /** Who the work was for. Client work defaults to local business; set this for creative projects. */
+  audience?: "local" | "fashion" | "music";
   services: string[];
   accent: "green" | "cream" | "charcoal" | "sage";
   kind: ProjectKind;
@@ -869,6 +923,36 @@ export type Project = {
   deliverables: string[];
   tools: string[];
 };
+
+export type WorkGroup = "websites" | "local" | "creative" | "music" | "content" | "builds";
+
+// The groups the Work page filters by. `empty` is what a visitor sees when a group has no
+// finished projects yet, so the filter is honest instead of a dead end.
+export const workGroups: { id: WorkGroup; label: string; empty: string }[] = [
+  { id: "websites", label: "Websites", empty: "No website projects in this group yet." },
+  { id: "local", label: "Local business", empty: "No local business projects in this group yet." },
+  {
+    id: "creative",
+    label: "Fashion & creative",
+    empty:
+      "My first creative collaboration is in production. The finished work will appear here once it is final and approved.",
+  },
+  { id: "music", label: "Music & events", empty: "No music or event projects to show yet." },
+  { id: "content", label: "Content & campaigns", empty: "No content or campaign projects in this group yet." },
+  { id: "builds", label: "Digital builds", empty: "No digital build projects in this group yet." },
+];
+
+export function projectGroups(project: Project): WorkGroup[] {
+  const groups: WorkGroup[] = [];
+  const audience = project.audience ?? (project.status === "client" ? "local" : undefined);
+  if (project.categories.includes("WEB")) groups.push("websites");
+  if (audience === "local") groups.push("local");
+  if (audience === "fashion") groups.push("creative");
+  if (audience === "music") groups.push("music");
+  if (project.categories.includes("SOCIAL") || project.categories.includes("ADS")) groups.push("content");
+  if (project.categories.includes("APP") || project.categories.includes("AI")) groups.push("builds");
+  return groups;
+}
 
 const wheelersReels: ProjectVideo[] = [
   {
@@ -1050,7 +1134,7 @@ export const projects: Project[] = [
     slug: "jmb-social-studio-site",
     status: "studio",
     client: "JMB Social",
-    industry: "Creative & Growth Studio",
+    industry: "Digital Studio",
     title: "Our own studio site, built the way we build for clients.",
     description:
       "A fast, statically rendered studio site with a custom design system, structured data and Git-based deployment.",
@@ -1137,7 +1221,7 @@ export const founder = {
   photoAlt: "Jackson Booker, founder of JMB Social",
   intro: "Hi, I'm Jackson.",
   story: [
-    "I run JMB Social. I build websites, short-form video and ads for independent local businesses, and content for people building a name in fashion, music and sport. I answer every message myself.",
+    "I run JMB Social, a founder-led digital studio. I make websites, creative direction and digital support for local businesses, brands and emerging talent, and you work with me directly, from the first message to the finished work. I answer every message myself.",
     "My first projects were for real businesses I know: a garage in Cowfold, a furniture restoration workshop and a tree care company. This summer I interned at Class Agency, where I learned how a working agency scopes and delivers client work.",
     "If you'd like to talk about a project, or just want an honest second opinion on your website, message me.",
   ],
@@ -1177,6 +1261,184 @@ export const freeReview = {
 };
 
 /* -------------------------------------------------------------------------- */
+/*  First creative projects offer (Creative page)                             */
+/* -------------------------------------------------------------------------- */
+
+export type FirstProjectsTrack = {
+  slug: string;
+  /** Who it is for, shown as the small label on the card. */
+  who: string;
+  title: string;
+  /** What the work covers. */
+  included: string[];
+  /** The short "what you walk away with" line, shown under the list. */
+  deliverables: string[];
+};
+
+// An honest introductory offer for creative clients. No creative work has been
+// delivered for these sectors yet, so nothing here claims results, past clients or
+// scarcity beyond what is set below.
+export const firstProjectsOffer = {
+  eyebrow: "First projects · Creative",
+  headline: "My first creative projects, at an introductory price.",
+  intro:
+    "I'm taking on a small number of creative projects for models, fashion brands and musicians. This is a new side of JMB Social, so these first places are priced to match. In return, I ask to show the finished work.",
+
+  // How many places are open. You control this:
+  //   a number above 0  -> shows "N places open"
+  //   0                 -> shows "Currently full" and invites a waitlist message
+  //   null              -> says nothing about places (use until you have decided)
+  // Lower the number as places are booked, and only show a number you would stand by.
+  placesOpen: 5 as number | null,
+
+  tracks: [
+    {
+      slug: "models",
+      who: "Models",
+      title: "A portfolio that looks like you.",
+      included: [
+        "One-page portfolio or comp-card website",
+        "Instagram profile polish: bio, highlights and grid direction",
+        "Three simple social templates",
+      ],
+      deliverables: ["1 portfolio page", "1 profile polish", "3 templates"],
+    },
+    {
+      slug: "fashion-brands",
+      who: "Fashion brands",
+      title: "A launch page and the assets to go with it.",
+      included: [
+        "One landing page or lookbook page for a drop or collection",
+        "Three to five designed social assets",
+        "Short brand direction notes",
+      ],
+      deliverables: ["1 launch or lookbook page", "3 to 5 social assets", "Brand notes"],
+    },
+    {
+      slug: "musicians",
+      who: "Musicians & DJs",
+      title: "A press kit people actually open.",
+      included: [
+        "One-page press-kit site: bio, links, press photos and booking contact",
+        "Three release or event announcement templates",
+      ],
+      deliverables: ["1 press-kit site", "3 announcement templates"],
+    },
+  ] as FirstProjectsTrack[],
+
+  inReturnTitle: "What I ask in return",
+  inReturn: [
+    "Permission to show the finished work. You have a say in what is shown.",
+    "A short, honest testimonial, if you're happy with the result.",
+    "Feedback along the way.",
+  ],
+
+  steps: [
+    { title: "Message me", text: "Tell me what you do and what you need." },
+    { title: "A short call", text: "Then I confirm scope, price and timescale in writing." },
+    { title: "Build, review, launch", text: "I build, you review, we launch." },
+  ],
+
+  // One flat price for any of the three tracks. Set this to null to go back to showing
+  // `priceFallback` instead.
+  price: "£250" as string | null,
+  priceDetail: "One price per project, for any of the three. Scope and timescale are confirmed in writing first.",
+  priceFallback: "Introductory price, agreed up front.",
+
+  ctaLabel: "Ask about a first project",
+  whatsappMessage: "Hi Jackson, I'm interested in the first projects creative offer.",
+  waitlistLabel: "Join the waitlist",
+  waitlistMessage: "Hi Jackson, I'd like to join the waitlist for the first projects creative offer.",
+  note: "This is design and build work. I don't promise marketing results.",
+};
+
+/* -------------------------------------------------------------------------- */
+/*  Press kit and introductions offer (Creative page)                         */
+/* -------------------------------------------------------------------------- */
+
+// Design and research work only. JMB Social is not an agent, manager or representative,
+// takes no commission and does not promise replies, coverage or paid work. Keep it that
+// way if the copy is edited.
+export const pressOffer = {
+  eyebrow: "Creative · Press & introductions",
+  headline: "Get noticed by the right people.",
+  intro:
+    "PR is helping a person or brand get in front of the right people: press, collaborators and brands. I build the press kit, research who is worth contacting, and draft the pitches. You approve everything before anything is sent.",
+
+  included: [
+    {
+      title: "A press kit",
+      text: "Bio, photos, links and contact details, as a one-page site or a clean PDF.",
+    },
+    {
+      title: "A researched contact list",
+      text: "10 to 15 relevant contacts (brands, photographers, blogs, venues or promoters), each with a one-line reason it fits.",
+    },
+    {
+      title: "Five pitch drafts",
+      text: "Personalised pitches for the best-fit contacts, written for you to approve.",
+    },
+  ],
+
+  whoForTitle: "Who it's for",
+  whoFor: "Models, fashion brands, musicians and DJs, and small labels.",
+  alongside:
+    "Already booked a first-projects track? The musicians' press-kit site is part of that track. This pack adds the contact research and the pitch drafts, and it can be bought alone or alongside any track.",
+
+  notTitle: "What this is not",
+  notIncluded: [
+    "I don't promise replies, coverage or paid work. Whether anyone responds is up to the people you contact.",
+    "I'm not an agent or a manager, and I don't take commission.",
+    "Nothing is sent without your approval.",
+  ],
+
+  steps: [
+    { title: "Tell me who you are", text: "And who you'd like to reach." },
+    { title: "I build the kit and the list", text: "You see both before we go any further." },
+    {
+      title: "I draft the pitches",
+      text: "You approve them and send them, or I send them with your say-so.",
+    },
+  ],
+
+  // One fixed price for the whole pack. Set this to null to go back to showing `priceFallback`.
+  price: "£200" as string | null,
+  priceDetail: "One fixed scope: the press kit, the contact list and five pitch drafts. Agreed in writing first.",
+  priceFallback: "Priced up front, agreed in writing.",
+
+  ctaLabel: "Ask about a press kit pack",
+  whatsappMessage: "Hi Jackson, I'm interested in the press kit and introductions pack.",
+  note: "This is design and research work. I don't promise press coverage or replies.",
+};
+
+/* -------------------------------------------------------------------------- */
+/*  Creative page photos                                                      */
+/* -------------------------------------------------------------------------- */
+
+// Room for real photos. Put a file in public/creative/ and set its `src` (for example
+// "/creative/models.jpg") with an `alt` that describes the picture. Until then each slot
+// shows a designed placeholder, so nothing looks broken.
+export type Photo = { src: string; alt: string };
+
+export const creativePhotos: {
+  models: Photo;
+  fashion: Photo;
+  music: Photo;
+  collaboration: Photo[];
+  offer: Photo;
+} = {
+  models: { src: "", alt: "" },
+  fashion: { src: "", alt: "" },
+  music: { src: "", alt: "" },
+  collaboration: [
+    { src: "", alt: "" },
+    { src: "", alt: "" },
+    { src: "", alt: "" },
+  ],
+  offer: { src: "", alt: "" },
+};
+
+/* -------------------------------------------------------------------------- */
 /*  Seasonal offer                                                            */
 /* -------------------------------------------------------------------------- */
 
@@ -1198,9 +1460,23 @@ export function isChristmasOfferActive(now: Date = new Date()): boolean {
   return now.getTime() <= new Date(christmasOffer.endsAt).getTime();
 }
 
+// A price with the Christmas discount taken off (for example "£250" becomes "£200"), or
+// null once the offer has ended or when the price is not a plain figure.
+export function christmasPrice(price: string | null, now: Date = new Date()): string | null {
+  if (!price || !isChristmasOfferActive(now)) return null;
+  const amount = parseFloat(price.replace(/[^0-9.]/g, ""));
+  const percent = parseInt(christmasOffer.discount, 10);
+  if (!Number.isFinite(amount) || !(percent > 0)) return null;
+  const currency = price.match(/^\D*/)?.[0] ?? "£";
+  return `${currency}${Math.round((amount * (100 - percent)) / 100)}`;
+}
+
 /* -------------------------------------------------------------------------- */
 /*  Contact form                                                              */
 /* -------------------------------------------------------------------------- */
+
+export const creativeHelpOption = "Fashion, music or modelling content";
+export const pressHelpOption = "Press kit & introductions";
 
 export const helpOptions = [
   "Free website review",
@@ -1211,7 +1487,8 @@ export const helpOptions = [
   "Ad creative & branding",
   "Social media",
   "SEO & analytics",
-  "Fashion, music or sport content",
+  creativeHelpOption,
+  pressHelpOption,
   "Not sure yet",
 ] as const;
 

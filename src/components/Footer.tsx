@@ -13,7 +13,7 @@ export default function Footer() {
           <p className="mt-6 text-sm leading-relaxed text-cream-70">
             Websites, short-form video and ads for local businesses, and
             content and portfolios for people building a name in fashion,
-            music and sport.
+            music and modelling.
           </p>
         </div>
 

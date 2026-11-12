@@ -14,7 +14,7 @@ export default function Intro() {
             <span className="intro-letter">B</span>
           </p>
           <span className="intro-line" />
-          <p className="intro-caption">Social · Creative &amp; Growth Studio</p>
+          <p className="intro-caption">Social · Digital Studio</p>
         </div>
       </div>
       <IntroSkip />

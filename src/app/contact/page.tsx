@@ -19,15 +19,15 @@ export default function ContactPage() {
           <div className="md:col-span-7">
             <SectionLabel label="Contact" tone="cream" />
             <h1 className="mt-6 font-sans text-[clamp(2.6rem,6.4vw,5.5rem)] font-light leading-[0.98] tracking-[-0.045em] text-cream [text-shadow:0_2px_30px_rgba(10,12,8,0.35)]">
-              Let&rsquo;s make something{" "}
+              Let&rsquo;s build something{" "}
               <span className="font-display whitespace-nowrap font-normal italic tracking-[-0.03em] text-[#f1e3b0]">
-                good.
+                people notice.
               </span>
             </h1>
             <p className="mt-8 max-w-lg text-lg leading-relaxed text-cream/85">
-              Tell me about the business or the project and what you need: a website, Reels,
-              ads, content for your name in fashion, music or sport, or something in between. I
-              read every enquiry myself and reply within one to two working days.
+              Tell me about the business, the brand or the project and what you need: a website,
+              creative direction, content, or something in between. I read every enquiry myself and
+              reply within one to two working days.
             </p>
           </div>
 

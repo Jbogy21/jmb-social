@@ -1,36 +1,31 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { categoryLabels, type Project, type ProjectCategory } from "@/lib/data";
+import { projectGroups, workGroups, type Project, type WorkGroup } from "@/lib/data";
 import ProjectCard from "./ProjectCard";
 
-const allCategories = Object.keys(categoryLabels) as ProjectCategory[];
-
+// Work is grouped by who it was for and what was made. Every group is always offered, so
+// visitors can see the whole range; a group with nothing finished yet says so plainly
+// instead of leading to a blank page.
 export default function WorkGrid({ projects }: { projects: Project[] }) {
-  const [active, setActive] = useState<ProjectCategory | "ALL">("ALL");
-
-  // Only offer filters that have something behind them.
-  const categories = useMemo(
-    () => allCategories.filter((c) => projects.some((p) => p.categories.includes(c))),
-    [projects]
-  );
+  const [active, setActive] = useState<WorkGroup | "all">("all");
 
   const filtered = useMemo(
-    () =>
-      active === "ALL" ? projects : projects.filter((p) => p.categories.includes(active)),
+    () => (active === "all" ? projects : projects.filter((p) => projectGroups(p).includes(active))),
     [active, projects]
   );
+  const current = workGroups.find((group) => group.id === active);
 
   return (
     <div>
-      <div className="flex flex-wrap gap-3" role="group" aria-label="Filter work by category">
-        <FilterChip label="All" active={active === "ALL"} onClick={() => setActive("ALL")} />
-        {categories.map((category) => (
+      <div className="flex flex-wrap gap-3" role="group" aria-label="Filter work by group">
+        <FilterChip label="All" active={active === "all"} onClick={() => setActive("all")} />
+        {workGroups.map((group) => (
           <FilterChip
-            key={category}
-            label={categoryLabels[category]}
-            active={active === category}
-            onClick={() => setActive(category)}
+            key={group.id}
+            label={group.label}
+            active={active === group.id}
+            onClick={() => setActive(group.id)}
           />
         ))}
       </div>
@@ -42,7 +37,9 @@ export default function WorkGrid({ projects }: { projects: Project[] }) {
       </div>
 
       {filtered.length === 0 && (
-        <p className="mt-16 text-sm text-fg-70">No projects in this category yet.</p>
+        <p className="mt-16 max-w-xl text-base leading-relaxed text-fg-70" role="status">
+          {current?.empty ?? "No projects in this group yet."}
+        </p>
       )}
     </div>
   );

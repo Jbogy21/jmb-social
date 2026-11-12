@@ -11,11 +11,10 @@ import type { StagePanel } from "@/lib/data";
 // How much scrolling (in screen heights) each service gets while the section is pinned.
 const SEGMENT_SVH = 55;
 
-const phoneCues = ["Scroll for content", "Scroll for ads", "Scroll for creative", "Scroll to continue"];
+const phoneCues = ["Scroll for creative", "Scroll for builds", "Scroll to continue"];
 const wideCues = [
-  "Scroll for content & social",
-  "Scroll for ads & brand",
-  "Scroll for fashion, music & sport",
+  "Scroll for creative, campaign & PR",
+  "Scroll for digital builds",
   "Scroll to continue",
 ];
 

@@ -10,30 +10,25 @@ import { background, founder, siteConfig } from "@/lib/data";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "JMB Social is a founder-led studio combining design, engineering, AI and paid media, built to be hands-on rather than layered.",
+    "JMB Social is a founder-led digital studio, founded in West Sussex. You work directly with Jackson on websites, creative direction and digital builds.",
   alternates: { canonical: "/about" },
 };
 
-const disciplines = [
+const routes = [
   {
-    title: "Design",
+    title: "Local business & trades",
     description:
-      "Identity, interface and ad creative with a clear point of view, made to be recognised and remembered.",
+      "For builders, landscapers, garages and workshops: a website, project content and a clear route to an enquiry, built so customers can trust you before they call.",
   },
   {
-    title: "Engineering",
+    title: "Creative, campaign & PR",
     description:
-      "Websites, apps and platforms on modern infrastructure, fast by default and ready to scale.",
+      "For models, fashion brands, musicians and DJs: portfolios, launch pages and creative direction that present your work properly and give it somewhere to land.",
   },
   {
-    title: "AI & automation",
+    title: "Digital builds",
     description:
-      "Agents and workflows that take real work off your team, grounded in your data and monitored in production.",
-  },
-  {
-    title: "Growth",
-    description:
-      "Paid media, SEO and analytics run on tested hypotheses and reported in revenue, not impressions.",
+      "For either: AI agents, apps, client portals and workflow tools, scoped around one real problem in your business.",
   },
 ];
 
@@ -48,14 +43,15 @@ export default function AboutPage() {
               Built to be <span className="font-display whitespace-nowrap font-normal italic tracking-[-0.03em] text-[#f1e3b0]">hands-on.</span>
             </h1>
             <p className="mt-8 max-w-md text-lg leading-relaxed text-cream/85">
-              JMB Social is a founder-led studio for businesses that want to
-              look better, work smarter and grow faster online.
+              JMB Social is a founder-led digital studio, founded in West
+              Sussex and working with local businesses, brands and emerging
+              talent across Sussex, Surrey and London.
             </p>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-cream/75">
-              Great businesses often don&rsquo;t have a product problem —
-              they have a presentation, a systems or an attention problem.
-              JMB exists to close that gap with design, engineering,
-              automation and advertising that are planned together.
+            <p className="mt-5 max-w-md text-base leading-relaxed text-cream/90">
+              You work with me directly, from the first conversation to the
+              finished work. There&rsquo;s no account manager and no
+              hand-off: the person planning your project is the person doing
+              it.
             </p>
             {siteConfig.social.linkedin && (
               <div className="mt-8">
@@ -146,24 +142,18 @@ export default function AboutPage() {
       <section className="border-b border-line py-20 md:py-28">
         <div className="container-edge">
           <RevealOnScroll>
-            <SectionLabel index="—" label="What it combines" />
+            <SectionLabel index="—" label="Who I work with" />
             <h2 className="font-display mt-6 max-w-2xl text-4xl font-medium leading-[1.05] text-fg sm:text-5xl">
-              Four disciplines, brought together deliberately.
+              Two kinds of client, one studio.
             </h2>
           </RevealOnScroll>
 
-          <div className="mt-14 grid border border-line sm:grid-cols-2">
-            {disciplines.map((item, index) => (
+          <div className="mt-14 grid gap-4 md:grid-cols-3">
+            {routes.map((item, index) => (
               <RevealOnScroll key={item.title} delay={index * 70}>
-                <div
-                  className={`h-full border-line p-8 sm:p-10 ${
-                    index % 2 === 0 ? "sm:border-r" : ""
-                  } ${index < disciplines.length - 2 ? "border-b" : ""}`}
-                >
+                <div className="h-full rounded-3xl border border-white/12 bg-white/[0.06] p-7 sm:p-8">
                   <h3 className="font-display text-2xl font-medium text-fg">{item.title}</h3>
-                  <p className="mt-3 max-w-xs text-sm leading-relaxed text-fg-70">
-                    {item.description}
-                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-fg-70">{item.description}</p>
                 </div>
               </RevealOnScroll>
             ))}
@@ -178,15 +168,13 @@ export default function AboutPage() {
           </RevealOnScroll>
           <RevealOnScroll className="md:col-span-8">
             <p className="font-display max-w-2xl text-3xl font-medium leading-[1.2] text-fg sm:text-4xl">
-              Clients get direct, hands-on attention from the person doing the work, not layers of agency
-              account management.
+              Clients get direct, hands-on attention from the person doing the work, not layers of
+              agency account management.
             </p>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-fg-70">
-              Every project is approached with the same principle: understand
-              what the business actually needs, design and build it properly,
-              then measure the commercial result. Nothing gets handed down a
-              chain of account managers — the person planning the work is
-              the person doing it.
+              Every project starts the same way: understand what you actually need, design and build
+              it properly, and show you the work as it goes. I&rsquo;ll tell you honestly what is
+              worth doing and what isn&rsquo;t, and nothing is promised that I can&rsquo;t control.
             </p>
           </RevealOnScroll>
         </div>
@@ -196,7 +184,7 @@ export default function AboutPage() {
 
       <CTASection
         heading="Let's start with a conversation."
-        copy="Tell us where the business is now and where you want it to go — we'll tell you honestly whether we're the right fit."
+        copy="Tell me where things are now and where you want them to go. I'll tell you honestly whether I'm the right fit."
       />
     </>
   );

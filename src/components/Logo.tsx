@@ -31,7 +31,7 @@ export function StackedLogo({ tone = "cream" }: { tone?: Tone }) {
           JMB Social
         </p>
         <p className={`font-mono-label mt-1 text-[11px] ${c.secondary}`}>
-          Creative &amp; Growth Studio
+          Digital Studio
         </p>
       </div>
     </div>

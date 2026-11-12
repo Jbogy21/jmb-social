@@ -9,6 +9,7 @@ type ContactPayload = {
   helpNeeded?: unknown;
   budget?: unknown;
   christmasOffer?: unknown;
+  source?: unknown;
   details?: unknown;
   hp?: unknown;
 };
@@ -51,6 +52,9 @@ export async function POST(request: Request) {
   const details =
     typeof payload.details === "string" ? payload.details.trim().slice(0, 5000) : "";
   const claimedOffer = payload.christmasOffer === true;
+  // Only this exact value is accepted, so nothing else can be injected into the email.
+  const fromFirstProjects = payload.source === "first-projects";
+  const fromPress = payload.source === "press";
 
   const lines = [
     `Name: ${name}`,
@@ -60,6 +64,8 @@ export async function POST(request: Request) {
     `Needs: ${helpNeeded.length ? helpNeeded.join(", ") : "-"}`,
     `Budget: ${budget || "-"}`,
     `Christmas offer claimed: ${claimedOffer ? "YES (first-time client)" : "no"}`,
+    ...(fromFirstProjects ? ["Came from: First projects offer (Creative page)"] : []),
+    ...(fromPress ? ["Came from: Press kit & introductions pack (Creative page)"] : []),
     "",
     "Details:",
     details || "-",
@@ -87,7 +93,7 @@ export async function POST(request: Request) {
         from: "JMB Social Website <onboarding@resend.dev>",
         to: [siteConfig.email.toLowerCase()],
         reply_to: email,
-        subject: `${claimedOffer ? "[Christmas offer] " : ""}New enquiry from ${name}`,
+        subject: `${claimedOffer ? "[Christmas offer] " : ""}${fromFirstProjects ? "[First projects] " : ""}${fromPress ? "[Press kit] " : ""}New enquiry from ${name}`,
         text: lines.join("\n"),
       }),
     });

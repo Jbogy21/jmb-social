@@ -72,8 +72,8 @@ export const heroScenes: { trades: HeroScene[]; creative: HeroScene[] } = {
         "repeating-linear-gradient(100deg, rgba(255,255,255,0.09) 0 3px, transparent 3px 66px)",
     },
     {
-      label: "Sport",
-      word: "Pitch",
+      label: "Photoshoots",
+      word: "Shoot",
       bg: "radial-gradient(110% 95% at 80% 25%, #d9532b 0%, #4d2012 50%, #130d0b 100%)",
       pattern:
         "repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 90px, transparent 90px 180px)",

@@ -65,7 +65,7 @@ export function Exhibit({
             alt={exhibit.alt}
             fill
             sizes="(min-width: 1024px) 40vw, 92vw"
-            className="object-cover object-top"
+            className="object-cover object-left-top"
           />
           <figcaption className="font-mono-label absolute bottom-2 left-2 max-w-[calc(100%-1rem)] truncate rounded-full bg-black/65 px-2.5 py-1 text-[9px] text-cream">
             {exhibit.caption}

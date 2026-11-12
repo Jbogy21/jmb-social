@@ -41,7 +41,7 @@ export default function HomeHero() {
             style={delay(150)}
           >
             <span className="h-2 w-2 rounded-full bg-signal" aria-hidden="true" />
-            JMB Social<span className="max-sm:hidden"> · Creative &amp; Growth Studio</span> · UK
+            JMB Social<span className="max-sm:hidden"> · Digital Studio</span> · UK
           </p>
         </div>
 
@@ -101,9 +101,8 @@ export default function HomeHero() {
               className="hero-reveal mt-6 max-w-md text-base leading-relaxed text-cream [text-shadow:0_1px_2px_rgba(10,12,8,0.55),0_2px_22px_rgba(10,12,8,0.75)]"
               style={delay(450)}
             >
-              Websites, short-form video and ads for local businesses, and content for people
-              building a name in fashion, music and sport. I&rsquo;m Jackson, and I do the work
-              myself.
+              Websites, creative direction and digital support for local businesses, brands and
+              emerging talent. I&rsquo;m Jackson, and I do the work myself.
             </p>
           </div>
 

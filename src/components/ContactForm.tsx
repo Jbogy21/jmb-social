@@ -3,7 +3,13 @@
 import { useState, useSyncExternalStore, type FormEvent } from "react";
 import Link from "next/link";
 import { Button } from "./Button";
-import { helpOptions, budgetOptions, christmasOffer } from "@/lib/data";
+import {
+  helpOptions,
+  budgetOptions,
+  christmasOffer,
+  creativeHelpOption,
+  pressHelpOption,
+} from "@/lib/data";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -18,12 +24,18 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
   const [picked, setPicked] = useState<string[] | null>(null);
 
   // Arriving from the Creative side pre-selects that need and adjusts the prompt.
-  const forCreative = useSyncExternalStore(
+  // Arriving from the first-projects offer (?for=first-projects) does the same, and from the
+  // press kit pack (?for=press) pre-selects that option instead. The enquiry email is
+  // quietly marked either way so you can tell where it came from.
+  const source = useSyncExternalStore(
     subscribeNothing,
-    () => new URLSearchParams(window.location.search).get("for") === "creative",
-    () => false
+    () => new URLSearchParams(window.location.search).get("for") ?? "",
+    () => ""
   );
-  const helpNeeded = picked ?? (forCreative ? ["Fashion, music or sport content"] : []);
+  const forFirstProjects = source === "first-projects";
+  const forPress = source === "press";
+  const forCreative = source === "creative" || forFirstProjects || forPress;
+  const helpNeeded = picked ?? (forPress ? [pressHelpOption] : forCreative ? [creativeHelpOption] : []);
 
   function toggleHelp(option: string) {
     setPicked(
@@ -49,6 +61,7 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
       budget: formData.get("budget"),
       details: formData.get("details"),
       christmasOffer: formData.get("christmasOffer") === "on",
+      source: forFirstProjects ? "first-projects" : forPress ? "press" : undefined,
       hp: formData.get("hp"),
     };
 

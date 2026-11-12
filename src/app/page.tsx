@@ -17,7 +17,7 @@ const chapters = [
   <Chapter
     key="trades"
     side="trades"
-    eyebrow="01 · Local business"
+    eyebrow="01 · Local business & trades"
     title={
       <>
         Run a trade, shop or{" "}
@@ -26,8 +26,8 @@ const chapters = [
         </span>
       </>
     }
-    body="Before they call, people look you up. I build the website that makes you easy to find, the Reels that show your work, and the ads that put you in front of people nearby."
-    pills={["Websites", "Reels", "Ads"]}
+    body="Before they call, people look you up. I help local businesses look more professional online, build trust and make it easier for customers to enquire."
+    pills={["Websites", "Trust & proof", "Project content"]}
     proof={{ text: "111.2K combined views on three Reels made for a local garage." }}
     cta={{ label: "Yes, that's me", href: "/local-business" }}
     link={{ label: "Every service and price", short: "See prices", href: "/services" }}
@@ -36,20 +36,20 @@ const chapters = [
   <Chapter
     key="creative"
     side="creative"
-    eyebrow="02 · Fashion, music & sport"
+    eyebrow="02 · Creative profile, campaign & PR"
     title={
       <>
         Building a name in{" "}
         <span className="font-display italic font-normal tracking-[-0.03em] text-signal-soft">
-          fashion, music or sport?
+          fashion, music or modelling?
         </span>
       </>
     }
-    body="Portfolio sites, content and an Instagram that looks the part, for models, artists and athletes who want to be seen properly."
-    pills={["Portfolios", "Content", "Instagram"]}
+    body="Helping creative people and brands present themselves properly, build a stronger image and create more opportunities."
+    pills={["Portfolios", "Campaigns", "Press kits"]}
     proof={{ text: "First creative collaboration, in production now.", live: true }}
     cta={{ label: "Yes, that's me", href: "/creative" }}
-    link={{ label: "See how it works", href: "/creative" }}
+    link={{ label: "See the creative side", short: "See more", href: "/creative" }}
     scenes={heroScenes.creative}
     flip
   />,

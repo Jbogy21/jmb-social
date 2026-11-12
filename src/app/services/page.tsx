@@ -21,7 +21,7 @@ import CTASection from "@/components/CTASection";
 export const metadata: Metadata = {
   title: "Services & Pricing",
   description:
-    "Websites, short-form content and social, and ads and brand, each with clear starting prices. Apps and AI agents are quoted per project.",
+    "Services for local businesses and trades, for creative people and brands, and for digital builds. Clear starting prices, and apps and AI agents quoted per project.",
   alternates: { canonical: "/services" },
 };
 
@@ -57,7 +57,7 @@ function VariantRow({ variant }: { variant: ServiceVariant }) {
       </div>
       <div className="flex flex-wrap items-baseline gap-x-2 sm:block sm:min-w-28 sm:text-right">
         <p className="font-mono-label text-[11px] text-fg-50">
-          {variant.price.includes("–") ? "Typically" : "From"}
+          {!/\d/.test(variant.price) ? "Price" : variant.price.includes("–") ? "Typically" : "From"}
         </p>
         <p className="font-display whitespace-nowrap text-2xl font-medium leading-none text-fg sm:text-3xl">
           {variant.price}
@@ -84,34 +84,29 @@ export default function ServicesPage() {
             Clear services. <span className="font-display whitespace-nowrap font-normal italic tracking-[-0.03em] text-[#f1e3b0]">Clear prices.</span>
           </h1>
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-cream/85">
-            Three things done properly: websites, content and social, and ads
-            and brand. Bigger builds, like apps and AI agents, are quoted per
-            project.
+            Services for local businesses and trades, for creative people and
+            brands, and for digital builds that either can use. Starting prices
+            are shown below, and bigger builds are quoted per project.
           </p>
           <p className="font-mono-label mt-6 inline-block rounded-full border border-white/30 px-4 py-2 text-[11px] text-cream/85">
             Introductory rates for new clients
           </p>
 
           <nav aria-label="Jump to a service" className="mt-12 flex flex-wrap gap-2.5">
-            {servicePillars.map((pillar) => (
+            {stagePanels.map((panel) => (
               <Link
-                key={pillar.slug}
-                href={`#${pillar.slug}`}
+                key={panel.slug}
+                href={`#group-${panel.slug}`}
                 className="font-mono-label group inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/10 px-5 py-3 text-[11px] text-cream backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-cream hover:text-ink"
               >
-                <ServiceIcon
-                  slug={pillar.slug}
-                  size={16}
-                  className="text-cream/80 transition-colors duration-300 group-hover:text-fg"
-                />
-                {pillar.title}
+                {panel.title}
               </Link>
             ))}
             <Link
-              href="#bigger-builds"
+              href="#prices"
               className="font-mono-label inline-flex items-center rounded-full border border-white/25 px-5 py-3 text-[11px] text-cream transition-colors duration-200 hover:bg-cream hover:text-ink"
             >
-              Apps &amp; AI
+              Prices
             </Link>
             <Link
               href="#packages"
@@ -124,6 +119,21 @@ export default function ServicesPage() {
       </PageHero>
 
       <ServiceFlow panels={stagePanels} />
+
+      <section id="prices" className="scroll-mt-24 border-t border-line pb-2 pt-20 md:pt-28">
+        <div className="container-edge">
+          <RevealOnScroll>
+            <SectionLabel label="Prices & options" />
+            <h2 className="font-display mt-6 max-w-2xl text-4xl font-medium leading-[1.05] text-fg sm:text-5xl">
+              Starting prices, agreed in writing before anything begins.
+            </h2>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-fg-70">
+              Every figure below is an introductory starting point. The final price depends on the
+              scope, and it is always confirmed up front.
+            </p>
+          </RevealOnScroll>
+        </div>
+      </section>
 
       {servicePillars.map((pillar) => {
         const headline = resolve(pillar.headline);
@@ -197,15 +207,17 @@ export default function ServicesPage() {
         <div className="container-edge">
           <RevealOnScroll className="grid gap-8 md:grid-cols-12">
             <div className="md:col-span-5">
-              <SectionLabel index="04" label="Bigger builds" />
+              <SectionLabel index="04" label="Digital builds: AI & apps" />
               <h2 className="font-display mt-6 text-4xl font-medium leading-[1.05] text-fg sm:text-5xl">
                 Apps and AI agents, quoted per project.
               </h2>
             </div>
             <p className="max-w-lg text-base leading-relaxed text-fg-70 md:col-span-6 md:col-start-7 md:self-end">
-              These are scoped properly rather than priced off a menu. Tell me
-              what you need and I&rsquo;ll come back with a clear written quote,
-              a timeline and a phased plan, so you can start small and grow it.
+              These are scoped around one real problem in your business, rather
+              than priced off a menu. They&rsquo;re available to local businesses
+              and creative clients alike. Tell me what you need and I&rsquo;ll
+              come back with a clear written quote, a timeline and a phased plan,
+              so you can start small and grow it.
             </p>
           </RevealOnScroll>
 

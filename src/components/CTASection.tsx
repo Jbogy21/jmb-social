@@ -4,7 +4,7 @@ import RevealOnScroll from "./RevealOnScroll";
 import RiseHeading from "./RiseHeading";
 
 export default function CTASection({
-  heading = "Got something in mind?",
+  heading = "Let's build something people notice.",
   copy = "Tell me what you're working on and where you want it to go. I'll come back with a plan and a clear price.",
   ctaLabel = "Start a project",
   ctaHref = "/contact",

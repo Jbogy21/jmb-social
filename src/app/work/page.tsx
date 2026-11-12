@@ -8,7 +8,7 @@ import CTASection from "@/components/CTASection";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Selected work from JMB Social across websites, apps, AI agents, paid media and brand.",
+    "Selected work from JMB Social, grouped by websites, local business, fashion and creative, music and events, content and campaigns, and digital builds.",
   alternates: { canonical: "/work" },
 };
 
@@ -22,10 +22,10 @@ export default function WorkPage() {
             Selected <span className="font-display whitespace-nowrap font-normal italic tracking-[-0.03em] text-[#f1e3b0]">work.</span>
           </h1>
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-cream/85">
-            Websites and short-form video for independent businesses across
-            Sussex, Surrey and London, plus the studio site itself. Concept
-            projects are clearly labelled and show how I would approach apps
-            and AI agents.
+            Real projects for independent businesses across Sussex, Surrey and
+            London, plus the studio site itself. The creative side is new, so
+            that work appears here as it is finished. Concept projects are
+            clearly labelled and show how I would approach apps and AI agents.
           </p>
         </div>
       </PageHero>
