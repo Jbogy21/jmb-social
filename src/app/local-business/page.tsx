@@ -8,6 +8,7 @@ import ReelsShowcase from "@/components/ReelsShowcase";
 import Testimonials from "@/components/Testimonials";
 import Capabilities from "@/components/Capabilities";
 import LocalServices from "@/components/LocalServices";
+import CursorLayer from "@/components/cursor/CursorLayer";
 import FreeReview from "@/components/FreeReview";
 import FAQ from "@/components/FAQ";
 import AboutPreview from "@/components/AboutPreview";
@@ -30,6 +31,7 @@ export default function LocalBusinessPage() {
           <ReelPane scenes={heroScenes.trades} showWords={false} showCaption={false} dwell={3600} />
           <div className="absolute inset-0 bg-fg/50" />
         </div>
+        <CursorLayer className="z-0" />
         <div className="container-edge relative pb-16 pt-12 md:pb-24 md:pt-20">
           <div className="max-w-4xl">
             <SectionLabel label="Local business" tone="cream" />

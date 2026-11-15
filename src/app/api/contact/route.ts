@@ -55,6 +55,7 @@ export async function POST(request: Request) {
   // Only this exact value is accepted, so nothing else can be injected into the email.
   const fromFirstProjects = payload.source === "first-projects";
   const fromPress = payload.source === "press";
+  const fromCall = payload.source === "call";
 
   const lines = [
     `Name: ${name}`,
@@ -66,6 +67,7 @@ export async function POST(request: Request) {
     `Christmas offer claimed: ${claimedOffer ? "YES (first-time client)" : "no"}`,
     ...(fromFirstProjects ? ["Came from: First projects offer (Creative page)"] : []),
     ...(fromPress ? ["Came from: Press kit & introductions pack (Creative page)"] : []),
+    ...(fromCall ? ["Came from: Schedule a call button (call request: see Details for times)"] : []),
     "",
     "Details:",
     details || "-",
@@ -93,7 +95,7 @@ export async function POST(request: Request) {
         from: "JMB Social Website <onboarding@resend.dev>",
         to: [siteConfig.email.toLowerCase()],
         reply_to: email,
-        subject: `${claimedOffer ? "[Christmas offer] " : ""}${fromFirstProjects ? "[First projects] " : ""}${fromPress ? "[Press kit] " : ""}New enquiry from ${name}`,
+        subject: `${claimedOffer ? "[Christmas offer] " : ""}${fromFirstProjects ? "[First projects] " : ""}${fromPress ? "[Press kit] " : ""}${fromCall ? "[Call request] " : ""}New enquiry from ${name}`,
         text: lines.join("\n"),
       }),
     });

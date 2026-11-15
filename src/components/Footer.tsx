@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { StackedLogo } from "./Logo";
-import { siteConfig, navLinks, serviceFamilies } from "@/lib/data";
+import { siteConfig, navLinks, serviceFamilies, scheduleCallHref } from "@/lib/data";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -93,6 +93,14 @@ export default function Footer() {
             Message on WhatsApp
             <ExternalArrow />
           </a>
+          <Link
+            href={scheduleCallHref()}
+            {...(siteConfig.bookingUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className="underline-hover mt-3 inline-flex! items-center gap-1.5 text-cream/90 hover:text-cream"
+          >
+            Schedule a call
+            <ExternalArrow />
+          </Link>
           <p className="font-mono-label mt-6 text-[11px] text-cream-50">
             {siteConfig.location} / {siteConfig.foundedYear}
           </p>

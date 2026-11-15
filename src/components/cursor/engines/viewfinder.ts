@@ -1,0 +1,222 @@
+import { CLICKABLE, TONE_COLOURS, cursorLabel, isBlocked, toneOf, type Disposer } from "./shared";
+
+// VIEWFINDER: camera-focus corner brackets follow the pointer and lock onto anything that can
+// be clicked, with a small label for what it does. A click fires a quick shutter flash and the
+// brackets squeeze in, like a focus lock. The normal pointer stays visible; this goes with it.
+const IDLE = 30; // size of the brackets when there is nothing to lock onto
+const PAD = 7; // breathing room around a locked element
+
+export function startViewfinder(): Disposer {
+  const root = document.createElement("div");
+  Object.assign(root.style, {
+    position: "fixed",
+    inset: "0",
+    pointerEvents: "none",
+    zIndex: "60",
+    opacity: "0",
+    transition: "opacity 180ms ease",
+  });
+
+  const frame = document.createElement("div");
+  Object.assign(frame.style, {
+    position: "absolute",
+    left: "0",
+    top: "0",
+    width: `${IDLE}px`,
+    height: `${IDLE}px`,
+    color: TONE_COLOURS.site,
+    willChange: "transform, width, height",
+  });
+  const corner = (top: boolean, left: boolean) => {
+    const el = document.createElement("span");
+    Object.assign(el.style, {
+      position: "absolute",
+      width: "11px",
+      height: "11px",
+      [top ? "top" : "bottom"]: "0",
+      [left ? "left" : "right"]: "0",
+      [top ? "borderTop" : "borderBottom"]: "1.5px solid currentColor",
+      [left ? "borderLeft" : "borderRight"]: "1.5px solid currentColor",
+    });
+    return el;
+  };
+  [corner(true, true), corner(true, false), corner(false, true), corner(false, false)].forEach((el) =>
+    frame.appendChild(el),
+  );
+
+  const dot = document.createElement("span");
+  Object.assign(dot.style, {
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    width: "3px",
+    height: "3px",
+    margin: "-1.5px 0 0 -1.5px",
+    borderRadius: "50%",
+    background: "currentColor",
+    transition: "opacity 160ms ease",
+  });
+  frame.appendChild(dot);
+
+  const label = document.createElement("span");
+  Object.assign(label.style, {
+    position: "absolute",
+    left: "0",
+    top: "100%",
+    marginTop: "7px",
+    padding: "3px 7px",
+    borderRadius: "2px",
+    background: "rgba(16, 19, 11, 0.88)",
+    border: "1px solid currentColor",
+    fontFamily: "var(--font-mono), ui-monospace, monospace",
+    fontSize: "10px",
+    letterSpacing: "0.14em",
+    whiteSpace: "nowrap",
+    opacity: "0",
+    transition: "opacity 160ms ease",
+  });
+  frame.appendChild(label);
+  root.appendChild(frame);
+  document.body.appendChild(root);
+
+  let cx = -100;
+  let cy = -100;
+  let cw = IDLE;
+  let ch = IDLE;
+  let tx = -100;
+  let ty = -100;
+  let tw = IDLE;
+  let th = IDLE;
+  let px = -100;
+  let py = -100;
+  let pressed = false;
+  let locked: Element | null = null;
+  let raf = 0;
+  let fresh = true;
+
+  const aim = () => {
+    if (locked && locked.isConnected) {
+      const r = locked.getBoundingClientRect();
+      tx = r.left - PAD;
+      ty = r.top - PAD;
+      tw = r.width + PAD * 2;
+      th = r.height + PAD * 2;
+    } else {
+      tx = px - IDLE / 2;
+      ty = py - IDLE / 2;
+      tw = IDLE;
+      th = IDLE;
+    }
+    if (pressed) {
+      tx += 4;
+      ty += 4;
+      tw -= 8;
+      th -= 8;
+    }
+  };
+
+  const loop = () => {
+    raf = 0;
+    aim();
+    if (fresh) {
+      cx = tx;
+      cy = ty;
+      cw = tw;
+      ch = th;
+      fresh = false;
+    }
+    cx += (tx - cx) * 0.26;
+    cy += (ty - cy) * 0.26;
+    cw += (tw - cw) * 0.26;
+    ch += (th - ch) * 0.26;
+    frame.style.transform = `translate(${cx.toFixed(1)}px, ${cy.toFixed(1)}px)`;
+    frame.style.width = `${cw.toFixed(1)}px`;
+    frame.style.height = `${ch.toFixed(1)}px`;
+    const settled =
+      Math.abs(tx - cx) < 0.3 && Math.abs(ty - cy) < 0.3 && Math.abs(tw - cw) < 0.3 && Math.abs(th - ch) < 0.3;
+    if (!settled) raf = requestAnimationFrame(loop);
+  };
+  const wake = () => {
+    if (!raf) raf = requestAnimationFrame(loop);
+  };
+
+  const onMove = (event: PointerEvent) => {
+    if (event.pointerType !== "mouse") return;
+    px = event.clientX;
+    py = event.clientY;
+    if (isBlocked(event.target)) {
+      root.style.opacity = "0";
+      return;
+    }
+    root.style.opacity = "1";
+    frame.style.color = TONE_COLOURS[toneOf(event.target)];
+    const el = (event.target as Element | null)?.closest?.(CLICKABLE) ?? null;
+    let next: Element | null = null;
+    if (el) {
+      const r = el.getBoundingClientRect();
+      const big = r.width * r.height > window.innerWidth * window.innerHeight * 0.3;
+      if (!big && r.width > 8 && r.height > 8) next = el;
+    }
+    if (next !== locked) {
+      locked = next;
+      const text = next ? cursorLabel(next) : "";
+      label.textContent = text;
+      label.style.opacity = text ? "1" : "0";
+      dot.style.opacity = next ? "0" : "1";
+    }
+    wake();
+  };
+
+  const onScroll = () => {
+    if (locked) wake();
+  };
+
+  const onDown = (event: PointerEvent) => {
+    if (event.pointerType !== "mouse" || isBlocked(event.target)) return;
+    pressed = true;
+    // the shutter flash
+    const flash = document.createElement("div");
+    Object.assign(flash.style, {
+      position: "absolute",
+      left: `${event.clientX - 70}px`,
+      top: `${event.clientY - 70}px`,
+      width: "140px",
+      height: "140px",
+      borderRadius: "50%",
+      background: `radial-gradient(circle, ${TONE_COLOURS[toneOf(event.target)]}99 0%, transparent 68%)`,
+    });
+    root.appendChild(flash);
+    const run = flash.animate(
+      [
+        { transform: "scale(0.35)", opacity: 0.9 },
+        { transform: "scale(1.5)", opacity: 0 },
+      ],
+      { duration: 340, easing: "cubic-bezier(0.16, 1, 0.3, 1)" },
+    );
+    run.onfinish = () => flash.remove();
+    wake();
+  };
+  const onUp = () => {
+    pressed = false;
+    wake();
+  };
+  const onLeave = () => {
+    root.style.opacity = "0";
+  };
+
+  window.addEventListener("pointermove", onMove, { passive: true });
+  window.addEventListener("pointerdown", onDown, { passive: true });
+  window.addEventListener("pointerup", onUp, { passive: true });
+  window.addEventListener("scroll", onScroll, { passive: true });
+  document.documentElement.addEventListener("mouseleave", onLeave);
+
+  return () => {
+    window.removeEventListener("pointermove", onMove);
+    window.removeEventListener("pointerdown", onDown);
+    window.removeEventListener("pointerup", onUp);
+    window.removeEventListener("scroll", onScroll);
+    document.documentElement.removeEventListener("mouseleave", onLeave);
+    cancelAnimationFrame(raf);
+    root.remove();
+  };
+}

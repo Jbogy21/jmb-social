@@ -7,6 +7,8 @@ import RiseHeading from "@/components/RiseHeading";
 import ScrollLine from "@/components/ScrollLine";
 import PhotoSlot from "@/components/PhotoSlot";
 import { Button } from "@/components/Button";
+import ScheduleCallButton from "@/components/ScheduleCallButton";
+import CursorLayer from "@/components/cursor/CursorLayer";
 import FirstProjectsOffer from "@/components/FirstProjectsOffer";
 import PressOffer from "@/components/PressOffer";
 import ReelPane from "@/components/ReelPane";
@@ -133,6 +135,7 @@ const collaboration = [
 export default function CreativePage() {
   return (
     <div className="creative-world">
+      <CursorLayer mode="fixed" tone="creative" className="z-[-1]" />
       <section className="grain relative isolate -mt-[81px] overflow-hidden bg-ink pt-[81px] text-cream md:-mt-[97px] md:pt-[97px]">
         <div className="absolute inset-0 -z-10">
           <ReelPane
@@ -145,6 +148,7 @@ export default function CreativePage() {
           />
           <div className="absolute inset-0 bg-fg/45" />
         </div>
+        <CursorLayer tone="creative" className="z-0" />
         <div className="container-edge relative pb-16 pt-16 md:pb-24 md:pt-24">
           <div className="hero-reveal flex items-center gap-3 font-mono-label text-xs text-cream-70">
             <span className="h-2 w-2 rounded-full bg-signal" aria-hidden="true" />
@@ -409,16 +413,19 @@ export default function CreativePage() {
               <Button href="/contact?for=creative" variant="signal">
                 Start a creative project
               </Button>
+              <ScheduleCallButton />
+            </div>
+            <p className="mt-8">
               <a
                 href={siteConfig.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono-label inline-flex items-center rounded-full border border-cream/30 px-7 py-4 text-[11px] text-cream transition-colors duration-300 hover:bg-cream hover:text-ink"
+                className="font-mono-label underline-hover inline-flex min-h-8 items-center text-[11px] text-cream hover:text-white"
               >
-                Message on WhatsApp
+                Or message me on WhatsApp ↗
               </a>
-            </div>
-            <p className="mt-8">
+            </p>
+            <p className="mt-2">
               <Link
                 href="/local-business"
                 className="font-mono-label underline-hover inline-flex min-h-8 items-center text-[11px] text-cream-70 hover:text-cream"

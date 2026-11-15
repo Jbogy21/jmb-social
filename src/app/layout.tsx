@@ -3,6 +3,9 @@ import { Newsreader, Inter, IBM_Plex_Mono } from "next/font/google";
 import Nav from "@/components/Nav";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import CursorLayer from "@/components/cursor/CursorLayer";
+import CursorOverlay from "@/components/cursor/CursorOverlay";
+import CursorDemoBar from "@/components/cursor/CursorDemoBar";
 import { Analytics } from "@vercel/analytics/next";
 import Footer from "@/components/Footer";
 import { siteConfig } from "@/lib/data";
@@ -108,11 +111,14 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
+        <CursorLayer mode="fixed" className="z-[-1]" />
         <AnnouncementBar />
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <CursorOverlay />
+        <CursorDemoBar />
         <Analytics />
       </body>
     </html>

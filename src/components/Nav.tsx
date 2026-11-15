@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { NavLogo } from "./Logo";
 import { navLinks } from "@/lib/data";
+import ScheduleCallButton from "./ScheduleCallButton";
 
 // A glass pill that floats over the page. It is clear at the very top and turns into a
 // soft dark glass bar once the page has started to scroll.
@@ -126,13 +127,14 @@ export default function Nav() {
               {link.label}
             </Link>
           ))}
-          <div className="pt-6">
+          <div className="flex flex-col gap-3 pt-6">
             <Link
               href="/contact"
               className="font-mono-label flex w-full items-center justify-center gap-2 rounded-full bg-cream px-6 py-4 text-[11px] text-ink"
             >
               Start a project <span aria-hidden="true">↗</span>
             </Link>
+            <ScheduleCallButton className="w-full justify-center" />
           </div>
         </nav>
       </div>

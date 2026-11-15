@@ -49,6 +49,15 @@ export function Button(props: ButtonAsLink | ButtonAsButton) {
   const classes = `group ${base} ${variants[variant]} ${className}`;
 
   if ("href" in props && props.href) {
+    // A full web address (for example a booking calendar) opens in a new tab.
+    if (/^https?:\/\//.test(props.href)) {
+      return (
+        <a href={props.href} target="_blank" rel="noopener noreferrer" className={classes}>
+          {children}
+          {arrow && <Arrow />}
+        </a>
+      );
+    }
     return (
       <Link href={props.href} className={classes}>
         {children}

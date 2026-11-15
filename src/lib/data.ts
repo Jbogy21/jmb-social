@@ -14,6 +14,13 @@ export const siteConfig = {
   whatsappHref:
     "https://wa.me/447847743022?text=Hi%20JMB%20Social%2C%20I%27d%20like%20to%20talk%20about%20a%20project.",
   foundedYear: "2026",
+  // Paste a booking link here (for example your Cal.com or Calendly link) and every
+  // "Schedule a call" button opens your calendar in a new tab. While this is empty they open
+  // the contact form set up as a call request instead.
+  bookingUrl: "",
+  // The cursor effect on desktop: "frames", "viewfinder", "fluted", "playhead", "sides",
+  // "light", or "off". See docs/cursor-options.md.
+  cursorEffect: "frames",
   description:
     "JMB Social is a founder-led digital studio, founded in West Sussex, making websites, creative direction and digital support for local businesses, brands and emerging talent across Sussex, Surrey and London.",
   heroDescription:
@@ -23,6 +30,29 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com/in/jackson-booker-214874427",
   },
 };
+
+// Where the "Schedule a call" buttons go: your booking calendar if `bookingUrl` is set,
+// otherwise the contact form set up for a call request.
+export function scheduleCallHref(): string {
+  return siteConfig.bookingUrl || "/contact?for=call";
+}
+
+// Footage for the first screen. Leave the list empty to keep the glow on its own. Add clips
+// and the home page flicks through them behind the headline, like a showreel.
+//   1. Put each clip in public/hero/ (short, silent, looping, about 3 to 6 seconds, 1080p or
+//      less, saved as H.264 .mp4 and kept small, ideally under 3 MB).
+//   2. Add a still image for each (a frame from the clip) as the `poster`.
+//   3. List them here, for example:
+//        { src: "/hero/clip-1.mp4", poster: "/hero/clip-1.jpg" },
+export type HeroClip = { src: string; poster?: string };
+export const heroClips: HeroClip[] = [];
+
+// Pictures for the cursor trail's Reel frames. Leave empty and the frames show brand-coloured
+// artwork. Add photos (for example from the shoot) and the trail is made of them:
+//   1. Put each picture in public/cursor/ (any shape; it is cropped to a tall frame, so a
+//      small JPG around 300 pixels wide is plenty).
+//   2. List them here, for example: "/cursor/look-1.jpg".
+export const cursorFrames: string[] = [];
 
 export const navLinks = [
   { label: "Local business", href: "/local-business" },
@@ -1477,6 +1507,7 @@ export function christmasPrice(price: string | null, now: Date = new Date()): st
 
 export const creativeHelpOption = "Fashion, music or modelling content";
 export const pressHelpOption = "Press kit & introductions";
+export const callHelpOption = "A call or consultation";
 
 export const helpOptions = [
   "Free website review",
@@ -1489,6 +1520,7 @@ export const helpOptions = [
   "SEO & analytics",
   creativeHelpOption,
   pressHelpOption,
+  callHelpOption,
   "Not sure yet",
 ] as const;
 

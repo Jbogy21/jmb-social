@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SectionLabel from "@/components/SectionLabel";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
+import ScheduleCallButton from "@/components/ScheduleCallButton";
 import { siteConfig, isChristmasOfferActive } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -41,6 +42,7 @@ export default function ContactPage() {
               WhatsApp {siteConfig.phone}
               <span aria-hidden="true">↗</span>
             </a>
+            <ScheduleCallButton className="w-full justify-center md:w-auto" />
             <a
               href={siteConfig.phoneHref}
               className="inline-flex w-full items-center justify-center rounded-full border border-white/30 px-6 py-4 text-sm text-cream transition-colors duration-300 hover:bg-cream hover:text-ink md:w-auto"

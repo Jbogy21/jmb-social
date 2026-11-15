@@ -9,6 +9,7 @@ import {
   christmasOffer,
   creativeHelpOption,
   pressHelpOption,
+  callHelpOption,
 } from "@/lib/data";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -34,8 +35,16 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
   );
   const forFirstProjects = source === "first-projects";
   const forPress = source === "press";
+  const forCall = source === "call";
   const forCreative = source === "creative" || forFirstProjects || forPress;
-  const helpNeeded = picked ?? (forPress ? [pressHelpOption] : forCreative ? [creativeHelpOption] : []);
+  const helpNeeded = picked ??
+    (forCall
+      ? [callHelpOption]
+      : forPress
+        ? [pressHelpOption]
+        : forCreative
+          ? [creativeHelpOption]
+          : []);
 
   function toggleHelp(option: string) {
     setPicked(
@@ -61,7 +70,7 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
       budget: formData.get("budget"),
       details: formData.get("details"),
       christmasOffer: formData.get("christmasOffer") === "on",
-      source: forFirstProjects ? "first-projects" : forPress ? "press" : undefined,
+      source: forFirstProjects ? "first-projects" : forPress ? "press" : forCall ? "call" : undefined,
       hp: formData.get("hp"),
     };
 
@@ -161,9 +170,11 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
 
       <Field
         label={
-          forCreative
-            ? "Tell me about you and what you're building"
-            : "Tell me a bit about the project"
+          forCall
+            ? "When are you free, and what would you like to talk about?"
+            : forCreative
+              ? "Tell me about you and what you're building"
+              : "Tell me a bit about the project"
         }
         htmlFor="details"
       >
