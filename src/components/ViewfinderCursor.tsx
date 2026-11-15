@@ -1,12 +1,53 @@
-import { CLICKABLE, TONE_COLOURS, cursorLabel, isBlocked, toneOf, type Disposer } from "./shared";
+"use client";
 
-// VIEWFINDER: camera-focus corner brackets follow the pointer and lock onto anything that can
-// be clicked, with a small label for what it does. A click fires a quick shutter flash and the
+import { useEffect } from "react";
+import { siteConfig } from "@/lib/data";
+
+// The JMB Social cursor: a camera viewfinder.
+//
+// Focus brackets follow the mouse and lock onto anything that can be clicked, with a small
+// label for what it does (VIEW, OPEN, CALL...). A click fires a quick shutter flash and the
 // brackets squeeze in, like a focus lock. The normal pointer stays visible; this goes with it.
+//
+// Desktop with a real mouse only (never phones or tablets), off for people who ask for less
+// motion, hidden over form fields, and it never blocks a click. Turn it off in one place:
+// `cursorEffect` in `siteConfig` (src/lib/data.ts). The thinking is in docs/cursor-options.md.
+
 const IDLE = 30; // size of the brackets when there is nothing to lock onto
 const PAD = 7; // breathing room around a locked element
 
-export function startViewfinder(): Disposer {
+const TONES = { site: "#ece2c8", creative: "#f0724a" } as const; // the Creative pages get ember
+const CLICKABLE = 'a, button, [role="button"], summary, label, img, video, figure, .pop-card';
+
+const mouseCapable = () =>
+  window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+  !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Nothing happens over form fields (or anything marked data-no-trail).
+const isBlocked = (target: EventTarget | null) =>
+  Boolean((target as Element | null)?.closest?.("input, textarea, select, [data-no-trail]"));
+
+const toneOf = (target: EventTarget | null) =>
+  (target as Element | null)?.closest?.(".creative-world") ? TONES.creative : TONES.site;
+
+// A short name for what a click on this would do. Add data-cursor="WATCH" to name your own.
+const cursorLabel = (el: Element): string => {
+  const custom = el.getAttribute("data-cursor");
+  if (custom) return custom;
+  if (el.matches("a")) {
+    const href = el.getAttribute("href") || "";
+    if (href.startsWith("tel:")) return "CALL";
+    if (href.startsWith("mailto:")) return "EMAIL";
+    if (/wa\.me/.test(href)) return "CHAT";
+    if (/^https?:/.test(href)) return "OPEN ↗";
+    return "VIEW";
+  }
+  if (el.matches("button, [role='button'], summary")) return "PRESS";
+  if (el.matches("img, video, figure, .pop-card")) return "VIEW";
+  return "";
+};
+
+function start() {
   const root = document.createElement("div");
   Object.assign(root.style, {
     position: "fixed",
@@ -24,7 +65,7 @@ export function startViewfinder(): Disposer {
     top: "0",
     width: `${IDLE}px`,
     height: `${IDLE}px`,
-    color: TONE_COLOURS.site,
+    color: TONES.site,
     willChange: "transform, width, height",
   });
   const corner = (top: boolean, left: boolean) => {
@@ -79,6 +120,7 @@ export function startViewfinder(): Disposer {
   root.appendChild(frame);
   document.body.appendChild(root);
 
+  // current, target and pointer positions; the brackets ease from one to the other
   let cx = -100;
   let cy = -100;
   let cw = IDLE;
@@ -115,6 +157,7 @@ export function startViewfinder(): Disposer {
     }
   };
 
+  // runs only while the brackets are still moving, then goes to sleep
   const loop = () => {
     raf = 0;
     aim();
@@ -149,11 +192,12 @@ export function startViewfinder(): Disposer {
       return;
     }
     root.style.opacity = "1";
-    frame.style.color = TONE_COLOURS[toneOf(event.target)];
+    frame.style.color = toneOf(event.target);
     const el = (event.target as Element | null)?.closest?.(CLICKABLE) ?? null;
     let next: Element | null = null;
     if (el) {
       const r = el.getBoundingClientRect();
+      // huge things (full-width pictures, whole cards) are not worth locking onto
       const big = r.width * r.height > window.innerWidth * window.innerHeight * 0.3;
       if (!big && r.width > 8 && r.height > 8) next = el;
     }
@@ -168,7 +212,7 @@ export function startViewfinder(): Disposer {
   };
 
   const onScroll = () => {
-    if (locked) wake();
+    if (locked) wake(); // keep the brackets on the thing as the page moves under the mouse
   };
 
   const onDown = (event: PointerEvent) => {
@@ -183,17 +227,18 @@ export function startViewfinder(): Disposer {
       width: "140px",
       height: "140px",
       borderRadius: "50%",
-      background: `radial-gradient(circle, ${TONE_COLOURS[toneOf(event.target)]}99 0%, transparent 68%)`,
+      background: `radial-gradient(circle, ${toneOf(event.target)}99 0%, transparent 68%)`,
     });
     root.appendChild(flash);
-    const run = flash.animate(
-      [
-        { transform: "scale(0.35)", opacity: 0.9 },
-        { transform: "scale(1.5)", opacity: 0 },
-      ],
-      { duration: 340, easing: "cubic-bezier(0.16, 1, 0.3, 1)" },
-    );
-    run.onfinish = () => flash.remove();
+    flash
+      .animate(
+        [
+          { transform: "scale(0.35)", opacity: 0.9 },
+          { transform: "scale(1.5)", opacity: 0 },
+        ],
+        { duration: 340, easing: "cubic-bezier(0.16, 1, 0.3, 1)" },
+      )
+      .addEventListener("finish", () => flash.remove());
     wake();
   };
   const onUp = () => {
@@ -219,4 +264,13 @@ export function startViewfinder(): Disposer {
     cancelAnimationFrame(raf);
     root.remove();
   };
+}
+
+export default function ViewfinderCursor() {
+  useEffect(() => {
+    if (siteConfig.cursorEffect !== "viewfinder" || !mouseCapable()) return;
+    return start();
+  }, []);
+
+  return null;
 }

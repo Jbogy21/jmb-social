@@ -1118,23 +1118,3 @@ html.intro-active .intro-skip {
   }
 }
 
-/* ---- Cursor effects: the "Two sides" style hides the normal pointer while it runs ---- */
-html.jc-hide-native,
-html.jc-hide-native * {
-  cursor: none !important;
-}
-
-html.jc-hide-native input,
-html.jc-hide-native textarea,
-html.jc-hide-native select {
-  cursor: text !important;
-}
-
-html.jc-hide-native [data-no-trail],
-html.jc-hide-native [data-no-trail] * {
-  cursor: auto !important;
-}
-
-html.jc-hide-native [data-no-trail] button {
-  cursor: pointer !important;
-}

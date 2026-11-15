@@ -8,7 +8,6 @@ import ScrollLine from "@/components/ScrollLine";
 import PhotoSlot from "@/components/PhotoSlot";
 import { Button } from "@/components/Button";
 import ScheduleCallButton from "@/components/ScheduleCallButton";
-import CursorLayer from "@/components/cursor/CursorLayer";
 import FirstProjectsOffer from "@/components/FirstProjectsOffer";
 import PressOffer from "@/components/PressOffer";
 import ReelPane from "@/components/ReelPane";
@@ -135,7 +134,6 @@ const collaboration = [
 export default function CreativePage() {
   return (
     <div className="creative-world">
-      <CursorLayer mode="fixed" tone="creative" className="z-[-1]" />
       <section className="grain relative isolate -mt-[81px] overflow-hidden bg-ink pt-[81px] text-cream md:-mt-[97px] md:pt-[97px]">
         <div className="absolute inset-0 -z-10">
           <ReelPane
@@ -148,7 +146,6 @@ export default function CreativePage() {
           />
           <div className="absolute inset-0 bg-fg/45" />
         </div>
-        <CursorLayer tone="creative" className="z-0" />
         <div className="container-edge relative pb-16 pt-16 md:pb-24 md:pt-24">
           <div className="hero-reveal flex items-center gap-3 font-mono-label text-xs text-cream-70">
             <span className="h-2 w-2 rounded-full bg-signal" aria-hidden="true" />

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import GlowField from "./GlowField";
 import HeroClips from "./HeroClips";
-import CursorLayer from "./cursor/CursorLayer";
 import ScrollCue from "./ScrollCue";
 import { serviceFamilies, cadenceLabel, heroClips } from "@/lib/data";
 
@@ -36,7 +35,6 @@ export default function HomeHero() {
     <section className="relative isolate -mt-[81px] flex min-h-[calc(100svh-3.1rem)] flex-col overflow-hidden bg-[#1a2013] pt-[81px] text-cream md:-mt-[97px] md:min-h-[calc(100svh-2.4rem)] md:pt-[97px]">
       <GlowField />
       <HeroClips clips={heroClips} />
-      <CursorLayer className="z-[1]" />
 
       <div className="container-edge relative z-10 flex flex-1 flex-col justify-between gap-10 pb-6 pt-8 md:pt-10">
         <div className="flex items-start justify-between gap-6">

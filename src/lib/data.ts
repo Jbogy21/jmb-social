@@ -18,9 +18,9 @@ export const siteConfig = {
   // "Schedule a call" button opens your calendar in a new tab. While this is empty they open
   // the contact form set up as a call request instead.
   bookingUrl: "",
-  // The cursor effect on desktop: "frames", "viewfinder", "fluted", "playhead", "sides",
-  // "light", or "off". See docs/cursor-options.md.
-  cursorEffect: "frames",
+  // The cursor on desktop: "viewfinder" (camera-focus brackets, see docs/cursor-options.md)
+  // or "off".
+  cursorEffect: "viewfinder",
   description:
     "JMB Social is a founder-led digital studio, founded in West Sussex, making websites, creative direction and digital support for local businesses, brands and emerging talent across Sussex, Surrey and London.",
   heroDescription:
@@ -46,13 +46,6 @@ export function scheduleCallHref(): string {
 //        { src: "/hero/clip-1.mp4", poster: "/hero/clip-1.jpg" },
 export type HeroClip = { src: string; poster?: string };
 export const heroClips: HeroClip[] = [];
-
-// Pictures for the cursor trail's Reel frames. Leave empty and the frames show brand-coloured
-// artwork. Add photos (for example from the shoot) and the trail is made of them:
-//   1. Put each picture in public/cursor/ (any shape; it is cropped to a tall frame, so a
-//      small JPG around 300 pixels wide is plenty).
-//   2. List them here, for example: "/cursor/look-1.jpg".
-export const cursorFrames: string[] = [];
 
 export const navLinks = [
   { label: "Local business", href: "/local-business" },
