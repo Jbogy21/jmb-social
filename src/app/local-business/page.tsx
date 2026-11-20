@@ -5,6 +5,9 @@ import SectionLabel from "@/components/SectionLabel";
 import ChristmasOffer from "@/components/ChristmasOffer";
 import SelectedWork from "@/components/SelectedWork";
 import ReelsShowcase from "@/components/ReelsShowcase";
+import CallSheet from "@/components/CallSheet";
+import PriceEstimator from "@/components/PriceEstimator";
+import { isChristmasOfferActive } from "@/lib/data";
 import Testimonials from "@/components/Testimonials";
 import Capabilities from "@/components/Capabilities";
 import LocalServices from "@/components/LocalServices";
@@ -65,9 +68,11 @@ export default function LocalBusinessPage() {
       <ChristmasOffer />
       <SelectedWork index="" limit={3} />
       <ReelsShowcase index="" />
+      <CallSheet />
       <Testimonials index="" />
       <LocalServices index="" />
       <Capabilities index="" />
+      <PriceEstimator offerActive={isChristmasOfferActive()} />
       <FreeReview />
       <FAQ index="" omit={["AI agent", "press coverage"]} />
       <AboutPreview />

@@ -7,6 +7,7 @@ import {
   cadenceLabel,
   stagePanels,
   type ServiceVariant,
+  isChristmasOfferActive,
 } from "@/lib/data";
 import { ServiceFlow } from "@/components/ServiceCards";
 import SectionLabel from "@/components/SectionLabel";
@@ -15,6 +16,7 @@ import RevealOnScroll from "@/components/RevealOnScroll";
 import { Button } from "@/components/Button";
 import ServiceIcon from "@/components/ServiceIcon";
 import Packages from "@/components/Packages";
+import PriceEstimator from "@/components/PriceEstimator";
 import FAQ from "@/components/FAQ";
 import CTASection from "@/components/CTASection";
 
@@ -256,6 +258,8 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      <PriceEstimator offerActive={isChristmasOfferActive()} />
 
       <Packages index="—" />
 

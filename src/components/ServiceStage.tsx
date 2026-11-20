@@ -149,7 +149,7 @@ export default function ServiceStage({
         >
           <div className="container-edge flex min-h-0 flex-1 flex-col gap-3 py-4 md:gap-4 md:py-6">
             <div className="flex items-center justify-between gap-4">
-              <SectionLabel label="What I do" tone="cream" />
+              <SectionLabel label="What I do" tone="cream" rec={false} />
               <div className="flex items-center gap-4">
                 <span className="font-mono-label shrink-0 text-[11px] text-cream-70">
                   {String(active + 1).padStart(2, "0")} / {String(panels.length).padStart(2, "0")}

@@ -133,6 +133,7 @@ function start() {
   let py = -100;
   let pressed = false;
   let locked: Element | null = null;
+  let seen = false; // true once the mouse has moved at all
   let raf = 0;
   let fresh = true;
 
@@ -183,17 +184,22 @@ function start() {
     if (!raf) raf = requestAnimationFrame(loop);
   };
 
-  const onMove = (event: PointerEvent) => {
-    if (event.pointerType !== "mouse") return;
-    px = event.clientX;
-    py = event.clientY;
-    if (isBlocked(event.target)) {
+  // Works out what the pointer is on and aims at it. Called when the mouse moves, and again
+  // a few times a second while it rests, so the brackets follow something that moves or
+  // changes under a still pointer (a card turning, a video starting).
+  const update = (target: EventTarget | null) => {
+    if (px < 0) return;
+    if (isBlocked(target)) {
       root.style.opacity = "0";
       return;
     }
     root.style.opacity = "1";
-    frame.style.color = toneOf(event.target);
-    const el = (event.target as Element | null)?.closest?.(CLICKABLE) ?? null;
+    frame.style.color = toneOf(target);
+    // anything that names its own label (data-cursor) wins over a picture or button inside it
+    const el =
+      (target as Element | null)?.closest?.("[data-cursor]") ??
+      (target as Element | null)?.closest?.(CLICKABLE) ??
+      null;
     let next: Element | null = null;
     if (el) {
       const r = el.getBoundingClientRect();
@@ -210,6 +216,18 @@ function start() {
     }
     wake();
   };
+
+  const onMove = (event: PointerEvent) => {
+    if (event.pointerType !== "mouse") return;
+    px = event.clientX;
+    py = event.clientY;
+    seen = true;
+    update(event.target);
+  };
+
+  const rest = window.setInterval(() => {
+    if (seen && root.style.opacity === "1") update(document.elementFromPoint(px, py));
+  }, 150);
 
   const onScroll = () => {
     if (locked) wake(); // keep the brackets on the thing as the page moves under the mouse
@@ -261,6 +279,7 @@ function start() {
     window.removeEventListener("pointerup", onUp);
     window.removeEventListener("scroll", onScroll);
     document.documentElement.removeEventListener("mouseleave", onLeave);
+    window.clearInterval(rest);
     cancelAnimationFrame(raf);
     root.remove();
   };

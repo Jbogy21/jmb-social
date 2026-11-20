@@ -2,7 +2,7 @@ import Link from "next/link";
 import GlowField from "./GlowField";
 import HeroClips from "./HeroClips";
 import ScrollCue from "./ScrollCue";
-import { serviceFamilies, cadenceLabel, heroClips } from "@/lib/data";
+import { serviceFamilies, cadenceLabel, heroClips, wheelersReelsTotal } from "@/lib/data";
 
 const delay = (ms: number) => ({ animationDelay: `calc(var(--intro-delay, 0s) + ${ms}ms)` });
 
@@ -23,7 +23,7 @@ const priceRows = [
 const features = [
   "Real work for real local businesses",
   "Fast, mobile-first websites",
-  "Reels with 111.2K combined views",
+  `Reels with ${wheelersReelsTotal} combined views`,
   "Starting prices shown up front",
   "You deal with me directly",
 ];

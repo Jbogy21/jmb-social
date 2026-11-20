@@ -56,6 +56,7 @@ export async function POST(request: Request) {
   const fromFirstProjects = payload.source === "first-projects";
   const fromPress = payload.source === "press";
   const fromCall = payload.source === "call";
+  const fromEstimate = payload.source === "estimate";
 
   const lines = [
     `Name: ${name}`,
@@ -68,6 +69,7 @@ export async function POST(request: Request) {
     ...(fromFirstProjects ? ["Came from: First projects offer (Creative page)"] : []),
     ...(fromPress ? ["Came from: Press kit & introductions pack (Creative page)"] : []),
     ...(fromCall ? ["Came from: Schedule a call button (call request: see Details for times)"] : []),
+    ...(fromEstimate ? ["Came from: Price estimator (their picks are at the top of Details)"] : []),
     "",
     "Details:",
     details || "-",
@@ -95,7 +97,7 @@ export async function POST(request: Request) {
         from: "JMB Social Website <onboarding@resend.dev>",
         to: [siteConfig.email.toLowerCase()],
         reply_to: email,
-        subject: `${claimedOffer ? "[Christmas offer] " : ""}${fromFirstProjects ? "[First projects] " : ""}${fromPress ? "[Press kit] " : ""}${fromCall ? "[Call request] " : ""}New enquiry from ${name}`,
+        subject: `${claimedOffer ? "[Christmas offer] " : ""}${fromFirstProjects ? "[First projects] " : ""}${fromPress ? "[Press kit] " : ""}${fromCall ? "[Call request] " : ""}${fromEstimate ? "[Estimate] " : ""}New enquiry from ${name}`,
         text: lines.join("\n"),
       }),
     });

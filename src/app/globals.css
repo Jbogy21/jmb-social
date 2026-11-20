@@ -1037,6 +1037,75 @@ html.intro-active .intro-skip {
   }
 }
 
+/* ---- Shot-list labels -----------------------------------------------------
+   Section labels are numbered like shots in a shot list, restarting on every page. The label
+   at the top of a page is "REC" instead and does not take a number. Timecodes come from
+   <ShotClock />, which writes each label's position into data-tc. */
+main {
+  counter-reset: shot;
+}
+
+.shot-label {
+  counter-increment: shot;
+}
+
+.shot-no::before {
+  content: "Shot " counter(shot, decimal-leading-zero);
+}
+
+.shot-tc::before {
+  content: attr(data-tc);
+}
+
+.rec-dot {
+  animation: rec-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes rec-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rec-dot {
+    animation: none;
+  }
+}
+
+/* ---- Contact sheet (Work page) --------------------------------------------
+   A strip of film-edge holes above and below the frames, and the pencil ring that draws
+   itself round a keeper's number when you point at its frame. */
+.sprockets {
+  height: 9px;
+  background: repeating-linear-gradient(90deg, rgba(240, 231, 207, 0.17) 0 14px, transparent 14px 34px);
+  border-radius: 2px;
+}
+
+.keeper-ring {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .group:hover .keeper-ring {
+    animation: keeper-draw 0.7s ease-out;
+  }
+}
+
+@keyframes keeper-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 /* ---- Creative page: its own colour world ---------------------------------
    Warm charcoal and ember instead of the site's olive, so the page keeps the colour
    of its opening instead of dropping back to green. It fades out at the bottom so the

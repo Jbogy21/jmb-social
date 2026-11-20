@@ -3,7 +3,9 @@ import SectionLabel from "@/components/SectionLabel";
 import PageHero from "@/components/PageHero";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import FounderCard from "@/components/FounderCard";
+import FounderVideo from "@/components/FounderVideo";
 import Principles from "@/components/Principles";
+import CallSheet from "@/components/CallSheet";
 import CTASection from "@/components/CTASection";
 import { background, founder, siteConfig } from "@/lib/data";
 
@@ -82,12 +84,15 @@ export default function AboutPage() {
             </h2>
           </RevealOnScroll>
           <RevealOnScroll className="md:col-span-8">
-            <div className="flex max-w-2xl flex-col gap-5">
-              {founder.story.map((paragraph) => (
-                <p key={paragraph} className="text-lg leading-relaxed text-fg-70">
-                  {paragraph}
-                </p>
-              ))}
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-14">
+              <div className="flex max-w-2xl flex-col gap-5">
+                {founder.story.map((paragraph) => (
+                  <p key={paragraph} className="text-lg leading-relaxed text-fg-70">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+              <FounderVideo className="order-first w-full max-w-[17rem] lg:order-last" />
             </div>
           </RevealOnScroll>
         </div>
@@ -161,24 +166,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="border-b border-line py-20 md:py-28">
-        <div className="container-edge grid gap-10 md:grid-cols-12 md:gap-8">
-          <RevealOnScroll className="md:col-span-4">
-            <SectionLabel label="How we work" />
-          </RevealOnScroll>
-          <RevealOnScroll className="md:col-span-8">
-            <p className="font-display max-w-2xl text-3xl font-medium leading-[1.2] text-fg sm:text-4xl">
-              Clients get direct, hands-on attention from the person doing the work, not layers of
-              agency account management.
-            </p>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-fg-70">
-              Every project starts the same way: understand what you actually need, design and build
-              it properly, and show you the work as it goes. I&rsquo;ll tell you honestly what is
-              worth doing and what isn&rsquo;t, and nothing is promised that I can&rsquo;t control.
-            </p>
-          </RevealOnScroll>
-        </div>
-      </section>
+      <CallSheet
+        label="How we work"
+        heading="Direct, hands-on attention from the person doing the work."
+        intro="No layers of account management. Every project runs the same way, and I show you the work as it goes."
+      />
 
       <Principles index="—" />
 

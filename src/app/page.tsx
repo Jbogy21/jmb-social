@@ -6,7 +6,7 @@ import Chapter from "@/components/Chapter";
 import ServiceStage from "@/components/ServiceStage";
 import AboutPreview from "@/components/AboutPreview";
 import CTASection from "@/components/CTASection";
-import { stagePanels } from "@/lib/data";
+import { stagePanels, wheelersReelsTotal, wheelersReelsCount } from "@/lib/data";
 import { heroScenes } from "@/lib/heroScenes";
 
 export const metadata: Metadata = {
@@ -28,7 +28,7 @@ const chapters = [
     }
     body="Before they call, people look you up. I help local businesses look more professional online, build trust and make it easier for customers to enquire."
     pills={["Websites", "Trust & proof", "Project content"]}
-    proof={{ text: "111.2K combined views on three Reels made for a local garage." }}
+    proof={{ text: `${wheelersReelsTotal} combined views on ${wheelersReelsCount} Reels made for a local garage.` }}
     cta={{ label: "Yes, that's me", href: "/local-business" }}
     link={{ label: "Every service and price", short: "See prices", href: "/services" }}
     scenes={heroScenes.trades}

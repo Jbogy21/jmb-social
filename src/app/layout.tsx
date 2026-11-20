@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import ViewfinderCursor from "@/components/ViewfinderCursor";
+import ShotClock from "@/components/ShotClock";
 import { Analytics } from "@vercel/analytics/next";
 import Footer from "@/components/Footer";
 import { siteConfig } from "@/lib/data";
@@ -115,6 +116,7 @@ export default function RootLayout({
         <Footer />
         <WhatsAppButton />
         <ViewfinderCursor />
+        <ShotClock />
         <Analytics />
       </body>
     </html>

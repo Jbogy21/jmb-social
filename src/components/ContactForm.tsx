@@ -36,6 +36,13 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
   const forFirstProjects = source === "first-projects";
   const forPress = source === "press";
   const forCall = source === "call";
+  const forEstimate = source === "estimate";
+  // The price estimator sends its summary along, to start the message from.
+  const estimate = useSyncExternalStore(
+    subscribeNothing,
+    () => (forEstimate ? (new URLSearchParams(window.location.search).get("est") ?? "").slice(0, 900) : ""),
+    () => "",
+  );
   const forCreative = source === "creative" || forFirstProjects || forPress;
   const helpNeeded = picked ??
     (forCall
@@ -70,7 +77,15 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
       budget: formData.get("budget"),
       details: formData.get("details"),
       christmasOffer: formData.get("christmasOffer") === "on",
-      source: forFirstProjects ? "first-projects" : forPress ? "press" : forCall ? "call" : undefined,
+      source: forFirstProjects
+        ? "first-projects"
+        : forPress
+          ? "press"
+          : forCall
+            ? "call"
+            : forEstimate
+              ? "estimate"
+              : undefined,
       hp: formData.get("hp"),
     };
 
@@ -179,9 +194,11 @@ export default function ContactForm({ offerActive = false }: { offerActive?: boo
         htmlFor="details"
       >
         <textarea
+          key={estimate}
           id="details"
           name="details"
-          rows={4}
+          defaultValue={estimate}
+          rows={estimate ? 6 : 4}
           className={`${inputClasses} resize-none`}
         />
       </Field>

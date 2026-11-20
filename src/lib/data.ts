@@ -47,6 +47,21 @@ export function scheduleCallHref(): string {
 export type HeroClip = { src: string; poster?: string };
 export const heroClips: HeroClip[] = [];
 
+// The short "Hi, I'm Jackson" video on the About page (a vertical clip of about 20 seconds).
+// Leave `src` empty and About shows a clearly-labelled empty frame. To switch it on:
+//   1. Put the video in public/founder/ (H.264 MP4, vertical 9:16, ideally under 10MB) and a
+//      still from it as the poster image.
+//   2. Set `src` and `poster` here, for example "/founder/hi-im-jackson.mp4".
+//   3. Add a captions file (a .vtt, saved next to the video) and set `captions`, so it works
+//      with the sound off and for people who cannot hear it.
+export const founderVideo = {
+  src: "",
+  poster: "",
+  captions: "",
+  length: "0:20",
+  title: "Hi, I'm Jackson",
+};
+
 export const navLinks = [
   { label: "Local business", href: "/local-business" },
   { label: "Creative", href: "/creative" },
@@ -788,38 +803,57 @@ export const principles = [
   },
 ];
 
-export const processSteps = [
-  {
-    number: "01",
-    title: "Discover",
-    description:
-      "A focused call and audit of your goals, audience, competitors and current performance.",
-  },
-  {
-    number: "02",
-    title: "Scope",
-    description:
-      "A clear plan, fixed scope, timeline and quote agreed before any build begins.",
-  },
-  {
-    number: "03",
-    title: "Design & build",
-    description:
-      "Iterative delivery with regular reviews, so you see real progress every week.",
-  },
-  {
-    number: "04",
-    title: "Launch",
-    description:
-      "Quality, performance and accessibility checks, tracking verified, then live.",
-  },
-  {
-    number: "05",
-    title: "Grow",
-    description:
-      "We measure, test and refine, through a support plan or an ongoing retainer.",
-  },
-];
+// The process, laid out as a call sheet (see CallSheet.tsx). Kept to things the rest of the
+// site already says: reply in one to two working days, written scope and price before any work,
+// a website typically four to six weeks, care plans from £25 a month.
+export const callSheet = {
+  fields: [
+    { label: "Production", value: "Your website and your Reels" },
+    { label: "Client", value: "You" },
+    { label: "Producer", value: "Jackson Booker" },
+    { label: "Area", value: "Sussex, Surrey and London" },
+    { label: "First reply", value: "Within 1 to 2 working days" },
+    { label: "Price", value: "In writing before work starts" },
+  ],
+  scenes: [
+    {
+      number: "01",
+      title: "The call",
+      what: "A short chat about your business, your customers and what you want to happen.",
+      youGet: "A clear idea of what is worth doing",
+      time: "Within 1 to 2 working days of your message",
+    },
+    {
+      number: "02",
+      title: "The scope",
+      what: "I send a written scope, timeline and price. Nothing starts until you have agreed it.",
+      youGet: "Scope, timeline and price in writing",
+      time: "After the call",
+    },
+    {
+      number: "03",
+      title: "Shoot and build",
+      what: "Reels are planned and shot with you. Websites are designed and built in stages, and you see the work as it goes.",
+      youGet: "Work in progress you can react to",
+      time: "A business website is typically 4 to 6 weeks",
+    },
+    {
+      number: "04",
+      title: "Review",
+      what: "You check it, ask for changes and sign it off before anything goes public.",
+      youGet: "Your sign-off on everything",
+      time: "Timeline set in your scope",
+    },
+    {
+      number: "05",
+      title: "Wrap",
+      what: "It goes live and I hand it over. I stay on hand afterwards, and a care plan covers hosting and updates if you want one.",
+      youGet: "A live site, handed over to you",
+      time: "Care plan from £25 a month",
+    },
+  ],
+  note: "Prices on the Services page are starting points. The final price is the one in your written scope.",
+};
 
 export const faqs = [
   {
@@ -995,6 +1029,14 @@ const wheelersReels: ProjectVideo[] = [
     aspect: "9/16",
   },
   {
+    src: "/work/video/reel-simple-job-hq.mp4",
+    poster: "/work/video/reel-simple-job-sharp.jpg",
+    title: "Simple job gone wrong",
+    caption: "A £400 recovery bill, and a simple fault behind it.",
+    views: "19.1K",
+    aspect: "9/16",
+  },
+  {
     src: "/work/video/reel-reliable-unreliable-hq.mp4",
     poster: "/work/video/reel-reliable-unreliable-sharp.jpg",
     title: "Reliable or unreliable?",
@@ -1002,7 +1044,29 @@ const wheelersReels: ProjectVideo[] = [
     views: "12.7K",
     aspect: "9/16",
   },
+  {
+    src: "/work/video/reel-rusted-axle-hq.mp4",
+    poster: "/work/video/reel-rusted-axle-sharp.jpg",
+    title: "The rusted axle POV",
+    caption: "A stressful morning, a rusted axle and a hammer.",
+    views: "9.8K",
+    aspect: "9/16",
+  },
 ];
+
+// Kept in order of views, most-watched first. The Reels arch puts the first one in the middle.
+// The combined total is added up from the counts above, so it can never disagree with them.
+// Counts are as shown on the platform when they were given: the first three in October 2026,
+// the newest two on 20 November 2026 (see metricsNote below). Update both together.
+const viewsToNumber = (views?: string) => {
+  const amount = parseFloat((views ?? "").replace(/[^0-9.]/g, ""));
+  return /k/i.test(views ?? "") ? amount * 1000 : amount;
+};
+const numberWords = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+export const wheelersReelsTotal = `${(
+  Math.round(wheelersReels.reduce((sum, reel) => sum + viewsToNumber(reel.views), 0) / 100) / 10
+).toFixed(1)}K`;
+export const wheelersReelsCount = numberWords[wheelersReels.length] ?? String(wheelersReels.length);
 
 // Real work first, then concept projects for disciplines without a client
 // engagement yet. Replace concepts with real case studies as they complete.
@@ -1014,7 +1078,7 @@ export const projects: Project[] = [
     industry: "Independent garage, Cowfold, West Sussex",
     title: "A garage website and Reels built around honest advice.",
     description:
-      "A phone-first website, plus ongoing management of the garage's Instagram, TikTok and Facebook, with three Reels reaching 111.2K views between them.",
+      `A phone-first website, plus ongoing management of the garage's Instagram, TikTok and Facebook, with ${wheelersReelsCount} Reels reaching ${wheelersReelsTotal} views between them.`,
     categories: ["WEB", "SOCIAL"],
     services: ["Web design", "Web development", "Social media management", "Short-form video"],
     accent: "charcoal",
@@ -1026,10 +1090,11 @@ export const projects: Project[] = [
     },
     liveUrl: "https://wheelersautoworks.com",
     metrics: [
-      { value: "111.2K", label: "Combined views across three Reels" },
+      { value: wheelersReelsTotal, label: `Combined views across ${wheelersReelsCount} Reels` },
       { value: "52.6K", label: "Views on the most-watched Reel" },
     ],
-    metricsNote: "View counts as shown on the platform, October 2026.",
+    metricsNote:
+      "View counts as shown on the platform: the first three from October 2026, the newest two from 20 November 2026.",
     videos: wheelersReels,
     gallery: [
       {
@@ -1493,6 +1558,46 @@ export function christmasPrice(price: string | null, now: Date = new Date()): st
   const currency = price.match(/^\D*/)?.[0] ?? "£";
   return `${currency}${Math.round((amount * (100 - percent)) / 100)}`;
 }
+
+/* -------------------------------------------------------------------------- */
+/*  Price estimator                                                           */
+/* -------------------------------------------------------------------------- */
+
+function findVariant(name: string): ServiceVariant {
+  for (const family of serviceFamilies) {
+    const variant = family.variants.find((item) => item.name === name);
+    if (variant) return variant;
+  }
+  throw new Error(`Price estimator: no service called "${name}" in serviceFamilies.`);
+}
+
+const estimatorItem = (id: string, label: string, name: string) => {
+  const variant = findVariant(name);
+  return {
+    id,
+    label,
+    amount: parseFloat(variant.price.replace(/[^0-9.]/g, "")),
+    price: variant.price,
+    cadence: variant.cadence,
+  };
+};
+
+// The estimator only uses prices that already exist in serviceFamilies above, so it can never
+// show a price the Services page does not.
+export const estimator = {
+  mains: [
+    estimatorItem("new", "A new website", "Business website"),
+    estimatorItem("redesign", "Redo my current website", "Website redesign"),
+    estimatorItem("landing", "One landing page", "Landing pages & funnels"),
+    estimatorItem("shop", "An online shop", "E-commerce"),
+  ],
+  extras: [
+    estimatorItem("reels", "Reels, planned, shot and edited", "Short-form content engine"),
+    estimatorItem("ads", "Facebook and Instagram ads", "Meta Ads (Facebook & Instagram)"),
+    estimatorItem("care", "Hosting and care after launch", "Website care plan"),
+    estimatorItem("brand", "A logo and brand look", "Brand identity"),
+  ],
+};
 
 /* -------------------------------------------------------------------------- */
 /*  Contact form                                                              */
