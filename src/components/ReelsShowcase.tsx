@@ -48,13 +48,6 @@ export default function ReelsShowcase({ index = "03" }: { index?: string }) {
           </RevealOnScroll>
         )}
 
-        <p className="font-mono-label mt-8 text-[11px] text-fg-50">
-          <span className="hidden [@media(hover:hover)]:inline">
-            Move across the arch to flick through. Click a Reel to play it.
-          </span>
-          <span className="[@media(hover:hover)]:hidden">Swipe to flick through. Tap the front Reel to play it.</span>
-        </p>
-
         <ReelsArc videos={fanOrder(project.videos)} label={`Reels made for ${project.client}`} />
 
         <RevealOnScroll className="mt-10 flex flex-wrap items-center gap-4 sm:mt-14">

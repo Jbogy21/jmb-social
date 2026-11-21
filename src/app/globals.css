@@ -1077,6 +1077,42 @@ main {
   }
 }
 
+/* ---- Reels arch: the arrows on the "Swipe" sign nudge sideways to show which way it moves ---- */
+.arc-nudge-l {
+  animation: arc-nudge-l 1.3s ease-in-out infinite;
+}
+
+.arc-nudge-r {
+  animation: arc-nudge-r 1.3s ease-in-out infinite;
+}
+
+@keyframes arc-nudge-l {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+}
+
+@keyframes arc-nudge-r {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arc-nudge-l,
+  .arc-nudge-r {
+    animation: none;
+  }
+}
+
 /* ---- Contact sheet (Work page) --------------------------------------------
    A strip of film-edge holes above and below the frames, and the pencil ring that draws
    itself round a keeper's number when you point at its frame. */

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import type { ProjectVideo } from "@/lib/data";
 
@@ -9,17 +9,22 @@ import type { ProjectVideo } from "@/lib/data";
 //  - Mouse: sweep your cursor along the arch. Whichever Reel is under that part of the
 //    rainbow lifts forward and straightens, and a marker slides along the arc to show it.
 //    Rest on it and it previews, muted. Click to play it with sound.
-//  - Phone: drag or swipe to turn the fan, tap the front Reel to play it.
+//  - Phone: drag or swipe to turn the fan, tap the front Reel to play it. A bold "Swipe" sign,
+//    dots, big arrow buttons and a one-off gentle sway on first sight say so, because a small
+//    caption was too easy to miss.
 //  - Keyboard and screen readers: the arrow keys, Enter, or the Previous and Next buttons.
 //
 // Only the Reel you are on ever loads any video, so the page stays light. Positions are written
 // straight to the elements every frame (not through React state), which keeps it smooth.
+// Kept light for phones: the rainbow is one small SVG (not huge circles with a mask), and the
+// cards use plain rounded corners and small shadows instead of clipping and big blurs.
 
+// The rainbow, outside in: sage, cream, soft ember, ember. Each fades out towards the edges.
 const ARC_COLOURS = [
-  "rgba(167, 171, 143, 0.42)", // sage, the inside of the rainbow
-  "rgba(236, 226, 200, 0.5)",
-  "rgba(240, 114, 74, 0.62)",
-  "rgba(228, 87, 46, 0.85)", // ember, the outside
+  { rgb: "167, 171, 143", alpha: 0.42, width: 1.5 },
+  { rgb: "236, 226, 200", alpha: 0.5, width: 1.5 },
+  { rgb: "240, 114, 74", alpha: 0.62, width: 1.5 },
+  { rgb: "228, 87, 46", alpha: 0.85, width: 2 },
 ];
 
 const clamp = (n: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, n));
@@ -32,12 +37,15 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
   const stageRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const dimRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const arcRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const pathRefs = useRef<(SVGPathElement | null)[]>([]);
+  const gradRefs = useRef<(SVGLinearGradientElement | null)[]>([]);
+  const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   const tickRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const thumbRef = useRef<HTMLSpanElement>(null);
   const dragged = useRef(false);
   const api = useRef<{
     activate: (index: number) => void;
+    select: (index: number) => void;
     step: (by: number) => void;
     stop: () => void;
   } | null>(null);
@@ -75,6 +83,7 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
       dragX: 0,
       dragFrom: 0,
       dragging: false,
+      touched: false, // true once a person has moved the fan themselves
     };
 
     const paint = () => {
@@ -172,7 +181,7 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
       g.cardH = (g.cardW * 16) / 9;
       g.R = g.cardH * (small ? 1 : 1.1);
       g.step = ((small ? 30 : 26) * Math.PI) / 180;
-      const top = small ? 60 : 78;
+      const top = small ? 84 : 92;
       const centreY = top + g.cardH / 2;
       g.pivotX = W / 2;
       g.pivotY = centreY + g.R;
@@ -184,14 +193,15 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
         card.style.height = `${g.cardH}px`;
       });
       ARC_COLOURS.forEach((_, k) => {
-        const el = arcRefs.current[k];
-        if (!el) return;
         const r = g.R + g.cardH / 2 + 22 + k * 15;
         if (k === ARC_COLOURS.length - 1) g.outer = r;
-        el.style.width = `${2 * r}px`;
-        el.style.height = `${2 * r}px`;
-        el.style.left = `${g.pivotX - r}px`;
-        el.style.top = `${g.pivotY - r}px`;
+        // an arc across the stage, from just past the left edge to just past the right
+        const sweep = Math.asin(Math.min(1, (W / 2 + 40) / r));
+        const x1 = g.pivotX - r * Math.sin(sweep);
+        const x2 = g.pivotX + r * Math.sin(sweep);
+        const y = g.pivotY - r * Math.cos(sweep);
+        pathRefs.current[k]?.setAttribute("d", `M ${x1.toFixed(1)} ${y.toFixed(1)} A ${r.toFixed(1)} ${r.toFixed(1)} 0 0 1 ${x2.toFixed(1)} ${y.toFixed(1)}`);
+        gradRefs.current[k]?.setAttribute("x2", String(W));
       });
       stage.dataset.ready = "1";
       m.thumb = (clamp(Math.round(m.focus), 0, count - 1) - m.focus) * g.step;
@@ -253,6 +263,7 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
       if (event.pointerType === "mouse") return;
       if (m.playing === null) setHovered(null); // a finger takes over from any leftover mouse hover
       m.dragging = true;
+      m.touched = true;
       m.dragX = event.clientX;
       m.dragFrom = m.target;
       dragged.current = false;
@@ -273,7 +284,14 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
     };
 
     api.current = {
+      select: (index) => {
+        m.touched = true;
+        m.playOnArrive = null;
+        m.target = clamp(index, 0, count - 1);
+        wake();
+      },
       activate: (index) => {
+        m.touched = true;
         const here = clamp(Math.round(m.focus), 0, count - 1);
         if (index === here && m.focus === m.target) {
           play(index);
@@ -285,6 +303,7 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
         wake();
       },
       step: (by) => {
+        m.touched = true;
         m.playOnArrive = null;
         m.target = clamp(Math.round(m.target) + by, 0, count - 1);
         wake();
@@ -310,15 +329,35 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
 
     const resize = new ResizeObserver(measure);
     resize.observe(stage);
-    const view = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) setPreviewing(null);
-    });
+    // On a phone, the first time the arch is properly in view it sways left and right once, so
+    // it is obvious it moves. It stops at once if a finger touches it, and never happens with
+    // reduced motion.
+    const swayTimers: number[] = [];
+    let swayed = false;
+    const view = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) setPreviewing(null);
+        if (entry.intersectionRatio < 0.55 || swayed || mouseLike || reduced) return;
+        swayed = true;
+        [0.45, -0.45, 0].forEach((offset, i) => {
+          swayTimers.push(
+            window.setTimeout(() => {
+              if (m.touched || m.dragging || m.playing !== null) return;
+              m.target = start + offset;
+              wake();
+            }, 500 + i * 800),
+          );
+        });
+      },
+      { threshold: [0, 0.55] },
+    );
     view.observe(stage);
     measure();
 
     return () => {
       cancelAnimationFrame(m.raf);
       window.clearTimeout(m.dwell);
+      swayTimers.forEach((id) => window.clearTimeout(id));
       resize.disconnect();
       view.disconnect();
       window.removeEventListener("keydown", onKey);
@@ -343,36 +382,63 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
         if (event.key === "ArrowRight") api.current?.step(1);
       }}
     >
+      {/* The sign. Big, plain and on its own line, so nobody has to guess it moves. */}
+      <div className="mt-8 flex justify-center">
+        <p className="inline-flex items-center gap-3 rounded-full bg-cream px-5 py-3 text-[15px] font-semibold leading-none tracking-tight text-ink shadow-[0_10px_22px_-12px_rgba(0,0,0,0.7)] sm:px-6 sm:py-3.5 sm:text-base">
+          <span aria-hidden="true" className="arc-nudge-l text-lg">
+            ←
+          </span>
+          <span className="[@media(hover:hover)]:hidden">Swipe to see more Reels</span>
+          <span className="hidden [@media(hover:hover)]:inline">Move across the arch to flick through</span>
+          <span aria-hidden="true" className="arc-nudge-r text-lg">
+            →
+          </span>
+        </p>
+      </div>
+
       <div
         ref={stageRef}
-        className="relative left-1/2 min-h-[520px] w-screen -translate-x-1/2 touch-pan-y overflow-hidden [&:not([data-ready])_.arc-card]:invisible"
+        className="relative min-h-[520px] touch-pan-y overflow-hidden [&:not([data-ready])_.arc-card]:invisible"
+        style={{
+          width: "100vw",
+          marginLeft: "calc(50% - 50vw)",
+          background: "radial-gradient(ellipse 75% 70% at 50% 100%, rgba(240, 114, 74, 0.08), transparent 70%)",
+        }}
       >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            maskImage: "linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)",
-            WebkitMaskImage: "linear-gradient(to right, transparent, #000 12%, #000 88%, transparent)",
-          }}
-        >
+        <svg aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full">
+          <defs>
+            {ARC_COLOURS.map((colour, k) => (
+              <linearGradient
+                key={colour.rgb}
+                id={`${uid}-arc-${k}`}
+                ref={(el) => {
+                  gradRefs.current[k] = el;
+                }}
+                gradientUnits="userSpaceOnUse"
+                x1="0"
+                y1="0"
+                x2="1000"
+                y2="0"
+              >
+                <stop offset="0" stopColor={`rgb(${colour.rgb})`} stopOpacity="0" />
+                <stop offset="0.12" stopColor={`rgb(${colour.rgb})`} stopOpacity={colour.alpha} />
+                <stop offset="0.88" stopColor={`rgb(${colour.rgb})`} stopOpacity={colour.alpha} />
+                <stop offset="1" stopColor={`rgb(${colour.rgb})`} stopOpacity="0" />
+              </linearGradient>
+            ))}
+          </defs>
           {ARC_COLOURS.map((colour, k) => (
-            <div
-              key={colour}
+            <path
+              key={colour.rgb}
               ref={(el) => {
-                arcRefs.current[k] = el;
+                pathRefs.current[k] = el;
               }}
-              aria-hidden="true"
-              className="pointer-events-none absolute rounded-full"
-              style={{
-                border: `${k === ARC_COLOURS.length - 1 ? 2 : 1.5}px solid ${colour}`,
-                background:
-                  k === 0
-                    ? "radial-gradient(circle at 50% 50%, transparent 62%, rgba(240, 114, 74, 0.07) 100%)"
-                    : undefined,
-              }}
+              fill="none"
+              stroke={`url(#${uid}-arc-${k})`}
+              strokeWidth={colour.width}
             />
           ))}
-        </div>
+        </svg>
 
         {videos.map((video, i) => (
           <span
@@ -387,19 +453,20 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
         <span
           ref={thumbRef}
           aria-hidden="true"
-          className="pointer-events-none absolute left-0 top-0 z-[80] h-4 w-4 rounded-full border-2 border-signal bg-cream shadow-[0_0_18px_rgba(240,114,74,0.7)]"
+          className="pointer-events-none absolute left-0 top-0 z-[80] h-4 w-4 rounded-full border-2 border-signal bg-cream shadow-[0_0_14px_rgba(240,114,74,0.7)]"
         />
 
         {videos.map((video, i) => {
           const isPlaying = playing === i;
           const isPreview = previewing === i && !isPlaying;
+          const isFront = front === i;
           return (
             <div
               key={video.src}
               ref={(el) => {
                 cardRefs.current[i] = el;
               }}
-              className="arc-card absolute left-0 top-0 overflow-hidden rounded-[1.1rem] border border-white/15 bg-ink shadow-[0_30px_60px_-30px_rgba(0,0,0,0.85)] will-change-transform"
+              className="arc-card absolute left-0 top-0 rounded-[1.1rem] border border-white/15 bg-ink shadow-[0_14px_26px_-16px_rgba(0,0,0,0.85)] will-change-transform"
             >
               {isPlaying ? (
                 <>
@@ -412,7 +479,7 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
                     preload="auto"
                     data-no-trail
                     onEnded={() => api.current?.stop()}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full rounded-[inherit] object-cover"
                   />
                   <button
                     type="button"
@@ -432,14 +499,14 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
                   }}
                   aria-label={`Play Reel: ${video.title}`}
                   data-cursor="PLAY ▸"
-                  className="group absolute inset-0 block text-left"
+                  className="group absolute inset-0 block rounded-[inherit] text-left"
                 >
                   <Image
                     src={video.poster}
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 270px, 240px"
-                    className="object-cover"
+                    className="rounded-[inherit] object-cover"
                   />
                   {isPreview && (
                     <video
@@ -450,11 +517,11 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
                       autoPlay
                       playsInline
                       preload="auto"
-                      className="absolute inset-0 h-full w-full object-cover"
+                      className="absolute inset-0 h-full w-full rounded-[inherit] object-cover"
                     />
                   )}
                   <span
-                    className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10"
+                    className="absolute inset-0 rounded-[inherit] bg-gradient-to-t from-black/60 via-transparent to-black/10"
                     aria-hidden="true"
                   />
                   {!isPreview && (
@@ -467,6 +534,14 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
                       </svg>
                     </span>
                   )}
+                  {isFront && !isPreview && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-1/2 top-[calc(50%+2.6rem)] -translate-x-1/2 whitespace-nowrap rounded-full bg-black/65 px-3 py-1.5 text-[13px] font-semibold tracking-tight text-cream [@media(hover:hover)]:hidden"
+                    >
+                      Tap to play
+                    </span>
+                  )}
                   <span className="font-mono-label absolute bottom-3 left-3 bg-cream px-2 py-1 text-[10px] text-ink">
                     {isPreview ? "Click for sound" : `${video.views ?? ""} views`}
                   </span>
@@ -477,7 +552,7 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
                   dimRefs.current[i] = el;
                 }}
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-black"
+                className="pointer-events-none absolute inset-0 rounded-[inherit] bg-black"
                 style={{ opacity: 0 }}
               />
             </div>
@@ -485,7 +560,27 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
         })}
       </div>
 
-      <div className="mt-2 flex items-end justify-between gap-6">
+      {/* Dots: one per Reel, so it is clear there are more, and you can jump to one. */}
+      <div className="mt-1 flex justify-center" role="group" aria-label="Choose a Reel">
+        {videos.map((video, i) => (
+          <button
+            key={`dot-${video.src}`}
+            type="button"
+            onClick={() => api.current?.select(i)}
+            aria-label={`Show Reel ${i + 1}: ${video.title}`}
+            aria-current={front === i}
+            className="flex h-8 w-8 items-center justify-center"
+          >
+            <span
+              className={`block h-2.5 rounded-full transition-all duration-300 ${
+                front === i ? "w-6 bg-cream" : "w-2.5 bg-cream/35"
+              }`}
+            />
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-3 flex items-end justify-between gap-5">
         <div aria-live="polite" className="min-w-0">
           <p className="font-mono-label text-[11px] text-fg-70">
             Reel {pad(videos.indexOf(shown) + 1)} / {pad(count)}
@@ -498,13 +593,13 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
             <p className="mt-1.5 max-w-md text-sm leading-relaxed text-fg-70">{shown.caption}</p>
           )}
         </div>
-        <div className="flex shrink-0 gap-2">
+        <div className="flex shrink-0 gap-2.5">
           <button
             type="button"
             onClick={() => api.current?.step(-1)}
             disabled={front === 0}
             aria-label="Previous Reel"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-cream/30 text-cream transition-colors hover:bg-cream hover:text-ink disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-cream"
+            className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-cream/60 text-xl text-cream transition-colors hover:bg-cream hover:text-ink active:scale-95 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-cream"
           >
             <span aria-hidden="true">←</span>
           </button>
@@ -513,7 +608,7 @@ export default function ReelsArc({ videos, label }: { videos: ProjectVideo[]; la
             onClick={() => api.current?.step(1)}
             disabled={front === count - 1}
             aria-label="Next Reel"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-cream/30 text-cream transition-colors hover:bg-cream hover:text-ink disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-cream"
+            className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-cream/60 text-xl text-cream transition-colors hover:bg-cream hover:text-ink active:scale-95 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-cream"
           >
             <span aria-hidden="true">→</span>
           </button>
